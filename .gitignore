@@ -1,0 +1,17 @@
+results
+build
+xcode
+bin
+lib
+include
+html
+latex
+KDD18
+
+*.swp
+*.user
+*.pyc
+*.pyc
+*.o
+*.so
+.DS_Store
