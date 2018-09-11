@@ -2,15 +2,16 @@
  *
  * \section intro_sec Introduction
  * 
- * The software package contains the different definitions of antiproton production cross section (XS)
- * used in cosmic-ray (CR) physics.
+ * This software package is developed to easily calculate cross sections (XS) for the
+ * production of antiprotons and antideuteron as required in cosmic-ray (CR) physics.
+ * The package is based on c++ and builds all functions into a library. Furthermore,
+ * it provides an interface to python 3.
  *
  * This software package provides:
- *  - different CR parametrizations of the Lorentz invariant XS
- *  - functions to transform the XS to the ISM (LAB) frame
- *  - functions to transform the XS to the energy-differential XS (i.e. integrate over all angles)
+ *  - different CR parametrizations of the Lorentz invariant XSs
+ *  - functions to transform the XSs to the ISM (LAB) frame
+ *  - functions to transform the XSs to the energy-differential XS (i.e. integrate over all angles)
  *
- * This package is written in c++ but it provides an interface of all functions to pyhton.
  *
  *
  * \section install_sec Installation
@@ -18,60 +19,60 @@
  * \subsection step1 Step 1: Prerequisits
  *
  *  - gsl
- *  optional:
- *  - python 3 (including numpy, sciepy, matplotlib)
+ *  - cmake
+ *  - swig     (optional)
+ *  - python 3 (optional)
+ *     * numpy
+ *     * scipy
+ *     * matplotlib
  *
  *
  * \subsection step2 Step 2: Get Software
  *
  *  The software is available as git repository on gitHub. To download it into the folder <MySoftwareDirectory> type:
  *
- *  $ git <a href="XXX.CRXS.git"> XXX.CRXS.git </a> <MySoftwareDirectory>
+ *  $ git <a href="https://github.com/korsmeier/CRXS.git"> https://github.com/korsmeier/CRXS.git </a> <MySoftwareDirectory>
  *
  *  \subsection step3 Step 3: Build software
  *
- *  The c++ libraries and include files are instaled into cpp/lib and cpp/include, respectively, by simply using:
+ *  The c++ library is build with cmake and the python interface is created by swig.
+ *  All commands to build the software are summarised in the Makefile. If you want
+ *  to build everything, simply use
  *
  *  $ make
  *
- *  Build with debug symbols:
+ *  Otherwise you can use the options:
+ *    1) cpp_only, to build only the c++ library
+ *    2) example, to build the example.cpp which links to the CRXS library
+ *    3) debug, to build the c++ library with debug symbols
  *
- *  $ make debug
- *
- *  Build only the c++ library:
- *
- *  $ make cpp_only
- *
- *  Build c++ example program:
- *
- *  $ make example
- *
- *  Clean:
+ *  To uninstall everything use
  *
  *  $ make clean
  *
+ *
  *  \subsection step4 Step 4: Build project (optional)
  *
- *  With MacOS:
  *
- *
- *  $ mkdir -p cpp/xcode
- *
- *  $ cd cpp/xcode
- *
- *  $ cmake -G Xcode ..
- *
+ *  On a Mac with Xcode you may build a project by
+ *   1) creating a folder in the directory cpp (e.g. xcode) and change into this new directory. Then type
+ *   2) $ cmake -G Xcode ..
  *
  *  Now you are ready to start!
  *
  *
  *  \section Examples
  *
- *  - example.cpp
+ *  - example.cpp (build it with $ make example)
  *
  *  - example__xs_tools.py
  *  - example__xs_wrapper.py
  *
+ *  There are some examples which show how the software and access to individual fuctions works.
+ *  Note that some functions are available in XS_tools.py as well as in XS_wrapper. The difference
+ *  is that the functions in XS_wrapper are completly based on c++ and interfaced at the very end.
+ *  This results in the best performance. The functions of XS_tools are partly written in python,
+ *  which allows easy modification but has a worse performance.
  *
  *
  */

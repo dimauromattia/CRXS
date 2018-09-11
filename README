@@ -9,8 +9,7 @@ The package is based on c++ and builds all functions into a library. Furthermore
 it provides an interface to python 3. 
 
 The library named CRXS is intalled to cpp/lib and
-the include header files are saved in cpp/include.
-
+the header files are saved in cpp/include.
 
 
 To install this sofware do the following.
@@ -56,15 +55,15 @@ Go to the folder documentation and build it by
 $ doxygen Doxyfile
 
 Open the file html/index.html 
-i
+
 We recommend to build the documentation before building the software package.
 
 *********************
 * Build project:    *
 *********************
 
-On a mac with XCode you may build a project by
-  1) create a folder in this directory (e.g. xcode) and change into this new directory
+On a Mac with Xcode you may build a project by
+  1) creating a folder in the directory cpp (e.g. xcode) and change into this new directory. Then type
   2) $ cmake -G Xcode ..
 
 

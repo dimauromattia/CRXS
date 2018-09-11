@@ -180,7 +180,7 @@ def inv_AA_pbar_CM(s, xF, pT_pbar, A_projectile, N_projectile, A_target, N_targe
     pL_pbar = xF*np.sqrt(s)/2.
     E_pbar  = np.sqrt( fMass_proton*fMass_proton + pL_pbar*pL_pbar + pT_pbar*pT_pbar )
     
-    if parametrization == 'WINKLER':
+    if   parametrization == 'WINKLER':
         global Winkler_C1_to_C16
         return inv_pp_pbar_CM__Winkler_p(s, E_pbar, pT_pbar, Winkler_C1_to_C16      ) * factor__AA( s, xF, A_projectile, N_projectile, A_target, N_target, parametrization )
     elif parametrization == 'KORSMEIER_II':
