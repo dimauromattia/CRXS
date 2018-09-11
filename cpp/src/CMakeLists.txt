@@ -14,4 +14,4 @@ file(  COPY xs_definitions.h DESTINATION ${INCLUDE}  )
 file(  COPY xs.h             DESTINATION ${INCLUDE}  )
 
 
-add_subdirectory(example)
+#add_subdirectory(example)

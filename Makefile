@@ -2,15 +2,15 @@
 all: build
 
 build:
-	(cd ./cpp; mkdir -p build; cd build; cmake ..; make)
+	(mkdir -p ./cpp/build; cd ./cpp/build; cmake ..; make)
 	(cd ./cpp; swig -c++ -python xs_tools.i; python3 setup_xs_tools.py build_ext --inplace)
 	(cd ./cpp; swig -c++ -python xs_wrapper.i; python3 setup_xs_wrapper.py build_ext --inplace)
 
 cpp_only:
-	(cd ./cpp; mkdir -p build; cd build; cmake ..; make)
+	(mkdir -p ./cpp/build; cd ./cpp/build; cmake ..; make)
 
 debug:
-	(cd ./cpp; mkdir -p build; cd build; cmake -DCMAKE_BUILD_TYPE=Debug ..; make)
+	(mkdir -p ./cpp/build; cd ./cpp/build; cmake -DCMAKE_BUILD_TYPE=Debug ..; make)
 	(cd ./cpp; swig -c++ -python xs_tools.i; python3 setup_xs_tools.py build_ext --inplace)
 	(cd ./cpp; swig -c++ -python xs_wrapper.i; python3 setup_xs_wrapper.py build_ext --inplace)
 
