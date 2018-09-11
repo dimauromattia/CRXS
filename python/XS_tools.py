@@ -1,10 +1,15 @@
-#! /usr/bin/env python3
+"""@package XS_tools
+    Documentation of the module XS_tools.
+    
+    The module provides an interface to CRXS to read the Lorentz invariant XS definitions from cpp.
+    Then it provieds some function to transform the XSs to the LAB frame and integrate over all angles.
+    """
 
 import numpy  as np
-import scipy.integrate   as     integrate
+import scipy.integrate   as integrate
 import math
 
-import cpp.clike         as clike
+import cpp.xs_tools      as cpp_xs
 
 
 fMass_proton         = 0.9382720813;     # PDG Review 2016
@@ -45,7 +50,7 @@ def inv_pp_pbar_CM__Winkler_p(s, E_pbar, pT_pbar, C_array):
         
         \return double XS       Cross section in mbarn/GeV^2
         """
-    return clike.inv_pp_pbar_CM__Winkler(s, E_pbar, pT_pbar, C_array) # read function form cpp/clike.cpp
+    return cpp_xs.inv_pp_pbar_CM__Winkler(s, E_pbar, pT_pbar, C_array) # read function form cpp/cpp_xs.cpp
 
 
 
@@ -69,7 +74,7 @@ def inv_pp_pbar_CM__diMauro_p(s, E_pbar, pT_pbar, C_array):
         
         \return double XS       Cross section in mbarn/GeV^2
         """
-    return clike.inv_pp_pbar_CM__diMauro(s, E_pbar, pT_pbar, C_array) # read function form cpp/clike.cpp
+    return cpp_xs.inv_pp_pbar_CM__diMauro(s, E_pbar, pT_pbar, C_array) # read function form cpp/cpp_xs.cpp
 
 
 # ------------------------------------------------------------- #
@@ -120,10 +125,10 @@ Winkler_D1_to_D2         =  np.array([  -1, 0.839, 0.161  ])      # value of <nu
 #
 #
 #
-parameters_C     = {'Winkler': Winkler_C1_to_C16, 'Korsmeier_II' : Korsmeier_II_C1_to_C16, 'Korsmeier_I':Korsmeier_I_C1_to_C11, 'diMauro_I': diMauro_I_C1_to_C11, 'diMauro_II': diMauro_II_C1_to_C11 }
-parameters_D     = {'Winkler': Winkler_D1_to_D2,  'Korsmeier_II' : Korsmeier_II_D1_to_D2,  'Korsmeier_I':Korsmeier_I_D1_to_D2    }
+parameters_C     = {'WINKLER': Winkler_C1_to_C16, 'KORSMEIER_II' : Korsmeier_II_C1_to_C16, 'KORSMEIER_I':Korsmeier_I_C1_to_C11, 'DI_MAURO_I': diMauro_I_C1_to_C11, 'DI_MAURO_II': diMauro_II_C1_to_C11 }
+parameters_D     = {'WINKLER': Winkler_D1_to_D2,  'KORSMEIER_II' : Korsmeier_II_D1_to_D2,  'KORSMEIER_I':Korsmeier_I_D1_to_D2    }
 #
-NbarAndHyperon_C = {'Winkler': Winkler_C1_to_C16, 'Korsmeier_II' : Korsmeier_II_C1_to_C16, 'Korsmeier_I':Korsmeier_II_C1_to_C16  }
+NbarAndHyperon_C = {'WINKLER': Winkler_C1_to_C16, 'KORSMEIER_II' : Korsmeier_II_C1_to_C16, 'KORSMEIER_I':Korsmeier_II_C1_to_C16  }
 # 'Korsmeier_I':Korsmeier_II_C1_to_C16 is correct, we use the same nbar and hyperon parameters for both Korsmeier et al parametrizations
 
 
@@ -148,8 +153,8 @@ def factor__AA( s, xF, A_projectile, N_projectile, A_target, N_target, parametri
         \return double factor         Scaling factor
         """
     D_array = parameters_D[parametrization]
-    proj = np.power(A_projectile, D_array[2])*(1+clike.deltaIsospin(s,NbarAndHyperon_C[parametrization])*N_projectile/A_projectile)*clike.pbar_overlap_function_projectile( xF )
-    targ = np.power(A_target,     D_array[2])*(1+clike.deltaIsospin(s,NbarAndHyperon_C[parametrization])*N_target    /A_target    )*clike.pbar_overlap_function_target    ( xF )
+    proj = np.power(A_projectile, D_array[2])*(1+cpp_xs.deltaIsospin(s,NbarAndHyperon_C[parametrization])*N_projectile/A_projectile)*cpp_xs.pbar_overlap_function_projectile( xF )
+    targ = np.power(A_target,     D_array[2])*(1+cpp_xs.deltaIsospin(s,NbarAndHyperon_C[parametrization])*N_target    /A_target    )*cpp_xs.pbar_overlap_function_target    ( xF )
     return np.power(A_projectile*A_target, D_array[1])*( proj + targ )
 
 
@@ -157,7 +162,7 @@ def factor__AA( s, xF, A_projectile, N_projectile, A_target, N_target, parametri
 #  pp to AA scaling:                                            #
 # ------------------------------------------------------------- #
 
-def inv_AA_pbar_CM(s, xF, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization):
+def inv_AA_pbar_CM(s, xF, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization='KORSMEIER_II'):
     """
         Invariant cross section for general projectile and target nucleus for different XS parametrization
         
@@ -168,26 +173,26 @@ def inv_AA_pbar_CM(s, xF, pT_pbar, A_projectile, N_projectile, A_target, N_targe
         \param int    N_projectile    Number of neutrons in the projectile
         \param int    A_target        Mass number of the target
         \param int    N_target        Number of neutrons in the target
-        \param string parametrization Cross section parametrization [Korsmeier_II (default), Korsmeier_I, Winkler, diMauro_I, diMauro_II]
+        \param string parametrization Cross section parametrization [KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II]
         
         \return double XS             Cross section in mbarn/GeV^2
         """
     pL_pbar = xF*np.sqrt(s)/2.
     E_pbar  = np.sqrt( fMass_proton*fMass_proton + pL_pbar*pL_pbar + pT_pbar*pT_pbar )
     
-    if parametrization == 'Winkler':
+    if parametrization == 'WINKLER':
         global Winkler_C1_to_C16
         return inv_pp_pbar_CM__Winkler_p(s, E_pbar, pT_pbar, Winkler_C1_to_C16      ) * factor__AA( s, xF, A_projectile, N_projectile, A_target, N_target, parametrization )
-    elif parametrization == 'Korsmeier_II':
+    elif parametrization == 'KORSMEIER_II':
         global Korsmeier_II_C1_to_C16
         return inv_pp_pbar_CM__Winkler_p(s, E_pbar, pT_pbar, Korsmeier_II_C1_to_C16 ) * factor__AA( s, xF, A_projectile, N_projectile, A_target, N_target, parametrization )
-    elif parametrization == 'Korsmeier_I':
+    elif parametrization == 'KORSMEIER_I':
         global Korsmeier_I_C1_to_C11
         return inv_pp_pbar_CM__diMauro_p(s, E_pbar, pT_pbar, Korsmeier_I_C1_to_C11  ) * factor__AA( s, xF, A_projectile, N_projectile, A_target, N_target, parametrization )
-    elif parametrization == 'diMauro_I'  and 1000*A_projectile+100*N_projectile+10*A_target+1*N_target==1010:
+    elif parametrization == 'DI_MAURO_I'  and 1000*A_projectile+100*N_projectile+10*A_target+1*N_target==1010:
         global diMauro_I_C1_to_C11
         return inv_pp_pbar_CM__diMauro_p(s, E_pbar, pT_pbar, diMauro_I_C1_to_C11    )
-    elif parametrization == 'diMauro_II' and 1000*A_projectile+100*N_projectile+10*A_target+1*N_target==1010:
+    elif parametrization == 'DI_MAURO_II' and 1000*A_projectile+100*N_projectile+10*A_target+1*N_target==1010:
         global diMauro_II_C1_to_C11
         return inv_pp_pbar_CM__diMauro_p(s, E_pbar, pT_pbar, diMauro_II_C1_to_C11   )
     else:
@@ -241,7 +246,7 @@ def convert_LAB_to_CM( Tn_proj_LAB, T_pbar_LAB, eta_LAB ):
 
 
 
-def inv_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization):
+def inv_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization='KORSMEIER_II'):
     """
         Invariant cross section for general projectile and target nucleus for different XS parametrization
         as function of LAB frame kinetic variables
@@ -253,7 +258,7 @@ def inv_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, eta_LAB, A_projectile, N_projectile
         \param int    N_projectile     Number of neutrons in the projectile
         \param int    A_target         Mass number of the target
         \param int    N_target         Number of neutrons in the target
-        \param string parametrization  Cross section parametrization [Korsmeier_II (default), Korsmeier_I, Winkler, diMauro_I, diMauro_II]
+        \param string parametrization  Cross section parametrization [KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II]
         
         \return double XS              Cross section in mbarn/GeV^2
         """
@@ -278,13 +283,13 @@ def _dE_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, A_projectile=1, N_projectile=0, A_t
     return res
 def _dE_AA_pbar_LAB_incNbarAndHyperon(Tn_proj_LAB, T_pbar_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='Korsmeier_II'):
     s = 4*fMass_proton*fMass_proton + 2 * Tn_proj_LAB * fMass_proton;
-    return _dE_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, A_projectile, N_projectile, A_target, N_target, parametrization)*( 2 + 2*clike.deltaHyperon(s, NbarAndHyperon_C[parametrization]) + clike.deltaIsospin(s,NbarAndHyperon_C[parametrization]) )
+    return _dE_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, A_projectile, N_projectile, A_target, N_target, parametrization)*( 2 + 2*cpp_xs.deltaHyperon(s, NbarAndHyperon_C[parametrization]) + cpp_xs.deltaIsospin(s,NbarAndHyperon_C[parametrization]) )
 
 _dE_AA_pbar_LAB_incNbarAndHyperon_v = np.vectorize(_dE_AA_pbar_LAB_incNbarAndHyperon)
 _dE_AA_pbar_LAB_v = np.vectorize(_dE_AA_pbar_LAB)
 
 
-def dE_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='Korsmeier_II'):
+def dE_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='KORSMEIER_II'):
     """
         Energy-differential cross section for general projectile and target nucleus for different XS parametrization
         as function of LAB frame kinetic variables.
@@ -298,7 +303,7 @@ def dE_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, A_projectile=1, N_projectile=0, A_ta
         \param int    N_projectile     Number of neutrons in the projectile
         \param int    A_target         Mass number of the target
         \param int    N_target         Number of neutrons in the target
-        \param string parametrization  Cross section parametrization [Korsmeier_II (default), Korsmeier_I, Winkler, diMauro_I, diMauro_II]
+        \param string parametrization  Cross section parametrization [KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II]
         
         \return double XS              Cross section in mbarn/GeV
         """
@@ -314,7 +319,7 @@ def dE_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, A_projectile=1, N_projectile=0, A_ta
     return ret
 
 
-def dE_AA_pbar_LAB_incNbarAndHyperon(Tn_proj_LAB, T_pbar_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='Korsmeier_II'):
+def dE_AA_pbar_LAB_incNbarAndHyperon(Tn_proj_LAB, T_pbar_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='KORSMEIER_II'):
     """
         Energy-differential cross section including antineutrons and antihyperons for general projectile and target nucleus
         and for different XS parametrization as function of LAB frame kinetic variables.
@@ -331,7 +336,7 @@ def dE_AA_pbar_LAB_incNbarAndHyperon(Tn_proj_LAB, T_pbar_LAB, A_projectile=1, N_
         \param int    N_projectile     Number of neutrons in the projectile
         \param int    A_target         Mass number of the target
         \param int    N_target         Number of neutrons in the target
-        \param string parametrization  Cross section parametrization [Korsmeier_II (default), Korsmeier_I, Winkler, diMauro_I, diMauro_II]
+        \param string parametrization  Cross section parametrization [KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II]
         
         \return double XS              Cross section in mbarn/GeV
         """

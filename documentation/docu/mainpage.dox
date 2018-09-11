@@ -1,0 +1,77 @@
+/*! \mainpage Documentation of the CRXS Tools
+ *
+ * \section intro_sec Introduction
+ * 
+ * The software package contains the different definitions of antiproton production cross section (XS)
+ * used in cosmic-ray (CR) physics.
+ *
+ * This software package provides:
+ *  - different CR parametrizations of the Lorentz invariant XS
+ *  - functions to transform the XS to the ISM (LAB) frame
+ *  - functions to transform the XS to the energy-differential XS (i.e. integrate over all angles)
+ *
+ * This package is written in c++ but it provides an interface of all functions to pyhton.
+ *
+ *
+ * \section install_sec Installation
+ *
+ * \subsection step1 Step 1: Prerequisits
+ *
+ *  - gsl
+ *  optional:
+ *  - python 3 (including numpy, sciepy, matplotlib)
+ *
+ *
+ * \subsection step2 Step 2: Get Software
+ *
+ *  The software is available as git repository on gitHub. To download it into the folder <MySoftwareDirectory> type:
+ *
+ *  $ git <a href="XXX.CRXS.git"> XXX.CRXS.git </a> <MySoftwareDirectory>
+ *
+ *  \subsection step3 Step 3: Build software
+ *
+ *  The c++ libraries and include files are instaled into cpp/lib and cpp/include, respectively, by simply using:
+ *
+ *  $ make
+ *
+ *  Build with debug symbols:
+ *
+ *  $ make debug
+ *
+ *  Build only the c++ library:
+ *
+ *  $ make cpp_only
+ *
+ *  Build c++ example program:
+ *
+ *  $ make example
+ *
+ *  Clean:
+ *
+ *  $ make clean
+ *
+ *  \subsection step4 Step 4: Build project (optional)
+ *
+ *  With MacOS:
+ *
+ *
+ *  $ mkdir -p cpp/xcode
+ *
+ *  $ cd cpp/xcode
+ *
+ *  $ cmake -G Xcode ..
+ *
+ *
+ *  Now you are ready to start!
+ *
+ *
+ *  \section Examples
+ *
+ *  - example.cpp
+ *
+ *  - example__xs_tools.py
+ *  - example__xs_wrapper.py
+ *
+ *
+ *
+ */

@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/usr/local/korsmeier/xs_example/cpp/src/test.cpp
+iostream
+-
+xs.h
+/usr/local/korsmeier/xs_example/cpp/src/xs.h
+
+/usr/local/korsmeier/xs_example/cpp/src/xs.h
+
