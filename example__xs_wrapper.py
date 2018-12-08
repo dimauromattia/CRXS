@@ -15,6 +15,11 @@ import python.XS_wrapper as XS
 print('Evaluate: "XS.dE_AA_pbar_LAB_incNbarAndHyperon(  100        , 3           )"  automaticaly assumes pp scattering and KORSMEIER_II parametrization')
 print(            XS.dE_AA_pbar_LAB_incNbarAndHyperon(  100        , 3           ) )
 
+
+print('Evaluate: "XS.dE_AA_p_LAB                     (  100        , 3           )"  automaticaly assumes pp scattering and ANDERSON parametrization')
+print(            XS.dE_AA_p_LAB                     (  100        , 3           ) )
+
+
 # You may also vectorize the function:
 _dE_AA_pbar_LAB_incNbarAndHyperon = np.vectorize(XS.dE_AA_pbar_LAB_incNbarAndHyperon)
 

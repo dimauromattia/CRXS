@@ -8,7 +8,8 @@ namespace CRXS {
         KORSMEIER_II   = 2,
         WINKLER        = 3,
         DI_MAURO_I     = 4,
-        DI_MAURO_II    = 5
+        DI_MAURO_II    = 5,
+        ANDERSON       = 6
     };
     enum product{
         P_BAR    = 1,
@@ -112,10 +113,65 @@ namespace CRXS {
         static double dE_AA_pbar_LAB_incNbarAndHyperon(double Tn_proj_LAB, double T_pbar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II);
         
         
+        
+        //!Invariant proton production cross section for general projectile and target nucleus for different XS parametrization
+        /*!
+         *  \param double s               CM energy, squared.
+         *  \param doulbe xF              Feynman scaling (2*pL_p/sqrt(s) in CMF)
+         *  \param doulbe pT_p            Transverse momentum of the proton
+         *  \param int    A_projectile    Mass number of the projectile
+         *  \param int    N_projectile    Number of neutrons in the projectile
+         *  \param int    A_target        Mass number of the target
+         *  \param int    N_target        Number of neutrons in the target
+         *  \param int    parametrization Cross section parametrization, enum from[ANDERSON]
+         *
+         *  \return double XS             Cross section in mbarn/GeV^2
+         */
+        static double inv_AA_p_CM( double s, double xF, double pT_p, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization);
+        
+        //! Invariant proton production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables
+        /*!
+         *
+         *  \param double Tn_proj_LAB      Kinetic energy per nucleus of the prjectile (in the LAB frame)
+         *  \param doulbe T_p_LAB          Kinetic energy of the proton (in the LAB frame)
+         *  \param doulbe eta_LAB          Pseudo rapidity of the proton (in the LAB frame)
+         *  \param int    A_projectile     Mass number of the projectile
+         *  \param int    N_projectile     Number of neutrons in the projectile
+         *  \param int    A_target         Mass number of the target
+         *  \param int    N_target         Number of neutrons in the target
+         *  \param int    parametrization  Cross section parametrization [ANDERSON]
+         *
+         *  \return double XS              Cross section in mbarn/GeV^2
+         */
+        static double inv_AA_p_LAB( double Tn_proj_LAB, double T_p_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization );
+        
+        
+        //! Energy-differential proton production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables.
+        /*!
+         *  This cross section is integrated over all angles.
+         *
+         *  \param double Tn_proj_LAB      Kinetic energy per nucleus of the prjectile (in the LAB frame)
+         *  \param doulbe T_p_LAB          Kinetic energy of the proton (in the LAB frame)
+         *  \param int    A_projectile     Mass number of the projectile
+         *  \param int    N_projectile     Number of neutrons in the projectile
+         *  \param int    A_target         Mass number of the target
+         *  \param int    N_target         Number of neutrons in the target
+         *  \param int    parametrization  Cross section parametrization, enum from[ANDERSON]
+         *
+         *  \return double XS              Cross section in mbarn/GeV
+         */
+        static double dE_AA_p_LAB( double Tn_proj_LAB, double T_p_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=ANDERSON);
+        //! Helper function for dE_AA_p_LAB
+        static double integrand__dE_AA_p_LAB (double eta_LAB, void* parameters  );
+        
+        
+        
+        
+        
         //!Invariant antideuteron production cross section for general projectile and target nucleus for different XS parametrization
         /*!
          *
-         *      Coalesencem momentum from the paper:
+         *      Coalesence momentum from the paper:
          *          Deuteron and Antideuteron Production Simulation in Cosmic-ray Interactions
          *          Diego-Mauricio Gomez-Coral, et al.,
          *          (DOI 10.1103/PhysRevD.98.023012)

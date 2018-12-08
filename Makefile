@@ -3,8 +3,8 @@ all: build
 
 build:
 	(mkdir -p ./cpp/build; cd ./cpp/build; cmake ..; make)
-	(cd ./cpp; swig -c++ -python xs_tools.i; python3 setup_xs_tools.py build_ext --inplace)
-	(cd ./cpp; swig -c++ -python xs_wrapper.i; python3 setup_xs_wrapper.py build_ext --inplace)
+	(cd ./cpp; swig -c++ -python -py3 xs_tools.i; python3 setup_xs_tools.py build_ext --inplace)
+	(cd ./cpp; swig -c++ -python -py3 xs_wrapper.i; python3 setup_xs_wrapper.py build_ext --inplace)
 
 cpp_only:
 	(mkdir -p ./cpp/build; cd ./cpp/build; cmake ..; make)

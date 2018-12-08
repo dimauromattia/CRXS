@@ -84,6 +84,22 @@ namespace CRXS {
          *  \param   double x_F         Feynman parameter p/p_max.
          *  \return  double             Overlap function for projectile
          **/
+        
+        
+        //! Parametrization of the invariant proton scattering crosssection from pp in CMF
+        /*!
+         *  Taken from:     Anderson, et al.; 1967;
+         *                  PROTON AND PION SPECTRA FROM PROTON-PROTON INTERACTIONS AT 10, 20, AND 30 BeV/c*;
+         *                  DOI: https://doi.org/10.1103/PhysRevLett.19.198
+         *
+         *
+         *  \param double s         CM energy.
+         *  \param doulbe E_p       Energy of the scattered proton in CMF
+         *  \param doulbe pT_p      Transverse momentum of the scattered proton in CMF.
+         * */
+        static double inv_pp_p_CM__Anderson( double s, double E_p, double pT_p, double* C_array=Dummy, int len_C_array=-1 );
+    
+        
         static double pbar_overlap_function_projectile(double x_F);
         
         //! Parametrization of the target and target overlap function in pbar production

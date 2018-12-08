@@ -3,6 +3,7 @@ add_library(CRXS SHARED xs_definitions.cxx
                         xs_definitions.h
                         xs.cxx
                         xs_pbar.cxx
+                        xs_p.cxx
                         xs_Dbar.cxx
                         xs.h                )
 

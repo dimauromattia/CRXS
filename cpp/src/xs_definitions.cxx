@@ -200,6 +200,8 @@ namespace CRXS {
             return diMauro_I_D1_to_D2;
         }else if(parametrization==CRXS::DI_MAURO_II){
             return diMauro_II_D1_to_D2;
+        }else if(parametrization==CRXS::ANDERSON){
+            return Korsmeier_II_D1_to_D2;
         }else{
             printf( "Warning in CRXS::XS_definitions::Get_D_parameters. Parametrizatino %i is not known.", parametrization);
         }
@@ -218,6 +220,8 @@ namespace CRXS {
             return diMauro_I_C1_to_C11;
         }else if(parametrization==CRXS::DI_MAURO_II){
             return diMauro_II_C1_to_C11;
+        }else if(parametrization==CRXS::ANDERSON){
+                return Korsmeier_II_C1_to_C16;
         }else{
             printf( "Warning in CRXS::XS_definitions::Get_C_parameters. Parametrizatino %i is not known.", parametrization);
         }
@@ -261,6 +265,14 @@ namespace CRXS {
     }
     
 
+    double XS_definitions::inv_pp_p_CM__Anderson(double s, double E_p, double pT_p, double* C_array, int len_C_array){
+        E_p = fabs(E_p);
+        if (s<4*E_p*E_p)
+            return 0;
+        if ( pow(pT_p, 2.) > pow(E_p, 2.) - pow(fMass_proton, 2.) )
+            return 0;
+        return E_p/2./M_PI*pT_p*610*exp(-pT_p/0.166);
+    }
     
     
     //  ------------------------------------------------------------- #

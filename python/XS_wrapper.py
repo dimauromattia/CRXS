@@ -28,8 +28,8 @@ import cpp.xs_wrapper    as xs_cpp
 #                                                               #
 # ------------------------------------------------------------- #
 
-_parametrization={'KORSMEIER_I':1,'KORSMEIER_II':2,'WINKLER':3,'DI_MAURO_I':4,'DI_MAURO_II':5}
-_product        ={'P_BAR':1,'D_BAR':2,'HE_BAR':3}
+_parametrization={'KORSMEIER_I':1,'KORSMEIER_II':2,'WINKLER':3,'DI_MAURO_I':4,'DI_MAURO_II':5,'ANDERSON':6}
+_product        ={'P_BAR':1,'D_BAR':2,'HE_BAR':3, 'P':4}
 _coalescence    ={'FIXED_P0':1,'ENERGY_DEP__VAN_DOETINCHEM':2}
 
 # ---------------- #
@@ -117,6 +117,62 @@ def dE_AA_pbar_LAB_incNbarAndHyperon(Tn_proj_LAB, T_pbar_LAB, A_projectile=1, N_
         """
     return xs_cpp.dE_AA_pbar_LAB_incNbarAndHyperon(Tn_proj_LAB, T_pbar_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
 
+
+
+# ---------------- #
+#   PROTON         #
+# ---------------- #
+
+def inv_AA_p_CM(s, xF, pT_p, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='ANDERSON'):
+    """
+        Invariant proton production cross section for general projectile and target nucleus for different XS parametrization
+
+         \param double s               CM energy, squared.
+         \param doulbe xF              Feynman scaling (2*pL_p/sqrt(s) in CMF)
+         \param doulbe pT_p            Transverse momentum of the proton
+         \param int    A_projectile    Mass number of the projectile
+         \param int    N_projectile    Number of neutrons in the projectile
+         \param int    A_target        Mass number of the target
+         \param int    N_target        Number of neutrons in the target
+         \param int    parametrization Cross section parametrization, enum from[ANDERSON]
+
+         \return double XS             Cross section in mbarn/GeV^2
+        """
+    return xs_cpp.inv_AA_p_CM(s, xF, pT_p, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
+
+def inv_AA_p_LAB(Tn_proj_LAB, T_p_LAB, eta_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='ANDERSON'):
+    """
+         Invariant proton production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables
+
+         \param double Tn_proj_LAB      Kinetic energy per nucleus of the prjectile (in the LAB frame)
+         \param doulbe T_p_LAB          Kinetic energy of the proton (in the LAB frame)
+         \param doulbe eta_LAB          Pseudo rapidity of the proton (in the LAB frame)
+         \param int    A_projectile     Mass number of the projectile
+         \param int    N_projectile     Number of neutrons in the projectile
+         \param int    A_target         Mass number of the target
+         \param int    N_target         Number of neutrons in the target
+         \param int    parametrization  Cross section parametrization [ANDERSON]
+         \return double XS              Cross section in mbarn/GeV^2
+        """
+    return xs_cpp.inv_AA_p_LAB(Tn_proj_LAB, T_p_LAB, eta_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
+
+
+def dE_AA_p_LAB(Tn_proj_LAB, T_p_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='ANDERSON'):
+    """
+        Energy-differential proton production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables.
+
+        This cross section is integrated over all angles.
+        \param double Tn_proj_LAB      Kinetic energy per nucleus of the prjectile (in the LAB frame)
+        \param doulbe T_p_LAB          Kinetic energy of the proton (in the LAB frame)
+        \param int    A_projectile     Mass number of the projectile
+        \param int    N_projectile     Number of neutrons in the projectile
+        \param int    A_target         Mass number of the target
+        \param int    N_target         Number of neutrons in the target
+        \param int    parametrization  Cross section parametrization, enum from[ANDERSON]
+        \return double XS              Cross section in mbarn/GeV
+
+        """
+    return xs_cpp.dE_AA_p_LAB(Tn_proj_LAB, T_p_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
 
 
 
