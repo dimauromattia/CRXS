@@ -152,7 +152,7 @@ for Tn_d in Tn_Dbar:
 plot, fig = plot_1D ( r'$T_{\bar{p}}\;[\mathrm{GeV}]$', r'$f$', 'log', 'log' )
 plt.subplots_adjust(left=0.25, right=0.9, top=0.9, bottom=0.15)
 plot.plot(Tn_Dbar, q*Tn_Dbar)
-plot.plot(Tn_Dbar, q1*Tn_Dbar)
+plot.plot(Tn_Dbar, q1*Tn_Dbar, color='red')
 plt.savefig('q_dbar.png')
 
 

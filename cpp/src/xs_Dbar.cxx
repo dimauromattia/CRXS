@@ -32,7 +32,6 @@ namespace CRXS {
         }else{
             return -1;
         }
-        //std::cout << p_coalescence << std::endl;
         
         
         double pL_dbar = xF_dbar/2.*sqrt(s);

@@ -211,7 +211,7 @@ def inv_AA_Dbar_CM(s, xF, pT_Dbar, A_projectile=1, N_projectile=0, A_target=1, N
         The parameter p_coal is defined as abs(p_proton - p_neutron)/2. (Note that there is also a different notation,
         without the factor 2., in the literature)
         
-        There are two options for the coalesence momentum (cf. to option \param int coalescence):
+        There are two options for the coalesence momentum (cf. to option \param coalescence):
         
         1) Fixed to 80 MeV, which is the value tuned to the aleph experiment. If you prefer a different (fixed) value
         you can rescale the whole XS with (p_coal/80 MeV)^3.
