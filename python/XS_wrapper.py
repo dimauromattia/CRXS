@@ -5,12 +5,14 @@
     It provides cross section for any kind of initial states. The parametrizations are given in the CM frame, the LAB (ISM) frame. Finally, it provides the energy-dependent (i.e. angularly integrated) XS in the LAB frame. 
     
     """
+import CRXS.info as info
+printinfo = info.CRXSinfo()
 
 import numpy  as np
 import scipy.integrate   as     integrate
 import math
 
-import cpp.xs_wrapper    as xs_cpp
+import CRXS.cpp.xs_wrapper    as xs_cpp
 
 
 # ------------------------------------------------------------- #
@@ -27,6 +29,8 @@ import cpp.xs_wrapper    as xs_cpp
 #     P     parametrizationa and description                    #
 #                                                               #
 # ------------------------------------------------------------- #
+
+
 
 _parametrization={'KORSMEIER_I':1,'KORSMEIER_II':2,'WINKLER':3,'DI_MAURO_I':4,'DI_MAURO_II':5,'ANDERSON':6}
 _product        ={'P_BAR':1,'D_BAR':2,'HE_BAR':3, 'P':4}

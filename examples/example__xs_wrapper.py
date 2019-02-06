@@ -6,7 +6,7 @@ import math
 
 
 # Include the python wrapper for the cpp functions
-import python.XS_wrapper as XS
+import CRXS.XS_wrapper as XS
 
 #
 #   Some examples how to call functions from the wrapper:

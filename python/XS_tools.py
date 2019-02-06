@@ -4,12 +4,14 @@
     The module provides an interface to CRXS to read the Lorentz invariant XS definitions from cpp.
     Then it provieds some function to transform the XSs to the LAB frame and integrate over all angles.
     """
+import CRXS.info as info
+printinfo = info.CRXSinfo()
 
 import numpy  as np
 import scipy.integrate   as integrate
 import math
 
-import cpp.xs_tools      as cpp_xs
+import CRXS.cpp.xs_tools      as cpp_xs
 
 
 fMass_proton         = 0.9382720813;     # PDG Review 2016

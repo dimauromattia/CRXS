@@ -4,7 +4,7 @@ import numpy  as np
 import scipy.integrate   as     integrate
 import math
 
-import python.XS_tools as XS
+import CRXS.XS_tools as XS
 
 #
 #   Some examples how to call XS_tools:
