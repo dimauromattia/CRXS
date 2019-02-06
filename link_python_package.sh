@@ -7,23 +7,26 @@ popd
 
 echo Linking package from $FULLDIRNAME!
 
-#Linking internal:
-
-ln -s $FULLDIRNAME/python/XS_wrapper.py  $FULLDIRNAME/XS_wrapper.py
-ln -s $FULLDIRNAME/python/info.py        $FULLDIRNAME/info.py
-ln -s $FULLDIRNAME/python/XS_tools.py    $FULLDIRNAME/XS_tools.py
-
-echo " " >> $FULLDIRNAME/__init__.py
-
-
-read -p "Specify your python3 sitepackage path:" spp
+read -p "Please specify which python version you want to link (2 or 3):" version
+read -p "Specify your python sitepackage path:" spp
 if [ -z $spp ]; then
   echo "Please specify a path."
   exit 1
 fi
 
+linkdir=$FULLDIRNAME
+if [ "$version" == "2" ]; then
+   linkdir=$linkdir/py2
+elif [ "$version" == "2" ]; then
+   linkdir=$linkdir/py3
+else
+  echo "Please enter either 2 or 3 as version."
+  exit 1
+fi
+
+
 echo "Link to: $spp"
 rm  $spp/CRXS
 pushd $spp
-ln -s $FULLDIRNAME CRXS
+ln -s $linkdir CRXS
 popd
