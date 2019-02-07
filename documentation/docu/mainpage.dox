@@ -35,7 +35,9 @@
  *
  *  The software is available as git repository on gitHub. To download it into the folder <MySoftwareDirectory> type:
  *
+ *  \code
  *  $ git <a href="https://github.com/korsmeier/CRXS.git"> https://github.com/korsmeier/CRXS.git </a> <MySoftwareDirectory>
+ *  \endcode
  *
  *  \subsection step3 Step 3: Build software
  *
@@ -45,9 +47,7 @@
  *  to build everything, simply use
  *
  *  \code
- *
  *  $ make
- *
  *  \endcode
  *
  *  Otherwise you can use the options:
@@ -58,27 +58,21 @@
  *  If you want to build only the python 2 or 3 use:
  *
  *  \code
- *
  *  $ make build
  *  $ make python
- *
  *  \endcode
  *
  *  or
  *
  *  \code
- *
  *  $ make build
  *  $ make python_three
- *
  *  \endcode
  *
  *  To uninstall everything use
  *
  *  \code
- *
  *  $ make clean
- *
  *  \endcode
  *
  *
@@ -86,9 +80,7 @@
  *  script
  *
  *  \code
- *
  *  $ ./link_python_package.sh
- *
  *  \endcode
  *
  *  and follow the instruction. You have to specify your site path manuelly.
@@ -116,8 +108,8 @@
  *
  *
  *  On a Mac with Xcode you may build a project by
- *   1) creating a folder in the directory cpp (e.g. xcode) and change into this new directory. Then type
- *   2) $ cmake -G Xcode ..
+ *   1. creating a folder in the directory cpp (e.g. xcode) and change into this new directory. Then type
+ *   2. \code $ cmake -G Xcode .. \endcode
  *
  *  Now you are ready to start!
  *
@@ -127,8 +119,11 @@
  *  The are stored in the folder examples
  *
  *
- *  - example.cpp (build it with $ make example)
- *
+ *  - example.cpp <br>
+ *   You can build this with: <br>
+ *   \code $ make example \endcode
+ *   It reates the executable example in the examples directory.<br>
+ *  <br>
  *  - example__xs_tools.py
  *  - example__xs_wrapper.py
  *
