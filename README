@@ -21,7 +21,11 @@ To install this sofware do the following.
 - gsl 
 - cmake 
 - swig     (optional)
+- python 2 (optional)
 - python 3 (optional)
+
+If you install the python package make sure your python version
+contains the following packages:
    * numpy
    * scipy
    * matplotlib
@@ -38,13 +42,32 @@ to build everything, simply use
 $ make
 
 Otherwise you can use the options: 
-  1) cpp_only, to build only the c++ library
+  1) build, to build only the c++ library
   2) example, to build the example.cpp which links to the CRXS library
   3) debug, to build the c++ library with debug symbols
+
+If you want to build only the python 2 or 3 use:
+
+$ make build
+$ make python
+
+or
+
+$ make build
+$ make python_three
 
 To uninstall everything use
 
 $ make clean
+
+
+If you want to link the python package to your site path use the
+script
+
+$ ./link_python_package.sh
+
+and follow the instruction. You have to specify your site path manuelly.
+To find out your path you may need the command ($ python -m site).
 
 *********************
 * Build docu:       *
