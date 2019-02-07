@@ -5,7 +5,7 @@
  * This software package is developed to easily calculate cross sections (XS) for the
  * production of antiprotons and antideuteron as required in cosmic-ray (CR) physics.
  * The package is based on c++ and builds all functions into a library. Furthermore,
- * it provides an interface to python 3.
+ * it provides an interface to python.
  *
  * This software package provides:
  *  - different CR parametrizations of the Lorentz invariant XSs
@@ -18,13 +18,17 @@
  *
  * \subsection step1 Step 1: Prerequisits
  *
- *  - gsl
- *  - cmake
- *  - swig     (optional)
- *  - python 3 (optional)
- *     * numpy
- *     * scipy
- *     * matplotlib
+ *   - gsl
+ *   - cmake
+ *   - swig     (optional)
+ *   - python 2 (optional)
+ *   - python 3 (optional)
+ *
+ *   If you install the python package make sure your python version
+ *   contains the following packages:
+ *   * numpy
+ *   * scipy
+ *   * matplotlib
  *
  *
  * \subsection step2 Step 2: Get Software
@@ -35,20 +39,77 @@
  *
  *  \subsection step3 Step 3: Build software
  *
+ *
  *  The c++ library is build with cmake and the python interface is created by swig.
  *  All commands to build the software are summarised in the Makefile. If you want
  *  to build everything, simply use
  *
+ *  \code
+ *
  *  $ make
  *
+ *  \endcode
+ *
  *  Otherwise you can use the options:
- *    1) cpp_only, to build only the c++ library
- *    2) example, to build the example.cpp which links to the CRXS library
- *    3) debug, to build the c++ library with debug symbols
+ *  1. build, to build only the c++ library
+ *  2. example, to build the example.cpp which links to the CRXS library
+ *  3. debug, to build the c++ library with debug symbols
+ *
+ *  If you want to build only the python 2 or 3 use:
+ *
+ *  \code
+ *
+ *  $ make build
+ *  $ make python
+ *
+ *  \endcode
+ *
+ *  or
+ *
+ *  \code
+ *
+ *  $ make build
+ *  $ make python_three
+ *
+ *  \endcode
  *
  *  To uninstall everything use
  *
+ *  \code
+ *
  *  $ make clean
+ *
+ *  \endcode
+ *
+ *
+ *  If you want to link the python package to your site path use the
+ *  script
+ *
+ *  \code
+ *
+ *  $ ./link_python_package.sh
+ *
+ *  \endcode
+ *
+ *  and follow the instruction. You have to specify your site path manuelly.
+ *  To find out your path you may need the command (python -m site).
+ *
+ *  
+ *  If you do not want to link the package to your python version you have
+ *  to create a symbolic link of the py2 or py3 directory in the directory
+ *  where you want to use the package.
+ *  
+ *  \code
+ *  $ ln -s PATH_TO_CRXS/py2 CRXS
+ *  \endcode
+ *  
+ *  To include the package use
+ *  
+ *  \code
+ *  import CRXS.XS_wrapper
+ *  import CRXS.XS_tools
+ *  \endcode
+ *  
  *
  *
  *  \subsection step4 Step 4: Build project (optional)
@@ -62,6 +123,9 @@
  *
  *
  *  \section Examples
+ *
+ *  The are stored in the folder examples
+ *
  *
  *  - example.cpp (build it with $ make example)
  *

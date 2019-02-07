@@ -6,7 +6,7 @@
 This software package is developed to easily calculate cross sections (XS) for the 
 production of antiprotons and antideuteron as required in cosmic-ray (CR) physics.
 The package is based on c++ and builds all functions into a library. Furthermore, 
-it provides an interface to python 3. 
+it provides an interface to python. 
 
 The library named CRXS is intalled to cpp/lib and
 the header files are saved in cpp/include.
@@ -68,6 +68,18 @@ $ ./link_python_package.sh
 
 and follow the instruction. You have to specify your site path manuelly.
 To find out your path you may need the command ($ python -m site).
+
+If you do not want to link the package to your python version you have
+to create a symbolic link of the py2 or py3 directory in the directory 
+where you want to use the package. 
+
+$ ln -s PATH_TO_CRXS/py2 CRXS
+
+To include the package use
+
+import CRXS.XS_wrapper
+import CRXS.XS_tools
+
 
 *********************
 * Build docu:       *
