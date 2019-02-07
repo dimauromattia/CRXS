@@ -6,6 +6,7 @@ lib
 include
 html
 latex
+CRXS_info.txt
 
 cpp/xs_wrapper_wrap.cxx
 cpp/xs_wrapper.py

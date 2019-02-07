@@ -96,51 +96,51 @@ except __builtin__.Exception:
     _newclass = 0
 
 
-def inv_AA_pbar_CM(s, xF, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization):
+def inv_AA_pbar_CM(s: 'double', xF: 'double', pT_pbar: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int') -> "double":
     return _xs_wrapper.inv_AA_pbar_CM(s, xF, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization)
 inv_AA_pbar_CM = _xs_wrapper.inv_AA_pbar_CM
 
-def inv_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization):
+def inv_AA_pbar_LAB(Tn_proj_LAB: 'double', T_pbar_LAB: 'double', eta_LAB: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int') -> "double":
     return _xs_wrapper.inv_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization)
 inv_AA_pbar_LAB = _xs_wrapper.inv_AA_pbar_LAB
 
-def dE_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, A_projectile, N_projectile, A_target, N_target, parametrization):
+def dE_AA_pbar_LAB(Tn_proj_LAB: 'double', T_pbar_LAB: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int') -> "double":
     return _xs_wrapper.dE_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, A_projectile, N_projectile, A_target, N_target, parametrization)
 dE_AA_pbar_LAB = _xs_wrapper.dE_AA_pbar_LAB
 
-def dE_AA_pbar_LAB_incNbarAndHyperon(Tn_proj_LAB, T_pbar_LAB, A_projectile, N_projectile, A_target, N_target, parametrization):
+def dE_AA_pbar_LAB_incNbarAndHyperon(Tn_proj_LAB: 'double', T_pbar_LAB: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int') -> "double":
     return _xs_wrapper.dE_AA_pbar_LAB_incNbarAndHyperon(Tn_proj_LAB, T_pbar_LAB, A_projectile, N_projectile, A_target, N_target, parametrization)
 dE_AA_pbar_LAB_incNbarAndHyperon = _xs_wrapper.dE_AA_pbar_LAB_incNbarAndHyperon
 
-def tot_pp__diMauro(s):
+def tot_pp__diMauro(s: 'double') -> "double":
     return _xs_wrapper.tot_pp__diMauro(s)
 tot_pp__diMauro = _xs_wrapper.tot_pp__diMauro
 
-def el_pp__diMauro(s):
+def el_pp__diMauro(s: 'double') -> "double":
     return _xs_wrapper.el_pp__diMauro(s)
 el_pp__diMauro = _xs_wrapper.el_pp__diMauro
 
-def inv_AA_Dbar_CM(s, xF_Dbar, pT_Dbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence):
+def inv_AA_Dbar_CM(s: 'double', xF_Dbar: 'double', pT_Dbar: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int', coalescence: 'int') -> "double":
     return _xs_wrapper.inv_AA_Dbar_CM(s, xF_Dbar, pT_Dbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence)
 inv_AA_Dbar_CM = _xs_wrapper.inv_AA_Dbar_CM
 
-def inv_AA_Dbar_LAB(Tn_proj_LAB, T_Dbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence):
+def inv_AA_Dbar_LAB(Tn_proj_LAB: 'double', T_Dbar_LAB: 'double', eta_LAB: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int', coalescence: 'int') -> "double":
     return _xs_wrapper.inv_AA_Dbar_LAB(Tn_proj_LAB, T_Dbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence)
 inv_AA_Dbar_LAB = _xs_wrapper.inv_AA_Dbar_LAB
 
-def dEn_AA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence):
+def dEn_AA_Dbar_LAB(Tn_proj_LAB: 'double', Tn_Dbar_LAB: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int', coalescence: 'int') -> "double":
     return _xs_wrapper.dEn_AA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence)
 dEn_AA_Dbar_LAB = _xs_wrapper.dEn_AA_Dbar_LAB
 
-def inv_AA_p_CM(s, xF, pT_p, A_projectile, N_projectile, A_target, N_target, parametrization):
+def inv_AA_p_CM(s: 'double', xF: 'double', pT_p: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int') -> "double":
     return _xs_wrapper.inv_AA_p_CM(s, xF, pT_p, A_projectile, N_projectile, A_target, N_target, parametrization)
 inv_AA_p_CM = _xs_wrapper.inv_AA_p_CM
 
-def inv_AA_p_LAB(Tn_proj_LAB, T_p_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization):
+def inv_AA_p_LAB(Tn_proj_LAB: 'double', T_p_LAB: 'double', eta_LAB: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int') -> "double":
     return _xs_wrapper.inv_AA_p_LAB(Tn_proj_LAB, T_p_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization)
 inv_AA_p_LAB = _xs_wrapper.inv_AA_p_LAB
 
-def dE_AA_p_LAB(Tn_proj_LAB, T_p_LAB, A_projectile, N_projectile, A_target, N_target, parametrization):
+def dE_AA_p_LAB(Tn_proj_LAB: 'double', T_p_LAB: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int') -> "double":
     return _xs_wrapper.dE_AA_p_LAB(Tn_proj_LAB, T_p_LAB, A_projectile, N_projectile, A_target, N_target, parametrization)
 dE_AA_p_LAB = _xs_wrapper.dE_AA_p_LAB
 # This file is compatible with both classic and new-style classes.

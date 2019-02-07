@@ -17,7 +17,7 @@ fi
 linkdir=$FULLDIRNAME
 if [ "$version" == "2" ]; then
    linkdir=$linkdir/py2
-elif [ "$version" == "2" ]; then
+elif [ "$version" == "3" ]; then
    linkdir=$linkdir/py3
 else
   echo "Please enter either 2 or 3 as version."

@@ -96,35 +96,35 @@ except __builtin__.Exception:
     _newclass = 0
 
 
-def inv_pp_pbar_CM__Winkler(s, E_pbar, pT_pbar, C_array):
+def inv_pp_pbar_CM__Winkler(s: 'double', E_pbar: 'double', pT_pbar: 'double', C_array: 'double *') -> "double":
     return _xs_tools.inv_pp_pbar_CM__Winkler(s, E_pbar, pT_pbar, C_array)
 inv_pp_pbar_CM__Winkler = _xs_tools.inv_pp_pbar_CM__Winkler
 
-def deltaHyperon(s, C_array):
+def deltaHyperon(s: 'double', C_array: 'double *') -> "double":
     return _xs_tools.deltaHyperon(s, C_array)
 deltaHyperon = _xs_tools.deltaHyperon
 
-def deltaIsospin(s, C_array):
+def deltaIsospin(s: 'double', C_array: 'double *') -> "double":
     return _xs_tools.deltaIsospin(s, C_array)
 deltaIsospin = _xs_tools.deltaIsospin
 
-def inv_pp_pbar_CM__diMauro(s, E_pbar, pT_pbar, C_array):
+def inv_pp_pbar_CM__diMauro(s: 'double', E_pbar: 'double', pT_pbar: 'double', C_array: 'double *') -> "double":
     return _xs_tools.inv_pp_pbar_CM__diMauro(s, E_pbar, pT_pbar, C_array)
 inv_pp_pbar_CM__diMauro = _xs_tools.inv_pp_pbar_CM__diMauro
 
-def el_pp__diMauro(s):
+def el_pp__diMauro(s: 'double') -> "double":
     return _xs_tools.el_pp__diMauro(s)
 el_pp__diMauro = _xs_tools.el_pp__diMauro
 
-def tot_pp__diMauro(s):
+def tot_pp__diMauro(s: 'double') -> "double":
     return _xs_tools.tot_pp__diMauro(s)
 tot_pp__diMauro = _xs_tools.tot_pp__diMauro
 
-def pbar_overlap_function_projectile(x_F):
+def pbar_overlap_function_projectile(x_F: 'double') -> "double":
     return _xs_tools.pbar_overlap_function_projectile(x_F)
 pbar_overlap_function_projectile = _xs_tools.pbar_overlap_function_projectile
 
-def pbar_overlap_function_target(x_F):
+def pbar_overlap_function_target(x_F: 'double') -> "double":
     return _xs_tools.pbar_overlap_function_target(x_F)
 pbar_overlap_function_target = _xs_tools.pbar_overlap_function_target
 # This file is compatible with both classic and new-style classes.

@@ -12,7 +12,7 @@ rm -rf __pycache__ *.pyc
 popd
 
 pushd $DIRNAME
-rm -rf *.py *.pyc __pycache__  /examples/example
+rm -rf *.py *.pyc __pycache__  examples/example
 popd
 
 
