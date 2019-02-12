@@ -165,20 +165,21 @@ namespace CRXS {
         static double diMauro_I_D1_to_D2     [3];
         static double diMauro_II_D1_to_D2    [3];
         
+        
+        
+        static double Winkler_SELF_C1_to_C16     [17];
+        static double diMauro_SELF_C1_to_C11     [12];
+        
+        static double diMauro_SELF_C1_to_C16     [17];
+        
+        static double Winkler_SELF_D1_to_D2       [3];
+        static double diMauro_SELF_D1_to_D2       [3];
+        
+        
         static double Dummy                  [1];
         
     private:
         
-        
-        
-      
-
-        
-        
-
-
-
-
         
     };
 }

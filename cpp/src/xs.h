@@ -1,6 +1,7 @@
 #ifndef CRXS__XS_H
 #define CRXS__XS_H
 
+
 namespace CRXS {
     
     enum parametrization{
@@ -9,7 +10,9 @@ namespace CRXS {
         WINKLER        = 3,
         DI_MAURO_I     = 4,
         DI_MAURO_II    = 5,
-        ANDERSON       = 6
+        ANDERSON       = 6,
+        WINKLER_SELF   = 7,
+        DI_MAURO_SELF  = 8
     };
     enum product{
         P_BAR    = 1,
@@ -53,7 +56,7 @@ namespace CRXS {
           *  \param int    N_projectile    Number of neutrons in the projectile
           *  \param int    A_target        Mass number of the target
           *  \param int    N_target        Number of neutrons in the target
-          *  \param int    parametrization Cross section parametrization, enum from[KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II]
+          *  \param int    parametrization Cross section parametrization, enum from[KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II, WINKLER_SELF, DI_MAURO_SELF]
           *
           *  \return double XS             Cross section in mbarn/GeV^2
           */
@@ -86,7 +89,7 @@ namespace CRXS {
          *  \param int    N_projectile     Number of neutrons in the projectile
          *  \param int    A_target         Mass number of the target
          *  \param int    N_target         Number of neutrons in the target
-         *  \param int    parametrization  Cross section parametrization, enum from[KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II]
+         *  \param int    parametrization  Cross section parametrization, enum from[KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II, WINKLER_SELF, DI_MAURO_SELF]
          *
          *  \return double XS              Cross section in mbarn/GeV
          */
@@ -118,7 +121,7 @@ namespace CRXS {
           *  \param int    N_projectile     Number of neutrons in the projectile
           *  \param int    A_target         Mass number of the target
           *  \param int    N_target         Number of neutrons in the target
-          *  \param int    parametrization  Cross section parametrization, enum from[KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II]
+          *  \param int    parametrization  Cross section parametrization, enum from[KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II, WINKLER_SELF, DI_MAURO_SELF]
           *
           *  \return double XS              Cross section in mbarn/GeV
           */
@@ -294,7 +297,70 @@ namespace CRXS {
         static double dEn_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM );
         
         
+        //! Function to set the parameter values of the di Mauro parametrization yourself.
+        /*!
+         *  The nameing of the parameters corresponds to the definition
+         *                  di Mauro, et al.; 2014;
+         *                  A new evaluation of the antiproton production cross section for cosmic ray studies;
+         *                  DOI: 10.1103/PhysRevD.90.085017
+         *  in Eq. (13). The input parameter array double* C is expected to have a length of 19 and contains:
+         *    - C[0] is a dummy
+         *    - C[1] to C[11] are the variables of Eq. (13)
+         *    - C[12] to C[15] are the isospin variables, this is described as in Winkler (2017), his variables C_1  to C_4
+         *    - C[16] to C[18] are the hyperon variables, this is described as in Winkler (2017), his variables C_14 to C_16
+         *
+         *  \param double* C               Array of parameters, expected length: 19. For details see above.
+         *
+         */
+        static void Set_SELF_C_parameters_diMauro(double* C);
         
+        
+        //! Function to set the parameter values of the Winkler parametrization yourself.
+        /*!
+         *  The nameing of the parameters corresponds to the definition
+         *                  Winkler, M. W.; 2017;
+         *                  Cosmic Ray Antiprotons at High Energies;
+         *                  arXiv:1701.04866
+         *  The input parameter array double* C is expected to have a length of 17 and contains:
+         *    - C[0] is a dummy
+         *    - C[1] to C[16] are the variables named as in Winkler (2017)
+         *
+         *  \param double* C               Array of parameters, expected length: 17. For details see above.
+         *
+         */
+        static void Set_SELF_C_parameters_Winkler(double* C);
+        
+        
+        //! Function to set the parameter values of the di Mauro parametrization yourself.
+        /*!
+         *  The nameing of the parameters corresponds to the definition
+         *                  Korsmeier, et al.; 2018;
+         *                  Production cross sections of cosmic antiprotons in the light of new data from the NA61 and LHCb experiments;
+         *                  DOI: 10.1103/PhysRevD.97.103019
+         *  The input parameter array double* D is expected to have a length of 3 and contains:
+         *    - D[0] is a dummy
+         *    - D[1] and D[2] are the variables named as in Korsmeier, et al.; 2018
+         *
+         *  \param double* D               Array of parameters, expected length: 3. For details see above.
+         *
+         */
+        static void Set_SELF_D_parameters_diMauro(double* D);
+        
+        
+        //! Function to set the parameter values of the Winkler parametrization yourself.
+        /*!
+         *  The nameing of the parameters corresponds to the definition
+         *                  Korsmeier, et al.; 2018;
+         *                  Production cross sections of cosmic antiprotons in the light of new data from the NA61 and LHCb experiments;
+         *                  DOI: 10.1103/PhysRevD.97.103019
+         *  The input parameter array double* D is expected to have a length of 3 and contains:
+         *    - D[0] is a dummy
+         *    - D[1] and D[2] are the variables named as in Korsmeier, et al.; 2018
+         *
+         *  \param double* D               Array of parameters, expected length: 3. For details see above.
+         *
+         */
+        static void Set_SELF_D_parameters_Winkler(double* D);
         
         
     private:

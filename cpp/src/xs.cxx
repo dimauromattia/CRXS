@@ -6,6 +6,7 @@
 #include "xs.h"
 #include "xs_definitions.h"
 
+
 namespace CRXS {
     
     bool XS::convert_LAB_to_CM( const double T_p_LAB, const double T_product_LAB, const double eta_LAB, double &s, double &E_product, double &pT_product, double &x_F, int product ){
@@ -42,6 +43,58 @@ namespace CRXS {
         x_F = 2. * pL_product / sqrt(s);
         
         return true;
+    }
+    
+    void CRXS::XS::Set_SELF_C_parameters_diMauro(double *C){
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C11[ 1] = C[ 1];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C11[ 2] = C[ 2];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C11[ 3] = C[ 3];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C11[ 4] = C[ 4];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C11[ 5] = C[ 5];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C11[ 6] = C[ 6];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C11[ 7] = C[ 7];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C11[ 8] = C[ 8];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C11[ 9] = C[ 9];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C11[10] = C[10];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C11[11] = C[11];
+        
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C16[ 1] = C[12];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C16[ 2] = C[13];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C16[ 3] = C[14];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C16[ 4] = C[15];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C16[14] = C[16];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C16[15] = C[17];
+        CRXS::XS_definitions::diMauro_SELF_C1_to_C16[16] = C[18];
+    }
+    
+    
+    void CRXS::XS::Set_SELF_C_parameters_Winkler(double *C){
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[ 1] = C[ 1];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[ 2] = C[ 2];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[ 3] = C[ 3];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[ 4] = C[ 4];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[ 5] = C[ 5];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[ 6] = C[ 6];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[ 7] = C[ 7];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[ 8] = C[ 8];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[ 9] = C[ 9];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[10] = C[10];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[11] = C[11];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[12] = C[12];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[13] = C[13];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[14] = C[14];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[15] = C[15];
+        CRXS::XS_definitions::Winkler_SELF_C1_to_C16[16] = C[16];
+    }
+    
+    void CRXS::XS::Set_SELF_D_parameters_diMauro(double *D){
+        CRXS::XS_definitions::diMauro_SELF_D1_to_D2[ 1] = D[ 1];
+        CRXS::XS_definitions::diMauro_SELF_D1_to_D2[ 2] = D[ 2];
+    }
+    
+    void CRXS::XS::Set_SELF_D_parameters_Winkler(double *D){
+        CRXS::XS_definitions::Winkler_SELF_D1_to_D2[ 1] = D[ 1];
+        CRXS::XS_definitions::Winkler_SELF_D1_to_D2[ 2] = D[ 2];
     }
     
    

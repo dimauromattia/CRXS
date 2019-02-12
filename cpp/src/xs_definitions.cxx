@@ -9,7 +9,7 @@
 
 namespace CRXS {
     double XS_definitions::fMass_proton   = 0.9382720813;
-    double XS_definitions::fMass_neutron  = 0.9382720813; //FIXME
+    double XS_definitions::fMass_neutron  = 0.9382720813;   //FIXME
     double XS_definitions::fMass_deuteron = 0.9382720813*2; //FIXME
     double XS_definitions::fMass_helium3  = 0.9382720813*3; //FIXME
     
@@ -202,6 +202,10 @@ namespace CRXS {
             return diMauro_II_D1_to_D2;
         }else if(parametrization==CRXS::ANDERSON){
             return Korsmeier_II_D1_to_D2;
+        }else if(parametrization==CRXS::WINKLER_SELF){
+            return Winkler_SELF_D1_to_D2;
+        }else if(parametrization==CRXS::DI_MAURO_SELF){
+            return diMauro_SELF_D1_to_D2;
         }else{
             printf( "Warning in CRXS::XS_definitions::Get_D_parameters. Parametrizatino %i is not known.", parametrization);
         }
@@ -222,6 +226,10 @@ namespace CRXS {
             return diMauro_II_C1_to_C11;
         }else if(parametrization==CRXS::ANDERSON){
                 return Korsmeier_II_C1_to_C16;
+        }else if(parametrization==CRXS::WINKLER_SELF){
+            return Winkler_SELF_C1_to_C16;
+        }else if(parametrization==CRXS::DI_MAURO_SELF){
+            return diMauro_SELF_C1_to_C11;
         }else{
             printf( "Warning in CRXS::XS_definitions::Get_C_parameters. Parametrizatino %i is not known.", parametrization);
         }
@@ -239,6 +247,10 @@ namespace CRXS {
             return diMauro_I_C1_to_C16;
         }else if(parametrization==CRXS::DI_MAURO_II){
             return diMauro_II_C1_to_C16;
+        }else if(parametrization==CRXS::WINKLER_SELF){
+            return Winkler_SELF_C1_to_C16;
+        }else if(parametrization==CRXS::DI_MAURO_SELF){
+            return diMauro_SELF_C1_to_C16;
         }else{
             printf( "Warning in CRXS::XS_definitions::Get_C_parameters_isospin. Parametrizatino %i is not known.", parametrization);
         }
@@ -292,6 +304,7 @@ namespace CRXS {
     double XS_definitions::Korsmeier_I_C1_to_C11 [] = {  -1,   3.50193e+00, 5.58513e+00, 3.99553e-02, -2.50716e-01, 2.65053e+00, 3.78145e-02, 4.29478e-02, 2.69520e+00,   0.0,       0.0,    0.0   };
     double XS_definitions::diMauro_I_C1_to_C11   [] = {  -1,   4.499,       3.41,        0.00942,      0.445,       3.502,       0.0622,      -0.247,      2.576,         0.0,       0.0,    0.0   };
     double XS_definitions::diMauro_II_C1_to_C11  [] = {  -1,   4.448,       3.735,       0.00502,      0.708,       3.527,       0.236,       -0.729,      2.517,        -1.822e-11, 3.527,  0.384 };
+    double XS_definitions::diMauro_SELF_C1_to_C11[] = {  -1,   3.50193e+00, 5.58513e+00, 3.99553e-02, -2.50716e-01, 2.65053e+00, 3.78145e-02, 4.29478e-02, 2.69520e+00,   0.0,       0.0,    0.0   };
     //
     //
     //  The names of the parameters correspond to Korsmeier et al. 2018
@@ -299,10 +312,13 @@ namespace CRXS {
     //                                                 {  D0,   D1,   D2    }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     double XS_definitions::Korsmeier_I_D1_to_D2  []  = {  -1,  0.825, 0.167 };
+    double XS_definitions::diMauro_SELF_D1_to_D2 []  = {  -1,  0.825, 0.167 };
     
     // Parameters are choosen such that the XS is simply scaled by A^0.8 for projectile and target in the case of di Mauro, et al. XSs.
     double XS_definitions::diMauro_I_D1_to_D2    []  = {  -1,  0.8,   0.    };
     double XS_definitions::diMauro_II_D1_to_D2   []  = {  -1,  0.8,   0.    };
+    
+    
     
     //  Parameters from
     //   1)  Winker 2017 arXiv:1701.04866:
@@ -314,10 +330,15 @@ namespace CRXS {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     double XS_definitions::Winkler_C1_to_C16     [] = {  -1,   0.31,   0.30, 21316., 0.9,  0.047,       7.76,    0.168,       0.038, 1.0e-3,      0.7,         30.9,  -1.74,  0.71,  0.114, 20736., 0.51 };
     double XS_definitions::Korsmeier_II_C1_to_C16[] = {  -1,   0.31,   0.30, 21316., 0.9,  5.01767e-02, 7.79045, 1.64809e-01, 0.038, 4.74370e-04, 3.70480e+00, 30.9,  -1.74,  0.71,  0.114, 20736., 0.51 };
+    double XS_definitions::Winkler_SELF_C1_to_C16[] = {  -1,   0.31,   0.30, 21316., 0.9,  5.01767e-02, 7.79045, 1.64809e-01, 0.038, 4.74370e-04, 3.70480e+00, 30.9,  -1.74,  0.71,  0.114, 20736., 0.51 };
+    
+    // This array contains only the isospin and hyperon parameters, all others are set to 0
+    double XS_definitions::diMauro_SELF_C1_to_C16[] = {  -1,   0.31,   0.30, 21316., 0.9,  0,           0,       0,           0,     0,           0,           0,      0,     0,     0.114, 20736., 0.51 };
     
     // Parameters are choosen to make deltaHyperon=0 and delta isoSpin=0.3 for diMauro XS:
     double XS_definitions::diMauro_I_C1_to_C16   [] = {  -1,   0.00,   0.00,     0., 0.0,  0.,          0.,      0.,          0.,    0.,          0,            0.,    0.,    0.,    0.6,     100., 0.0 };
     double XS_definitions::diMauro_II_C1_to_C16  [] = {  -1,   0.00,   0.00,     0., 0.0,  0.,          0.,      0.,          0.,    0.,          0,            0.,    0.,    0.,    0.6,     100., 0.0 };
+    
     
 
     //
@@ -327,7 +348,8 @@ namespace CRXS {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     double XS_definitions::Korsmeier_II_D1_to_D2 [] = {  -1, 0.828, 0.145  };
     double XS_definitions::Winkler_D1_to_D2      [] = {  -1, 0.839, 0.161  };      // value of <nu_He>=1.25 is translated to D_1 and D_2 (see Korsmeier et al. 2018)
-
+    double XS_definitions::Winkler_SELF_D1_to_D2 [] = {  -1, 0.828, 0.145  };
+    
     double XS_definitions::Dummy                 [] = {  -1  };
 
 }

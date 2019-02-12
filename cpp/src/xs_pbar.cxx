@@ -34,6 +34,14 @@ namespace CRXS {
             double pp = XS_definitions::inv_pp_pbar_CM__diMauro(s, E_pbar, pT_pbar, XS_definitions::diMauro_II_C1_to_C11 ) ;
             double AA = XS_definitions::factor__AA( s, xF, A_projectile, N_projectile, A_target, N_target, parametrization );
             return pp * AA;
+        }else if(  parametrization==WINKLER_SELF  ){
+            double pp = XS_definitions::inv_pp_pbar_CM__Winkler(s, E_pbar, pT_pbar, XS_definitions::Winkler_SELF_C1_to_C16 ) ;
+            double AA = XS_definitions::factor__AA( s, xF, A_projectile, N_projectile, A_target, N_target, parametrization );
+            return pp * AA;
+        }else if(  parametrization==DI_MAURO_SELF ){
+            double pp = XS_definitions::inv_pp_pbar_CM__diMauro(s, E_pbar, pT_pbar, XS_definitions::diMauro_SELF_C1_to_C11 ) ;
+            double AA = XS_definitions::factor__AA( s, xF, A_projectile, N_projectile, A_target, N_target, parametrization );
+            return pp * AA;
         }else{
             printf( "Warning in CRXS::XS::inv_AA_pbar_CM. Parametrization %i is not known.", parametrization);
         }
