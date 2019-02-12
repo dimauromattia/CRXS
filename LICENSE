@@ -1,0 +1,48 @@
+Copyright (c) 2019 Michael KORSMEIER
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+This package has been developed during the preparation of three papers.
+Please cite those papers if you use the results of this package:
+
+- For antiprotons:
+
+  Production cross sections of cosmic antiprotons in the light
+        of new data from the NA61 and LHCb experiments
+  -> Michael Korsmeier, Fiorenza Donato, and Mattia Di Mauro <-
+  Published in:  PRD   10.1103/PhysRevD.97.103019  arXiv:1802.03030
+
+        Prescriptions on antiproton cross section data
+      for precise theoretical antiproton flux predictions
+  -> Fiorenza Donato, Michael Korsmeier, and Mattia Di Mauro <-
+  Published in:  PRD   10.1103/PhysRevD.96.043007  arXiv:1704.03663
+
+
+- For antinuclei:
+
+       Prospects to verify a possible dark matter hint in
+      cosmic antiprotons with antideuterons and antihelium
+  -> Michael Korsmeier, Fiorenza Donato, and Nicolao Fornengo <-
+  Published in:  PRD   10.1103/PhysRevD.97.103011 arXiv:1711.08465
+
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+
+(This is an adjusted version of the MIT License)

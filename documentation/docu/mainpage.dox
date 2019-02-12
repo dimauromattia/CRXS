@@ -36,7 +36,7 @@
  *  The software is available as git repository on gitHub. To download it into the folder <MySoftwareDirectory> type:
  *
  *  \code
- *  $ git <a href="https://github.com/korsmeier/CRXS.git"> https://github.com/korsmeier/CRXS.git </a> <MySoftwareDirectory>
+ *  $ git https://github.com/korsmeier/CRXS.git <MySoftwareDirectory>
  *  \endcode
  *
  *  \subsection step3 Step 3: Build software
