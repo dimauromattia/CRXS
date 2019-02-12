@@ -89,8 +89,10 @@ namespace CRXS {
         return XS;
     }
 
-    double XS::inv_AA_Dbar_LAB( double Tn_proj_LAB, double T_Dbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence ){
+    double XS::inv_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence ){
+        int    nucleons = 2;
         double s, E_Dbar, pT_pbar, x_F;
+        double T_Dbar_LAB = nucleons * Tn_Dbar_LAB;
         convert_LAB_to_CM( Tn_proj_LAB, T_Dbar_LAB, eta_LAB, s, E_Dbar, pT_pbar, x_F, D_BAR );
         return inv_AA_Dbar_CM(s, x_F, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence);
     }
@@ -99,7 +101,7 @@ namespace CRXS {
         
         double* par = (double * ) parameters;
         double Tn_proj_LAB      = par[0];
-        double T_Dbar_LAB       = par[1];
+        double Tn_Dbar_LAB      = par[1];
         int    A_projectile     = par[2];
         int    N_projectile     = par[3];
         int    A_target         = par[4];
@@ -107,7 +109,7 @@ namespace CRXS {
         int    parametrization  = par[6];
         int    coalescence      = par[7];
         
-        return  pow( cosh(eta_LAB), -2 ) * XS::inv_AA_Dbar_LAB( Tn_proj_LAB, T_Dbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence );
+        return  pow( cosh(eta_LAB), -2 ) * XS::inv_AA_Dbar_LAB( Tn_proj_LAB, Tn_Dbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence );
         
     }
     
@@ -126,7 +128,7 @@ namespace CRXS {
         double epsabs = 0;
         double epsrel = 1e-4;
         double res, err;
-        double par[] = { Tn_proj_LAB, Tn_Dbar_LAB*nucleons, 1.0001*A_projectile, 1.0001*N_projectile, 1.0001*A_target, 1.0001*N_target, 1.0001*parametrization, 1.0001*coalescence };
+        double par[] = { Tn_proj_LAB, Tn_Dbar_LAB, 1.0001*A_projectile, 1.0001*N_projectile, 1.0001*A_target, 1.0001*N_target, 1.0001*parametrization, 1.0001*coalescence };
         
         gsl_integration_workspace * w = gsl_integration_workspace_alloc (1000);
         

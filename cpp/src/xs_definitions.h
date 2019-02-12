@@ -19,7 +19,7 @@ namespace CRXS {
          *  All cross sections are given in mbarn
          *  All enegies, momenta, and masses have unit GeV.
          *
-         *  Taken from:     Winkler, M. W.; 2016;
+         *  Taken from:     Winkler, M. W.; 2017;
          *                  Cosmic Ray Antiprotons at High Energies;
          *                  arXiv:1701.04866
          *
@@ -118,9 +118,15 @@ namespace CRXS {
         
         //! Parametrization of the nuclear scaling factor
         /*!
-         *    Taken from:     Korsmeier, et al.; 2018;
+         *    Depending on the parametrization, taken from:     Korsmeier, et al.; 2018;
          *    Production cross sections of cosmic antiprotons in the light of new data from the NA61 and LHCb experiments;
          *          DOI: 10.1103/PhysRevD.97.103019
+         *
+         *    Taken from:     Winkler, M. W.; 2017;
+         *                  Cosmic Ray Antiprotons at High Energies;
+         *                  arXiv:1701.04866
+         *
+         *    In the case of Di Mauro XS we use a simple scaling of A^0.8 for both, projectile and target.
          *
          *    \param double s               CM energy, squared.
          *    \param doulbe xF              Feynman scaling (2*pL/sqrt(s) in CMF)

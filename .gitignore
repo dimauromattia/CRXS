@@ -12,6 +12,7 @@ cpp/xs_wrapper_wrap.cxx
 cpp/xs_wrapper.py
 cpp/xs_tools_wrap.cxx
 cpp/xs_tools.py
+examples/example
 
 *.png
 *.swp

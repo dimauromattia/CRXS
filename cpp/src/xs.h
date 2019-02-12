@@ -97,8 +97,20 @@ namespace CRXS {
         
         
          //!Energy-differential antiproton production cross section including antineutrons and antihyperons for general projectile and target nucleus and for different XS parametrization as function of LAB frame kinetic variables. This cross section is integrated over all angles.
-         /*! This function should only be used for the parametrizations: Winkler, Korsmeier_I and Korsmeier_II.
-          *   For diMauro apply a global factor 2.3 instead.
+         /*!
+          *    Depending on the parametrization,
+          *    taken from:   Korsmeier, et al.; 2018;
+          *                  Production cross sections of cosmic antiprotons in the light of new data from the NA61 and LHCb experiments;
+          *                  DOI: 10.1103/PhysRevD.97.103019
+          *
+          *    taken from:   Winkler, M. W.; 2017;
+          *                  Cosmic Ray Antiprotons at High Energies;
+          *                  arXiv:1701.04866
+          
+          *     For di Mauro we apply a global factor 2.3 instead.
+          *
+          *     In the case of di Mauro parametrizations the antihyperon contribution is set to 0.
+          *     The nuclear scaling for AA initial states is done as explained in XS_definitions::factor__AA.
           *
           *  \param double Tn_proj_LAB      Kinetic energy per nucleus of the prjectile (in the LAB frame)
           *  \param doulbe T_pbar_LAB       Kinetic energy of the antiproton (in the LAB frame)
@@ -227,6 +239,10 @@ namespace CRXS {
          *      The parameter p_coal is defined as abs(p_proton - p_neutron)/2. (Note that there is also a different notation,
          *      without the factor 2., in the literature)
          *
+         *      The cross section contains the contribution from antineutrons and antihyperons.
+         *      In the case of DI_MAURO parametrizations the antihyperon contribution is set to 0.
+         *      The nuclear scaling for AA initial states is done as explained in XS_definitions::factor__AA.
+         *
          *  \param double s               CM energy, squared (in the nucleon-nucleon frame).
          *  \param doulbe xF              Feynman scaling (2*pL_pbar/sqrt(s) in CMF, i.e. the nucleon-nucleon frame)
          *  \param doulbe pT_Dbar         Transverse momentum of the antideuteron
@@ -244,7 +260,7 @@ namespace CRXS {
         //! Invariant antideuteron production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables
         /*!
          *  \param double Tn_proj_LAB      Kinetic energy per nucleus of the prjectile (in the LAB frame)
-         *  \param doulbe T_Dbar_LAB       Kinetic energy of the antideuteron (in the LAB frame)
+         *  \param doulbe Tn_Dbar_LAB      Kinetic energy of the antideuteron (in the LAB frame)
          *  \param doulbe eta_LAB          Pseudo rapidity of the antideuteron (in the LAB frame)
          *  \param int    A_projectile     Mass number of the projectile
          *  \param int    N_projectile     Number of neutrons in the projectile
@@ -255,12 +271,12 @@ namespace CRXS {
          *
          *  \return double XS              Cross section in mbarn/GeV^2
          */
-        static double inv_AA_Dbar_LAB( double Tn_proj_LAB, double T_Dbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence);
+        static double inv_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence);
         //! Helper function for inv_AA_Dbar_LAB
         static double integrand__dE_AA_Dbar_LAB (double eta_LAB, void* parameters  );
         
         
-        //! Energy-differential antideuteron production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables.
+        //! Energy-differential antideuteron production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables. The cross section contains the contribution from antineutrons and antihyperons. In the case of DI_MAURO parametrizations the antihyperon contribution is set to 0. The nuclear scaling for AA initial states is done as explained in XS_definitions::factor__AA.
         /*!
          *  This cross section is integrated over all angles.
          *

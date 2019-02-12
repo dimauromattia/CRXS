@@ -232,7 +232,7 @@ def inv_AA_Dbar_CM(s, xF, pT_Dbar, A_projectile=1, N_projectile=0, A_target=1, N
         \param int    A_target        Mass number of the target
         \param int    N_target        Number of neutrons in the target
         \param string parametrization Cross section parametrization [KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II]
-        \param string coalescence     Coalescence model, from[FIXED_P0 (default), ENERGY_DEP__VAN_DOETINCHEM], cf. inv_AA_Dbar_CM
+        \param string coalescence     Coalescence model, from[FIXED_P0, ENERGY_DEP__VAN_DOETINCHEM (default)], cf. inv_AA_Dbar_CM
         
         \return double XS             Cross section in mbarn/GeV^2
         """
@@ -242,13 +242,13 @@ def inv_AA_Dbar_CM(s, xF, pT_Dbar, A_projectile=1, N_projectile=0, A_target=1, N
 
 
 
-def inv_AA_Dbar_LAB(Tn_proj_LAB, T_Dbar_LAB, eta_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='KORSMEIER_II', coalescence='ENERGY_DEP__VAN_DOETINCHEM'):
+def inv_AA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, eta_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='KORSMEIER_II', coalescence='ENERGY_DEP__VAN_DOETINCHEM'):
     """
         Invariant antideuteron production cross section for general projectile and target nucleus for different XS parametrization
         as function of LAB frame kinetic variables
         
         \param double Tn_proj_LAB      Kinetic energy per nucleus of the prjectile (in the LAB frame)
-        \param doulbe T_Dbar_LAB       Kinetic energy of the antideuteron (in the LAB frame)
+        \param doulbe Tn_Dbar_LAB      Kinetic energy of the antideuteron (in the LAB frame)
         \param doulbe eta_LAB          Pseudo rapidity of the antideuteron (in the LAB frame)
         \param int    A_projectile     Mass number of the projectile
         \param int    N_projectile     Number of neutrons in the projectile
@@ -259,10 +259,10 @@ def inv_AA_Dbar_LAB(Tn_proj_LAB, T_Dbar_LAB, eta_LAB, A_projectile=1, N_projecti
         
         \return double XS              Cross section in mbarn/GeV^2
         """
-    return xs_cpp.inv_AA_Dbar_LAB(Tn_proj_LAB, T_Dbar_LAB, eta_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization], _coalescence[coalescence])
+    return xs_cpp.inv_AA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, eta_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization], _coalescence[coalescence])
 
 
-def dEn_AA_Dbar_LAB(Tn_proj_LAB, T_Dbar_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='KORSMEIER_II', coalescence='ENERGY_DEP__VAN_DOETINCHEM'):
+def dEn_AA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='KORSMEIER_II', coalescence='ENERGY_DEP__VAN_DOETINCHEM'):
     """
         Energy-differential antideuteron production cross section for general projectile and target nucleus for different XS parametrization
         as function of LAB frame kinetic variables.
@@ -279,7 +279,7 @@ def dEn_AA_Dbar_LAB(Tn_proj_LAB, T_Dbar_LAB, A_projectile=1, N_projectile=0, A_t
         
         \return double XS              Cross section in mbarn/GeV
         """
-    return xs_cpp.dEn_AA_Dbar_LAB(Tn_proj_LAB, T_Dbar_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization], _coalescence[coalescence])
+    return xs_cpp.dEn_AA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization], _coalescence[coalescence])
 
 
 

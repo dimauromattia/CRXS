@@ -114,6 +114,18 @@
  *  Now you are ready to start!
  *
  *
+ *
+ *   \section License
+ *
+ *    This package has been developed during the preparation of three papers.
+ *    Please cite those papers if you use the results of this package.
+ *
+ *       - 10.1103/PhysRevD.97.103019, arXiv:1802.03030 (for antiprotons)
+ *       - 10.1103/PhysRevD.96.043007, arXiv:1704.03663 (for antiprotons)
+ *       - 10.1103/PhysRevD.97.103011, arXiv:1711.08465 (for antinuclei )
+ *
+ *    More details are given in the LICENSE file.
+ *
  *  \section Examples
  *
  *  The are stored in the folder examples
@@ -122,7 +134,7 @@
  *  - example.cpp <br>
  *   You can build this with: <br>
  *   \code $ make example \endcode
- *   It reates the executable example in the examples directory.<br>
+ *   It creates the executable example in the examples directory.<br>
  *  <br>
  *  - example__xs_tools.py
  *  - example__xs_wrapper.py

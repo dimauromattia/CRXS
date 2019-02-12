@@ -124,8 +124,8 @@ def inv_AA_Dbar_CM(s: 'double', xF_Dbar: 'double', pT_Dbar: 'double', A_projecti
     return _xs_wrapper.inv_AA_Dbar_CM(s, xF_Dbar, pT_Dbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence)
 inv_AA_Dbar_CM = _xs_wrapper.inv_AA_Dbar_CM
 
-def inv_AA_Dbar_LAB(Tn_proj_LAB: 'double', T_Dbar_LAB: 'double', eta_LAB: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int', coalescence: 'int') -> "double":
-    return _xs_wrapper.inv_AA_Dbar_LAB(Tn_proj_LAB, T_Dbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence)
+def inv_AA_Dbar_LAB(Tn_proj_LAB: 'double', Tn_Dbar_LAB: 'double', eta_LAB: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int', coalescence: 'int') -> "double":
+    return _xs_wrapper.inv_AA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence)
 inv_AA_Dbar_LAB = _xs_wrapper.inv_AA_Dbar_LAB
 
 def dEn_AA_Dbar_LAB(Tn_proj_LAB: 'double', Tn_Dbar_LAB: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int', coalescence: 'int') -> "double":
