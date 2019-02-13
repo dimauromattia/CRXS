@@ -23,6 +23,9 @@ namespace CRXS {
     
     double XS::inv_AA_Dbar_CM( double s, double xF_dbar, double pT_dbar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence){
         
+        int signed_A_projectile = A_projectile;
+        A_projectile = fabs(1.0001*A_projectile);
+        
         int nucleons = 2;
         double p_coalescence;
         if       (coalescence==FIXED_P0) {
@@ -54,6 +57,7 @@ namespace CRXS {
         double * C_array_isospin = XS_definitions::Get_C_parameters_isospin(parametrization);
         double * D_array         = XS_definitions::Get_D_parameters        (parametrization);
         
+        
         double XS;
         XS  = XS_definitions::fMass_deuteron/XS_definitions::fMass_proton/XS_definitions::fMass_neutron;
         XS *= (4./3. * 3.1415926536 * pow(p_coalescence,3)) / (pow(A_target*A_projectile, D_array[1]+D_array[2])*XS_definitions::tot_pp__diMauro(s));
@@ -78,6 +82,11 @@ namespace CRXS {
         inv_pp_nbar         = inv_pp_pbar*        (1+deltaIsospin    +deltaHyperon    );
         inv_pp_nbar_reduced = inv_pp_pbar_reduced*(1+deltaIsospin_red+deltaHyperon_red);
         
+        if (signed_A_projectile<0){
+            inv_pp_pbar         = XS_definitions::inv_pp_p_CM__Anderson(s,     E_pbar, pT_dbar/nucleons);
+            inv_pp_pbar_reduced = XS_definitions::inv_pp_p_CM__Anderson(s_red, E_pbar, pT_dbar/nucleons);
+        }
+
         inv_pp_pbar         = inv_pp_pbar*        (1+deltaHyperon);
         inv_pp_pbar_reduced = inv_pp_pbar_reduced*(1+deltaHyperon);
 
@@ -85,6 +94,15 @@ namespace CRXS {
         AA_reduced = XS_definitions::factor__AA( s_red, xF_dbar/nucleons, A_projectile, N_projectile, A_target, N_target, parametrization );
         
         XS *= 0.5 * AA * AA_reduced * (  inv_pp_pbar * inv_pp_nbar_reduced   +   inv_pp_nbar * inv_pp_pbar_reduced  );
+        
+//        std::cout << " inv_pp_nbar          " << inv_pp_nbar           << std::endl;
+//        std::cout << " inv_pp_nbar_reduced  " << inv_pp_nbar_reduced   << std::endl;
+//        std::cout << " inv_pp_pbar          " << inv_pp_pbar           << std::endl;
+//        std::cout << " inv_pp_pbar_reduced  " << inv_pp_pbar_reduced   << std::endl;
+//        std::cout << " AA                   " << AA                    << std::endl;
+//        std::cout << " AA_reduced           " << AA_reduced            << std::endl;
+        
+        
         
         return XS;
     }
@@ -108,6 +126,16 @@ namespace CRXS {
         int    N_target         = par[5];
         int    parametrization  = par[6];
         int    coalescence      = par[7];
+        
+//        std::cout << " Tn_proj_LAB     " <<  Tn_proj_LAB      << std::endl;
+//        std::cout << " Tn_Dbar_LAB     " <<  Tn_Dbar_LAB      << std::endl;
+//        std::cout << " A_projectile    " <<  A_projectile     << std::endl;
+//        std::cout << " par[2]          " <<  par[2]           << std::endl;
+//        std::cout << " N_projectile    " <<  N_projectile     << std::endl;
+//        std::cout << " A_target        " <<  A_target         << std::endl;
+//        std::cout << " N_target        " <<  N_target         << std::endl;
+//        std::cout << " parametrization " <<  parametrization  << std::endl;
+//        std::cout << " coalescence     " <<  coalescence      << std::endl;
         
         return  pow( cosh(eta_LAB), -2 ) * XS::inv_AA_Dbar_LAB( Tn_proj_LAB, Tn_Dbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence );
         

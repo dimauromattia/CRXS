@@ -260,6 +260,15 @@ namespace CRXS {
     
     double XS_definitions::factor__AA( double s, double xF, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization ){
         
+//        std::cout << " s    "  <<  s      << std::endl;
+//        std::cout << " xF    " <<  xF     << std::endl;
+//        std::cout << " A_projectile    " <<  A_projectile     << std::endl;
+//        std::cout << " A_projectile    " <<  A_projectile     << std::endl;
+//        std::cout << " N_projectile    " <<  N_projectile     << std::endl;
+//        std::cout << " A_target        " <<  A_target         << std::endl;
+//        std::cout << " N_target        " <<  N_target         << std::endl;
+        
+        
         if (1000*A_projectile+100*N_projectile+10*A_target+N_target==1010) {
             return 1;
         }

@@ -242,6 +242,14 @@ namespace CRXS {
          *      The parameter p_coal is defined as abs(p_proton - p_neutron)/2. (Note that there is also a different notation,
          *      without the factor 2., in the literature)
          *
+         *
+         *      If the massnumber \param int A_projectile is set to -1 we assume an antiproton projectile. In this case
+         *      the antiproton production cross section is replaced and approximated by the cross section from
+         *                  Anderson, et al.; 1967;
+         *                  PROTON AND PION SPECTRA FROM PROTON-PROTON INTERACTIONS AT 10, 20, AND 30 BeV/c*;
+         *                  DOI: https://doi.org/10.1103/PhysRevLett.19.198 .
+         *      The assumption is that the "p p -> p" XS is equal to the "pbar p -> pbar" XS.
+         *
          *      The cross section contains the contribution from antineutrons and antihyperons.
          *      In the case of DI_MAURO parametrizations the antihyperon contribution is set to 0.
          *      The nuclear scaling for AA initial states is done as explained in XS_definitions::factor__AA.
@@ -249,7 +257,7 @@ namespace CRXS {
          *  \param double s               CM energy, squared (in the nucleon-nucleon frame).
          *  \param doulbe xF              Feynman scaling (2*pL_pbar/sqrt(s) in CMF, i.e. the nucleon-nucleon frame)
          *  \param doulbe pT_Dbar         Transverse momentum of the antideuteron
-         *  \param int    A_projectile    Mass number of the projectile
+         *  \param int    A_projectile    Mass number of the projectile, if A_projectile is negative we use an antiproton as projectile
          *  \param int    N_projectile    Number of neutrons in the projectile
          *  \param int    A_target        Mass number of the target
          *  \param int    N_target        Number of neutrons in the target
@@ -265,7 +273,7 @@ namespace CRXS {
          *  \param double Tn_proj_LAB      Kinetic energy per nucleus of the prjectile (in the LAB frame)
          *  \param doulbe Tn_Dbar_LAB      Kinetic energy of the antideuteron (in the LAB frame)
          *  \param doulbe eta_LAB          Pseudo rapidity of the antideuteron (in the LAB frame)
-         *  \param int    A_projectile     Mass number of the projectile
+         *  \param int    A_projectile     Mass number of the projectile, if A_projectile is negative we use an antiproton as projectile
          *  \param int    N_projectile     Number of neutrons in the projectile
          *  \param int    A_target         Mass number of the target
          *  \param int    N_target         Number of neutrons in the target
@@ -285,7 +293,7 @@ namespace CRXS {
          *
          *  \param double Tn_proj_LAB      Kinetic energy per nucleus of the prjectile (in the LAB frame)
          *  \param doulbe Tn_Dbar_LAB      Kinetic energy per nucleus of the antideuteron (in the LAB frame)
-         *  \param int    A_projectile     Mass number of the projectile
+         *  \param int    A_projectile     Mass number of the projectile, if A_projectile is negative we use an antiproton as projectile
          *  \param int    N_projectile     Number of neutrons in the projectile
          *  \param int    A_target         Mass number of the target
          *  \param int    N_target         Number of neutrons in the target
@@ -295,6 +303,7 @@ namespace CRXS {
          *  \return double XS              Cross section in mbarn/GeV
          */
         static double dEn_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM );
+        
         
         
         //! Function to set the parameter values of the di Mauro parametrization yourself.
