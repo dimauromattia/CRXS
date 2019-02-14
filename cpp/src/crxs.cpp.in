@@ -1,0 +1,15 @@
+#include "crxs.h"
+
+#include "string"
+
+namespace CRXS {
+    
+    std::string CRXS_config::Get_CRXS_DataDir(){
+        std::string dir = "@CMAKE_DATA_DIRECTORY@";
+        return dir;
+    }
+}
+
+
+
+

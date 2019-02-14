@@ -1,8 +1,10 @@
 #ifndef CRXS__XS_DEFINITIONS_H
 #define CRXS__XS_DEFINITIONS_H
+
 #include "xs.h"
 #include "stdio.h"
 
+#include "string"
 
 namespace CRXS {
     
@@ -73,17 +75,85 @@ namespace CRXS {
          * */
         static double tot_pp__diMauro(double s);
         
-        //! Parametrization of the target and projectile overlap function in pbar production
+        
+        //! Function to read a simple text table.
         /*!
-         *  Taken from:     NA49;
-         *                  Inclusive production of protons, anti-protons, neutrons, deuterons and tritons in p+C collisions at 158 GeV/c beam momentum;
-         *                  arXiv:1207.6520v3
+         *  \param std::string file      File name of the table.
+         *  \param double array[91][4]   Array to store the table entries.
+         * */
+        static void   totXS_TableToArray( std::string file, double array[91][4] );
+        
+        static bool   f_totXS_IsRead;   /// Bool to store whether the tables are alread read.
+        
+        //! Function to read all the total XS tables.
+        /*!
+         * */
+        static void   totXS_Read();
+        
+        
+        //! Function to interpolate the the XS tables. Interpolation is linear in log-log.
+        /*!
+         *  To be used with the arrays fXS__*
+         *  \param double x              Value in column 0 of array.
+         *  \param double array[91][4]   Table which is supposed to be interpolated (use column 1).
+         *  \return double               Interpolted value
+         * */
+        static double totXS_get_interpolation_loglin(double x, double array[91][4] );
+        
+        
+        static double fXS__tot_pbarp[91][4];    /// Array to store the total              pbar+p XS; column 0: T_pbar in GeV, column 1: XS in mbarn
+        static double fXS__el_pbarp [91][4];    /// Array to store the elastic            pbar+p XS; column 0: T_pbar in GeV, column 1: XS in mbarn
+        static double fXS__tot_pbarD[91][4];    /// Array to store the total              pbar+D XS; column 0: T_pbar in GeV, column 1: XS in mbarn
+        static double fXS__nar_pbarD[91][4];    /// Array to store the non-annihilation   pbar+D XS; column 0: T_pbar in GeV, column 1: XS in mbarn
+        
+        
+        //! Interpolation of the total pbar+p cross section.
+        /*!
+         *  Hand-fitted curve to the data collected by the Particle Data Group (PDG).
+         *  The data and tables of the hand-fitted curve are stored in <CRXS dir>/cpp/data
          *
-         *        Fig. 69, Tab. 14
+         *  \param  double T_pbar   Kinetic energy of the antiproton (p at rest)
+         *  \return double          Cross section in mbarn
          *
-         *  \param   double x_F         Feynman parameter p/p_max.
-         *  \return  double             Overlap function for projectile
-         **/
+         * */
+        static double tot_pbarp (double T_pbar);
+        //! Interpolation of the elastic pbar+p cross section.
+        /*!
+         *  Hand-fitted curve to the data collected by the Particle Data Group (PDG).
+         *  The data and tables of the hand-fitted curve are stored in <CRXS dir>/cpp/data
+         *
+         *  \param  double T_pbar   Kinetic energy of the antiproton (p at rest)
+         *  \return double          Cross section in mbarn
+         *
+         * */
+        static double el_pbarp  (double T_pbar);
+        //! Interpolation of the total pbar+D cross section.
+        /*!
+         *  Hand-fitted curve to the data collected by the Particle Data Group (PDG).
+         *  The data and tables of the hand-fitted curve are stored in <CRXS dir>/cpp/data
+         *
+         *  \param  double T_pbar   Kinetic energy of the antiproton (D at rest)
+         *  \return double          Cross section in mbarn
+         *
+         * */
+        static double tot_pbarD (double T_pbar);
+        //! Interpolation of the non-annihilating pbar+D cross section.
+        /*!
+         *  Hand-fitted curve to the data collected by:
+         *
+         *      A. Baldini, V. Flaminio, W. G. Moorhead, and D. R. O. Morrison,
+         *      Total Cross-Sections for Reactions of High Energy Particles,
+         *      edited by S. H., Vol. 12B (SpringerMaterials, 1988).
+         *
+         *  The data and tables of the hand-fitted curve are stored in <CRXS dir>/cpp/data
+         *
+         *  \param  double T_pbar   Kinetic energy of the antiproton (D at rest)
+         *  \return double          Cross section in mbarn
+         *
+         * */
+        static double nar_pbarD (double T_pbar);
+        
+        
         
         
         //! Parametrization of the invariant proton scattering crosssection from pp in CMF
@@ -100,7 +170,20 @@ namespace CRXS {
         static double inv_pp_p_CM__Anderson( double s, double E_p, double pT_p, double* C_array=Dummy, int len_C_array=-1 );
     
         
+        //! Parametrization of the target and projectile overlap function in pbar production
+        /*!
+         *  Taken from:     NA49;
+         *                  Inclusive production of protons, anti-protons, neutrons, deuterons and tritons in p+C collisions at 158 GeV/c beam momentum;
+         *                  arXiv:1207.6520v3
+         *
+         *        Fig. 69, Tab. 14
+         *
+         *  \param   double x_F         Feynman parameter p/p_max.
+         *  \return  double             Overlap function for projectile
+         **/
         static double pbar_overlap_function_projectile(double x_F);
+        
+        
         
         //! Parametrization of the target and target overlap function in pbar production
         /*!
@@ -179,12 +262,9 @@ namespace CRXS {
         static double Dummy                  [1];
         
     private:
-        
-        
+
     };
 }
-
-
 
 
 

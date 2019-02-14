@@ -1,8 +1,12 @@
 #include "iostream"
+#include "fstream"
+#include "sstream"
+#include "math.h"
 
 #include "xs.h"
 #include "xs_definitions.h"
-#include "math.h"
+#include "crxs.h"
+
 
 
 #define C_array_to_double(NAM) double C##NAM = C_array[NAM];
@@ -260,15 +264,6 @@ namespace CRXS {
     
     double XS_definitions::factor__AA( double s, double xF, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization ){
         
-//        std::cout << " s    "  <<  s      << std::endl;
-//        std::cout << " xF    " <<  xF     << std::endl;
-//        std::cout << " A_projectile    " <<  A_projectile     << std::endl;
-//        std::cout << " A_projectile    " <<  A_projectile     << std::endl;
-//        std::cout << " N_projectile    " <<  N_projectile     << std::endl;
-//        std::cout << " A_target        " <<  A_target         << std::endl;
-//        std::cout << " N_target        " <<  N_target         << std::endl;
-        
-        
         if (1000*A_projectile+100*N_projectile+10*A_target+N_target==1010) {
             return 1;
         }
@@ -361,5 +356,126 @@ namespace CRXS {
     
     double XS_definitions::Dummy                 [] = {  -1  };
 
+    
+    
+    
+    //  ------------------------------------------------------------- #
+    //  Interpolation of (total) cross sections from tables
+    //          -> pbarp and pbarD
+    //  ------------------------------------------------------------- #
+  
+    
+    double XS_definitions::totXS_get_interpolation_loglin(double x, double array[91][4] ){
+        
+        double  dx = 10 * (log10(x)+2);
+        int     ix = dx;
+        
+        if(ix<0)  ix =  0;
+        if(ix>90) ix = 90;
+        
+        double vl = log( array[ix  ][1]  );
+        double vu = log( array[ix+1][1]  );
+        
+        return exp( vl+(vu-vl)*(dx-ix)  );
+        
+    }
+    
+    bool XS_definitions::f_totXS_IsRead = false;
+    
+    void XS_definitions::totXS_TableToArray( std::string file, double array[91][4] ){
+        std::ifstream   ifs;
+        std::string     line;
+        std::string     line2;
+        ifs.open(file.c_str());
+        if(!ifs){
+            std::cerr << ("ERROR: File: "+file+" does not exist.").c_str() << std::endl;
+            return;
+        }
+        int idxrow = 0;
+        while(!ifs.eof()){
+            std::getline(ifs, line);
+            std::stringstream ss(line);
+            if (line == "" ) {
+                continue;
+            }
+            if ((line.at(0) == '#') || (line.at(0) == '*')) {
+                continue;
+            }
+            if (idxrow>=91) {
+                std::cerr << "ERROR: Table in " << file << " has too many rows." << std::endl;
+                exit(0);
+            }
+            int idxcol = 0;
+            while (std::getline(ss, line2, ' ')) {
+                if (line2=="") {
+                    continue;
+                }
+                if (idxcol>=4) {
+                    std::cerr << "ERROR: Table in " << file << " has too many colums." << std::endl;
+                    exit(0);
+                }
+                try {
+                    double v = std::stod(line2);
+                    if (v<1e-100) v = 1e-100;
+                    array[idxrow][idxcol] = v;
+                } catch(const std::invalid_argument&) {
+                    std::cerr << "ERROR: Some value in " << file << " is not a double" << std::endl;
+                    throw;
+                }
+                idxcol++;
+            }
+            idxrow++;
+        }
+        ifs.close();
+    }
+    
+    
+    double XS_definitions::fXS__el_pbarp [91][4];
+    double XS_definitions::fXS__tot_pbarp[91][4];
+    double XS_definitions::fXS__tot_pbarD[91][4];
+    double XS_definitions::fXS__nar_pbarD[91][4];
+    
+    void XS_definitions::totXS_Read(){
+        
+        std::string file_ppbar_el  = CRXS_config::Get_CRXS_DataDir()+"/table_ppbar_el.txt" ;
+        std::string file_ppbar_tot = CRXS_config::Get_CRXS_DataDir()+"/table_ppbar_tot.txt";
+        std::string file_dpbar_tot = CRXS_config::Get_CRXS_DataDir()+"/table_dpbar_tot.txt";
+        std::string file_dpbar_nar = CRXS_config::Get_CRXS_DataDir()+"/table_dpbar_nar.txt";
+        
+        std::cout << "Read file: " << file_ppbar_el << std::endl;
+        totXS_TableToArray( file_ppbar_el, fXS__el_pbarp );
+        
+        std::cout << "Read file: " << file_ppbar_tot << std::endl;
+        totXS_TableToArray( file_ppbar_tot, fXS__tot_pbarp );
+        
+        std::cout << "Read file: " << file_dpbar_tot << std::endl;
+        totXS_TableToArray( file_dpbar_tot, fXS__tot_pbarD );
+        
+        std::cout << "Read file: " << file_dpbar_nar << std::endl;
+        totXS_TableToArray( file_dpbar_nar, fXS__nar_pbarD );
+        
+        f_totXS_IsRead = true;
+    }
+    
+    double XS_definitions::el_pbarp (double T_pbar){
+        if(!f_totXS_IsRead) totXS_Read();
+        return totXS_get_interpolation_loglin(T_pbar, fXS__el_pbarp);
+    };
+    double XS_definitions::tot_pbarp (double T_pbar){
+        if(!f_totXS_IsRead) totXS_Read();
+        return totXS_get_interpolation_loglin(T_pbar, fXS__tot_pbarp);
+    };
+    double XS_definitions::tot_pbarD (double T_pbar){
+        if(!f_totXS_IsRead) totXS_Read();
+        return totXS_get_interpolation_loglin(T_pbar, fXS__tot_pbarD);
+    };
+    double XS_definitions::nar_pbarD (double T_pbar){
+        if(!f_totXS_IsRead) totXS_Read();
+        return totXS_get_interpolation_loglin(T_pbar, fXS__nar_pbarD);
+    };
+    
 }
+
+
+
 
