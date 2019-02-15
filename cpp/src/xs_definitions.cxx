@@ -251,6 +251,8 @@ namespace CRXS {
             return diMauro_I_C1_to_C16;
         }else if(parametrization==CRXS::DI_MAURO_II){
             return diMauro_II_C1_to_C16;
+        }else if(parametrization==CRXS::ANDERSON){
+            return Anderson_C1_to_C16;
         }else if(parametrization==CRXS::WINKLER_SELF){
             return Winkler_SELF_C1_to_C16;
         }else if(parametrization==CRXS::DI_MAURO_SELF){
@@ -342,7 +344,10 @@ namespace CRXS {
     // Parameters are choosen to make deltaHyperon=0 and delta isoSpin=0.3 for diMauro XS:
     double XS_definitions::diMauro_I_C1_to_C16   [] = {  -1,   0.00,   0.00,     0., 0.0,  0.,          0.,      0.,          0.,    0.,          0,            0.,    0.,    0.,    0.6,     100., 0.0 };
     double XS_definitions::diMauro_II_C1_to_C16  [] = {  -1,   0.00,   0.00,     0., 0.0,  0.,          0.,      0.,          0.,    0.,          0,            0.,    0.,    0.,    0.6,     100., 0.0 };
-    
+
+    // For Anderson's pp->p use the isospin factor 0
+    double XS_definitions::Anderson_C1_to_C16    [] = {  -1,   0.00,   0.00,     0., 0.0,  0.,          0.,      0.,          0.,    0.,          0,            0.,    0.,    0.,    0.0,     100., 0.0 };
+
     
 
     //

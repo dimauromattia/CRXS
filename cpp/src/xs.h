@@ -181,8 +181,6 @@ namespace CRXS {
         
         
         
-        
-        
         //!Invariant antideuteron production cross section for general projectile and target nucleus for different XS parametrization
         /*!
          *
@@ -304,6 +302,17 @@ namespace CRXS {
          */
         static double dEn_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM );
         
+        
+        //! Energy-differential antideuteron cross section for non-annihilating antideuteron reactions on p, A.
+        /*!
+         *  This cross section is integrated over all angles.
+         *
+         *  \param doulbe Tn_Dbar_proj_LAB      Kinetic energy per nucleus of the projectile antideuteron (in the LAB frame)
+         *  \param double Tn_Dbar_prod_LAB      Kinetic energy per nucleus of the product    antideuteron (in the LAB frame)
+         *
+         *  \return double XS              Cross section in mbarn/GeV
+         */
+        static double dEn_DbarA_Dbar_LAB( double Tn_Dbar_proj_LAB, double Tn_Dbar_prod_LAB, int A_target=1, int N_target=0, int parametrization=ANDERSON );
         
         
         //! Function to set the parameter values of the di Mauro parametrization yourself.

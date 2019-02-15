@@ -83,7 +83,8 @@ namespace CRXS {
          * */
         static void   totXS_TableToArray( std::string file, double array[91][4] );
         
-        static bool   f_totXS_IsRead;   /// Bool to store whether the tables are alread read.
+        /// Bool to store whether the tables are alread read.
+        static bool   f_totXS_IsRead;
         
         //! Function to read all the total XS tables.
         /*!
@@ -101,10 +102,14 @@ namespace CRXS {
         static double totXS_get_interpolation_loglin(double x, double array[91][4] );
         
         
-        static double fXS__tot_pbarp[91][4];    /// Array to store the total              pbar+p XS; column 0: T_pbar in GeV, column 1: XS in mbarn
-        static double fXS__el_pbarp [91][4];    /// Array to store the elastic            pbar+p XS; column 0: T_pbar in GeV, column 1: XS in mbarn
-        static double fXS__tot_pbarD[91][4];    /// Array to store the total              pbar+D XS; column 0: T_pbar in GeV, column 1: XS in mbarn
-        static double fXS__nar_pbarD[91][4];    /// Array to store the non-annihilation   pbar+D XS; column 0: T_pbar in GeV, column 1: XS in mbarn
+        /// Array to store the total              pbar+p XS; column 0: T_pbar in GeV, column 1: XS in mbarn
+        static double fXS__tot_pbarp[91][4];
+        /// Array to store the elastic            pbar+p XS; column 0: T_pbar in GeV, column 1: XS in mbarn
+        static double fXS__el_pbarp [91][4];
+        /// Array to store the total              pbar+D XS; column 0: T_pbar in GeV, column 1: XS in mbarn
+        static double fXS__tot_pbarD[91][4];
+        /// Array to store the non-annihilation   pbar+D XS; column 0: T_pbar in GeV, column 1: XS in mbarn
+        static double fXS__nar_pbarD[91][4];
         
         
         //! Interpolation of the total pbar+p cross section.
@@ -241,6 +246,7 @@ namespace CRXS {
         
         static double diMauro_I_C1_to_C16   [17];
         static double diMauro_II_C1_to_C16  [17];
+        static double Anderson_C1_to_C16    [17];
         
         static double Korsmeier_I_D1_to_D2   [3];
         static double Korsmeier_II_D1_to_D2  [3];

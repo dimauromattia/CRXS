@@ -176,4 +176,29 @@ namespace CRXS {
     }
     
     
+    
+    double XS::dEn_DbarA_Dbar_LAB(  double Tn_Dbar_proj_LAB, double Tn_Dbar_prod_LAB, int A_target, int N_target, int parametrization  ){
+        
+        
+        double shape = dE_AA_p_LAB( Tn_Dbar_proj_LAB, Tn_Dbar_prod_LAB, 1, 0, A_target, N_target, ANDERSON);
+        
+        double norm_shape = 0;
+        
+        
+        double dlog10T = 0.1;
+        
+        for (double log10T=-7; log10T<log10(Tn_Dbar_proj_LAB); log10T+=dlog10T) {
+            double T = pow(10,log10T);
+            norm_shape += T* dE_AA_p_LAB( Tn_Dbar_proj_LAB, T, 1, 0, 1, 0, ANDERSON);
+        }
+        norm_shape *= dlog10T;
+        
+        
+        double T_pbar = Tn_Dbar_proj_LAB;
+        double norm_XS    = XS_definitions::nar_pbarD(T_pbar);
+        
+        
+        return norm_XS * shape / norm_shape;
+    };
+    
 }
