@@ -12,7 +12,8 @@ namespace CRXS {
         DI_MAURO_II    = 5,
         ANDERSON       = 6,
         WINKLER_SELF   = 7,
-        DI_MAURO_SELF  = 8
+        DI_MAURO_SELF  = 8,
+        APPROX_1_OVER_T= 8,
     };
     enum product{
         P_BAR    = 1,
@@ -307,8 +308,16 @@ namespace CRXS {
         /*!
          *  This cross section is integrated over all angles.
          *
+         *  There are two standard ways to approximated this cross section which has never been measured.
+         *  The energy-differential shape of the XS is either approximated by a the p+p->p+X reaction or
+         *  or taken to be flat.
+         *  In any case the cross section is normalized to the non-annihilating XS of pbar+D->D+X (see XS_definitions::nar_pbarD).
+         *
          *  \param doulbe Tn_Dbar_proj_LAB      Kinetic energy per nucleus of the projectile antideuteron (in the LAB frame)
          *  \param double Tn_Dbar_prod_LAB      Kinetic energy per nucleus of the product    antideuteron (in the LAB frame)
+         *  \param int    A_target              Mass number of the target
+         *  \param int    N_target              Number of neutrons in the target
+         *  \param int    parametrization       Way to approximate the cross section parametrization [ANDERSON, APPROX_1_OVER_T]
          *
          *  \return double XS              Cross section in mbarn/GeV
          */

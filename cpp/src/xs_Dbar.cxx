@@ -95,15 +95,6 @@ namespace CRXS {
         
         XS *= 0.5 * AA * AA_reduced * (  inv_pp_pbar * inv_pp_nbar_reduced   +   inv_pp_nbar * inv_pp_pbar_reduced  );
         
-//        std::cout << " inv_pp_nbar          " << inv_pp_nbar           << std::endl;
-//        std::cout << " inv_pp_nbar_reduced  " << inv_pp_nbar_reduced   << std::endl;
-//        std::cout << " inv_pp_pbar          " << inv_pp_pbar           << std::endl;
-//        std::cout << " inv_pp_pbar_reduced  " << inv_pp_pbar_reduced   << std::endl;
-//        std::cout << " AA                   " << AA                    << std::endl;
-//        std::cout << " AA_reduced           " << AA_reduced            << std::endl;
-        
-        
-        
         return XS;
     }
 
@@ -179,19 +170,24 @@ namespace CRXS {
     
     double XS::dEn_DbarA_Dbar_LAB(  double Tn_Dbar_proj_LAB, double Tn_Dbar_prod_LAB, int A_target, int N_target, int parametrization  ){
         
+        double shape      = 1.;
+        double norm_shape = 0.;
         
-        double shape = dE_AA_p_LAB( Tn_Dbar_proj_LAB, Tn_Dbar_prod_LAB, 1, 0, A_target, N_target, ANDERSON);
-        
-        double norm_shape = 0;
-        
-        
-        double dlog10T = 0.1;
-        
-        for (double log10T=-7; log10T<log10(Tn_Dbar_proj_LAB); log10T+=dlog10T) {
-            double T = pow(10,log10T);
-            norm_shape += T* dE_AA_p_LAB( Tn_Dbar_proj_LAB, T, 1, 0, 1, 0, ANDERSON);
+        if (parametrization==APPROX_1_OVER_T) {
+            norm_shape = 1./Tn_Dbar_proj_LAB;
+        }else if (parametrization==ANDERSON) {
+            shape = dE_AA_p_LAB( Tn_Dbar_proj_LAB, Tn_Dbar_prod_LAB, 1, 0, A_target, N_target, ANDERSON);
+            double dlog10T    = 0.1;
+            for (double log10T=-7; log10T<log10(Tn_Dbar_proj_LAB); log10T+=dlog10T) {
+                double T = pow(10,log10T);
+                norm_shape += T* dE_AA_p_LAB( Tn_Dbar_proj_LAB, T, 1, 0, 1, 0, ANDERSON);
+            }
+            norm_shape *= dlog10T;
+        }else{
+            printf( "Warning in CRXS::XS::dEn_DbarA_Dbar_LAB. Parametrization %i is not known.", parametrization);
+            return 0;
         }
-        norm_shape *= dlog10T;
+        
         
         
         double T_pbar = Tn_Dbar_proj_LAB;
