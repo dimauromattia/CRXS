@@ -13,7 +13,7 @@ namespace CRXS {
         ANDERSON       = 6,
         WINKLER_SELF   = 7,
         DI_MAURO_SELF  = 8,
-        APPROX_1_OVER_T= 8,
+        APPROX_1_OVER_T= 9
     };
     enum product{
         P_BAR    = 1,

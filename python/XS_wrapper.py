@@ -32,7 +32,7 @@ import CRXS.cpp.xs_wrapper    as xs_cpp
 
 
 
-_parametrization={'KORSMEIER_I':1,'KORSMEIER_II':2,'WINKLER':3,'DI_MAURO_I':4,'DI_MAURO_II':5,'ANDERSON':6}
+_parametrization={'KORSMEIER_I':1,'KORSMEIER_II':2,'WINKLER':3,'DI_MAURO_I':4,'DI_MAURO_II':5,'ANDERSON':6,'WINKLER_SELF':7, 'DI_MAURO_SELF':8, 'APPROX_1_OVER_T':9}
 _product        ={'P_BAR':1,'D_BAR':2,'HE_BAR':3, 'P':4}
 _coalescence    ={'FIXED_P0':1,'ENERGY_DEP__VAN_DOETINCHEM':2}
 
@@ -57,7 +57,7 @@ def inv_AA_pbar_CM(s, xF, pT_pbar, A_projectile=1, N_projectile=0, A_target=1, N
         \return double XS             Cross section in mbarn/GeV^2
         """
 
-    return xs_cpp.inv_AA_pbar_CM(s, xF, pT_pbar, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
+    return xs_cpp.inv_AA_pbar_CM(1.0*s, 1.0*xF, 1.0*pT_pbar, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
 
 
 
@@ -78,7 +78,7 @@ def inv_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, eta_LAB, A_projectile=1, N_projecti
         
         \return double XS              Cross section in mbarn/GeV^2
         """
-    return xs_cpp.inv_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, eta_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
+    return xs_cpp.inv_AA_pbar_LAB(1.0*Tn_proj_LAB, 1.0*T_pbar_LAB, 1.0*eta_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
 
 
 def dE_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='KORSMEIER_II'):
@@ -97,7 +97,7 @@ def dE_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, A_projectile=1, N_projectile=0, A_ta
         
         \return double XS              Cross section in mbarn/GeV
         """
-    return xs_cpp.dE_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
+    return xs_cpp.dE_AA_pbar_LAB(1.0*Tn_proj_LAB, 1.0*T_pbar_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
 
 
 def dE_AA_pbar_LAB_incNbarAndHyperon(Tn_proj_LAB, T_pbar_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='KORSMEIER_II'):
@@ -119,7 +119,7 @@ def dE_AA_pbar_LAB_incNbarAndHyperon(Tn_proj_LAB, T_pbar_LAB, A_projectile=1, N_
         
         \return double XS              Cross section in mbarn/GeV
         """
-    return xs_cpp.dE_AA_pbar_LAB_incNbarAndHyperon(Tn_proj_LAB, T_pbar_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
+    return xs_cpp.dE_AA_pbar_LAB_incNbarAndHyperon(1.0*Tn_proj_LAB, 1.0*T_pbar_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
 
 
 
@@ -142,7 +142,7 @@ def inv_AA_p_CM(s, xF, pT_p, A_projectile=1, N_projectile=0, A_target=1, N_targe
 
          \return double XS             Cross section in mbarn/GeV^2
         """
-    return xs_cpp.inv_AA_p_CM(s, xF, pT_p, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
+    return xs_cpp.inv_AA_p_CM(1.0*s, 1.0*xF, 1.0*pT_p, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
 
 def inv_AA_p_LAB(Tn_proj_LAB, T_p_LAB, eta_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='ANDERSON'):
     """
@@ -176,7 +176,7 @@ def dE_AA_p_LAB(Tn_proj_LAB, T_p_LAB, A_projectile=1, N_projectile=0, A_target=1
         \return double XS              Cross section in mbarn/GeV
 
         """
-    return xs_cpp.dE_AA_p_LAB(Tn_proj_LAB, T_p_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
+    return xs_cpp.dE_AA_p_LAB(1.0*Tn_proj_LAB, 1.0*T_p_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization])
 
 
 
@@ -237,7 +237,7 @@ def inv_AA_Dbar_CM(s, xF, pT_Dbar, A_projectile=1, N_projectile=0, A_target=1, N
         \return double XS             Cross section in mbarn/GeV^2
         """
     
-    return xs_cpp.inv_AA_Dbar_CM(s, xF, pT_Dbar, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization], _coalescence[coalescence])
+    return xs_cpp.inv_AA_Dbar_CM(1.0*s, 1.0*xF, 1.0*pT_Dbar, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization], _coalescence[coalescence])
 
 
 
@@ -259,7 +259,7 @@ def inv_AA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, eta_LAB, A_projectile=1, N_project
         
         \return double XS              Cross section in mbarn/GeV^2
         """
-    return xs_cpp.inv_AA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, eta_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization], _coalescence[coalescence])
+    return xs_cpp.inv_AA_Dbar_LAB(1.0*Tn_proj_LAB, 1.0*Tn_Dbar_LAB, 1.0*eta_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization], _coalescence[coalescence])
 
 
 def dEn_AA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, A_projectile=1, N_projectile=0, A_target=1, N_target=0, parametrization='KORSMEIER_II', coalescence='ENERGY_DEP__VAN_DOETINCHEM'):
@@ -279,7 +279,28 @@ def dEn_AA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, A_projectile=1, N_projectile=0, A_
         
         \return double XS              Cross section in mbarn/GeV
         """
-    return xs_cpp.dEn_AA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization], _coalescence[coalescence])
+    return xs_cpp.dEn_AA_Dbar_LAB(1.0*Tn_proj_LAB, 1.0*Tn_Dbar_LAB, int(A_projectile), int(N_projectile), int(A_target), int(N_target), _parametrization[parametrization], _coalescence[coalescence])
+
+def dEn_DbarA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, A_target=1, N_target=0, parametrization='KORSMEIER_II'):
+    """
+        Energy-differential antideuteron cross section for non-annihilating antideuteron reactions on p, A.
+        
+        This cross section is integrated over all angles.
+        
+        There are two standard ways to approximated this cross section which has never been measured.
+        The energy-differential shape of the XS is either approximated by a the p+p->p+X reaction or
+        or taken to be flat.
+        In any case the cross section is normalized to the non-annihilating XS of pbar+D->D+X (see XS_definitions::nar_pbarD).
+        
+        \param doulbe Tn_Dbar_proj_LAB      Kinetic energy per nucleus of the projectile antideuteron (in the LAB frame)
+        \param double Tn_Dbar_prod_LAB      Kinetic energy per nucleus of the product    antideuteron (in the LAB frame)
+        \param int    A_target              Mass number of the target
+        \param int    N_target              Number of neutrons in the target
+        \param int    parametrization       Way to approximate the cross section parametrization [ANDERSON, APPROX_1_OVER_T]
+        
+        \return double XS              Cross section in mbarn/GeV
+        """
+    return xs_cpp.dEn_DbarA_Dbar_LAB(1.0*Tn_proj_LAB, 1.0*Tn_Dbar_LAB, int(A_target), int(N_target), _parametrization[parametrization])
 
 
 

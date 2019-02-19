@@ -132,6 +132,10 @@ def dEn_AA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, A_projectile, N_projectile, A_targ
     return _xs_wrapper.dEn_AA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence)
 dEn_AA_Dbar_LAB = _xs_wrapper.dEn_AA_Dbar_LAB
 
+def dEn_DbarA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, A_target, N_target, parametrization):
+    return _xs_wrapper.dEn_DbarA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, A_target, N_target, parametrization)
+dEn_DbarA_Dbar_LAB = _xs_wrapper.dEn_DbarA_Dbar_LAB
+
 def inv_AA_p_CM(s, xF, pT_p, A_projectile, N_projectile, A_target, N_target, parametrization):
     return _xs_wrapper.inv_AA_p_CM(s, xF, pT_p, A_projectile, N_projectile, A_target, N_target, parametrization)
 inv_AA_p_CM = _xs_wrapper.inv_AA_p_CM

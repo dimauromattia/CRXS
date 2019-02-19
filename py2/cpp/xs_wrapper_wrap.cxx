@@ -3912,6 +3912,64 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_dEn_DbarA_Dbar_LAB(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  int arg3 ;
+  int arg4 ;
+  int arg5 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOO:dEn_DbarA_Dbar_LAB",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(obj0, &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "dEn_DbarA_Dbar_LAB" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "dEn_DbarA_Dbar_LAB" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "dEn_DbarA_Dbar_LAB" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  ecode4 = SWIG_AsVal_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "dEn_DbarA_Dbar_LAB" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = static_cast< int >(val4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "dEn_DbarA_Dbar_LAB" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  result = (double)dEn_DbarA_Dbar_LAB(arg1,arg2,arg3,arg4,arg5);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_inv_AA_p_CM(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   double arg1 ;
@@ -4169,6 +4227,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"inv_AA_Dbar_CM", _wrap_inv_AA_Dbar_CM, METH_VARARGS, NULL},
 	 { (char *)"inv_AA_Dbar_LAB", _wrap_inv_AA_Dbar_LAB, METH_VARARGS, NULL},
 	 { (char *)"dEn_AA_Dbar_LAB", _wrap_dEn_AA_Dbar_LAB, METH_VARARGS, NULL},
+	 { (char *)"dEn_DbarA_Dbar_LAB", _wrap_dEn_DbarA_Dbar_LAB, METH_VARARGS, NULL},
 	 { (char *)"inv_AA_p_CM", _wrap_inv_AA_p_CM, METH_VARARGS, NULL},
 	 { (char *)"inv_AA_p_LAB", _wrap_inv_AA_p_LAB, METH_VARARGS, NULL},
 	 { (char *)"dE_AA_p_LAB", _wrap_dE_AA_p_LAB, METH_VARARGS, NULL},
