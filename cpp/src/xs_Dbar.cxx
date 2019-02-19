@@ -174,7 +174,7 @@ namespace CRXS {
         double norm_shape = 0.;
         
         if (parametrization==APPROX_1_OVER_T) {
-            norm_shape = 1./Tn_Dbar_proj_LAB;
+            norm_shape = Tn_Dbar_proj_LAB;
         }else if (parametrization==ANDERSON) {
             shape = dE_AA_p_LAB( Tn_Dbar_proj_LAB, Tn_Dbar_prod_LAB, 1, 0, A_target, N_target, ANDERSON);
             double dlog10T    = 0.1;
