@@ -39,7 +39,7 @@ double dEn_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, int A_projectile
 };
 
 double dEn_DbarA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, int A_target, int N_target, int parametrization ){
-    return CRXS::XS::dEn_AA_Dbar_LAB( Tn_proj_LAB, Tn_Dbar_LAB, A_target, N_target, parametrization );
+    return CRXS::XS::dEn_DbarA_Dbar_LAB( Tn_proj_LAB, Tn_Dbar_LAB, A_target, N_target, parametrization );
 };
 
 // p

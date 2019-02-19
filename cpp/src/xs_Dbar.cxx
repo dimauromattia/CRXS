@@ -173,8 +173,11 @@ namespace CRXS {
         double shape      = 1.;
         double norm_shape = 0.;
         
+        double log_10 = log(10);
+        
         if (parametrization==APPROX_1_OVER_T) {
             norm_shape = Tn_Dbar_proj_LAB;
+            if(Tn_Dbar_prod_LAB>Tn_Dbar_proj_LAB) shape=0;
         }else if (parametrization==ANDERSON) {
             shape = dE_AA_p_LAB( Tn_Dbar_proj_LAB, Tn_Dbar_prod_LAB, 1, 0, A_target, N_target, ANDERSON);
             double dlog10T    = 0.1;
@@ -182,17 +185,22 @@ namespace CRXS {
                 double T = pow(10,log10T);
                 norm_shape += T* dE_AA_p_LAB( Tn_Dbar_proj_LAB, T, 1, 0, 1, 0, ANDERSON);
             }
-            norm_shape *= dlog10T;
+            norm_shape *= dlog10T * log_10;
         }else{
             printf( "Warning in CRXS::XS::dEn_DbarA_Dbar_LAB. Parametrization %i is not known.", parametrization);
             return 0;
         }
         
-        
-        
-        double T_pbar = Tn_Dbar_proj_LAB;
+        double T_pbar     = Tn_Dbar_proj_LAB;
         double norm_XS    = XS_definitions::nar_pbarD(T_pbar);
         
+        
+//        std::cout << Tn_Dbar_proj_LAB << std::endl;
+//        std::cout << Tn_Dbar_prod_LAB << std::endl;
+//        std::cout << norm_XS << std::endl;
+//        std::cout << shape   << std::endl;
+//        std::cout << norm_XS << std::endl;
+//        std::cout << " " << std::endl;
         
         return norm_XS * shape / norm_shape;
     };
