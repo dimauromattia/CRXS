@@ -19,7 +19,7 @@ To install this sofware do the following.
 **********************
 
 - gsl 
-- cmake 
+- cmake    (min version 3.2)
 - swig     (optional)
 - python 2 (optional)
 - python 3 (optional)
@@ -41,7 +41,16 @@ to build everything, simply use
 
 $ make
 
-Otherwise you can use the options: 
+The c++ library is build shared. You should add "<MySoftwareDirectory>/cpp/lib" to
+your LD_LIBRARY_PATH (Mac: DYLD_LIBRARY_PATH) library path.
+
+$ export LD_LIBRARY_PATH=<MySoftwareDirectory>cpp/lib:$LD_LIBRARY_PATH
+
+To permanently add the library to the LD_LIBRARY path add this
+line in your ~/.bashrc (Mac: ~/.profile).
+
+
+Further options:
   1) build, to build only the c++ library
   2) example, to build the example.cpp which links to the CRXS library
   3) debug, to build the c++ library with debug symbols
@@ -73,9 +82,9 @@ If you do not want to link the package to your python version you have
 to create a symbolic link of the py2 or py3 directory in the directory 
 where you want to use the package. 
 
-$ ln -s PATH_TO_CRXS/py2 CRXS
+$ ln -s <MySoftwareDirectory>/py2 CRXS
 
-To include the package use
+To include the packages use
 
 import CRXS.XS_wrapper
 import CRXS.XS_tools

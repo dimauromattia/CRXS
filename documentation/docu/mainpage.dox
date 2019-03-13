@@ -50,7 +50,18 @@
  *  $ make
  *  \endcode
  *
- *  Otherwise you can use the options:
+ *  The c++ library is build shared. You should add "<MySoftwareDirectory>/cpp/lib" to
+ *  your LD_LIBRARY_PATH (Mac: DYLD_LIBRARY_PATH) library path.
+ *
+ *  \code
+ *  $ export LD_LIBRARY_PATH=<MySoftwareDirectory>cpp/lib:$LD_LIBRARY_PATH
+ *  \endcode
+ *
+ *  To permanently add the library to the LD_LIBRARY path add this
+ *  line in your ~/.bashrc (Mac: ~/.profile).
+ *
+ *
+ *  Further options:
  *  1. build, to build only the c++ library
  *  2. example, to build the example.cpp which links to the CRXS library
  *  3. debug, to build the c++ library with debug symbols
