@@ -13,8 +13,8 @@
 
 namespace CRXS {
     double XS_definitions::fMass_proton   = 0.9382720813;
-    double XS_definitions::fMass_neutron  = 0.9382720813;   //FIXME
-    double XS_definitions::fMass_deuteron = 0.9382720813*2; //FIXME
+    double XS_definitions::fMass_neutron  = 0.9395654133;
+    double XS_definitions::fMass_deuteron = 1.8756; // 0.9382720813*2;
     double XS_definitions::fMass_helium3  = 0.9382720813*3; //FIXME
     
     double XS_definitions::inv_pp_pbar_CM__Winkler(double s, double E_pbar_d, double pT_pbar, double* C_array, int len_C_array){
