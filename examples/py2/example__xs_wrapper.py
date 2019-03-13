@@ -4,7 +4,6 @@ import numpy  as np
 import scipy.integrate   as     integrate
 import math
 
-
 # Include the python wrapper for the cpp functions
 import CRXS.XS_wrapper as XS
 

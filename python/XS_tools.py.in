@@ -11,7 +11,7 @@ import numpy  as np
 import scipy.integrate   as integrate
 import math
 
-import CRXS.cpp.xs_tools      as cpp_xs
+import @INPORT_crxs@     as cpp_xs
 
 
 fMass_proton         = 0.9382720813;     # PDG Review 2016

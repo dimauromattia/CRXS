@@ -12,7 +12,7 @@ import numpy  as np
 import scipy.integrate   as     integrate
 import math
 
-import CRXS.cpp.xs_wrapper    as xs_cpp
+import @INPORT_crxs@     as xs_cpp
 
 
 # ------------------------------------------------------------- #

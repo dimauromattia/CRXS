@@ -22,7 +22,7 @@ rm -rf __pycache__ *.pyc build  xs_wrapper.py xs_wrapper_wrap.cxx  _xs_wrapper*.
 popd
 
 pushd $DIRNAME/py2
-rm -rf __pycache__ *.pyc
+rm -rf __pycache__ *.pyc XS_tools.py XS_wrapper.py
 popd
 
 pushd $DIRNAME/py2/cpp
@@ -31,6 +31,5 @@ rm -rf __pycache__ *.pyc build  xs_wrapper.py xs_wrapper_wrap.cxx  _xs_wrapper*.
 popd
 
 pushd $DIRNAME/py3
-rm -rf __pycache__ *.pyc
+rm -rf __pycache__ *.pyc XS_tools.py XS_wrapper.py
 popd
-
