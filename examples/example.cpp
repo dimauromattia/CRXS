@@ -28,5 +28,10 @@ int main(){
     std::cout << "XS::dEn_AA_Dbar_LAB(100, 10, -1, 0, 1, 0, 2, 1)" << std::endl;
     std::cout <<  XS::dEn_AA_Dbar_LAB(100, 10, -1, 0, 1, 0, 2, 1)  << std::endl;
     
-    
+    std::cout << "XS::p_coal__VonDoetinchen(90)" << std::endl;
+    std::cout <<  XS::p_coal__VonDoetinchen(90*90)  << std::endl;
+
+    std::cout << "XS::p_coal__VonDoetinchen(200)" << std::endl;
+    std::cout <<  XS::p_coal__VonDoetinchen(200*200)  << std::endl;
+
 };

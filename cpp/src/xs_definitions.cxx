@@ -166,8 +166,8 @@ namespace CRXS {
         if( x_F < -0.2499 ) return 0;
         if( x_F >  0.25   ) return 1;
         
-        double xF[] = {-0.25, -0.225, -0.2, -0.175, -0.15, -0.125, -0.1, -0.075, -0.05, -0.025, 0., 0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25};
-        double F[]  = {0., 0.0003, 0.0008, 0.0027, 0.010, 0.035, 0.110, 0.197, 0.295, 0.4, 0.5, 0.6, 0.705, 0.803, 0.890, 0.965, 0.990, 0.9973, 0.9992, 0.9997, 1.0};
+        double xF[] = {-0.25, -0.225, -0.2,   -0.175, -0.15, -0.125, -0.1,  -0.075, -0.05, -0.025, 0.,  0.025, 0.05,  0.075, 0.1,   0.125, 0.15, 0.175,   0.2,   0.225,   0.25 };
+        double F [] = {0.   , 0.0003, 0.0008, 0.0027, 0.010, 0.035,  0.110, 0.197,  0.295,  0.4,   0.5, 0.6,   0.705, 0.803, 0.890, 0.965, 0.990, 0.9973, 0.9992, 0.9997, 1.0  };
         
         double xl = 0;
         double xu = 1;
@@ -278,6 +278,16 @@ namespace CRXS {
 
         double proj = pow(A_projectile, D_array[2])*(1+deltaIsospin(s,&C_array[0])*N_projectile/A_projectile)*pbar_overlap_function_projectile( xF );
         double targ = pow(A_target,     D_array[2])*(1+deltaIsospin(s,&C_array[0])*N_target    /A_target    )*pbar_overlap_function_target    ( xF );
+        
+//        if(parametrization==WINKLER){
+//            //            proj = A_target     * pow( A_projectile,0.84 ) * pbar_overlap_function_target    ( xF );
+//            //            targ = A_projectile * pow( A_target    ,0.84 ) * pbar_overlap_function_projectile( xF );
+//            
+//            proj = 1.25 * (1+deltaIsospin(s,&C_array[0])*N_projectile/A_projectile) * pbar_overlap_function_projectile( xF );
+//            targ =        (1+deltaIsospin(s,&C_array[0])*N_target    /A_target    ) * pbar_overlap_function_target    ( xF );
+//
+//            return 4./1.25 * ( proj + targ );
+//        }
         
         return pow(A_projectile*A_target, D_array[1])*( proj + targ );
     }

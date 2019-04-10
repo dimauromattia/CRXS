@@ -36,7 +36,7 @@ namespace CRXS {
         E_product            =      gamma * E_product_LAB - gammabeta * p_product_LAB*tanh(eta_LAB);
         double pL_product    = -gammabeta * E_product_LAB + gamma     * p_product_LAB*tanh(eta_LAB);
         
-        pT_product              = p_product_LAB/cosh(eta_LAB);
+        pT_product           = p_product_LAB/cosh(eta_LAB);
         //x_R                  = E_product/E_product_Max;
         //double E_product_Max    = ( s-8.*XS_definitions::fMass_proton*XS_definitions::fMass_proton )/2./sqrt( s );
         
