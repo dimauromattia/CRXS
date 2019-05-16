@@ -241,8 +241,10 @@ namespace CRXS {
         static double diMauro_I_C1_to_C11   [12];
         static double diMauro_II_C1_to_C11  [12];
         
-        static double Winkler_C1_to_C16     [17];
-        static double Korsmeier_II_C1_to_C16[17];
+        static double Winkler_C1_to_C16      [17];
+        static double Winkler_II_C1_to_C16   [17];
+        static double Korsmeier_II_C1_to_C16 [17];
+        static double Korsmeier_III_C1_to_C16[17];
         
         static double diMauro_I_C1_to_C16   [17];
         static double diMauro_II_C1_to_C16  [17];
@@ -250,7 +252,9 @@ namespace CRXS {
         
         static double Korsmeier_I_D1_to_D2   [3];
         static double Korsmeier_II_D1_to_D2  [3];
+        static double Korsmeier_III_D1_to_D2 [3];
         static double Winkler_D1_to_D2       [3];
+        static double Winkler_II_D1_to_D2    [3];
         static double diMauro_I_D1_to_D2     [3];
         static double diMauro_II_D1_to_D2    [3];
         

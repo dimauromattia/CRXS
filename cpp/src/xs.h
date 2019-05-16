@@ -5,15 +5,17 @@
 namespace CRXS {
     
     enum parametrization{
-        KORSMEIER_I    = 1,
-        KORSMEIER_II   = 2,
-        WINKLER        = 3,
-        DI_MAURO_I     = 4,
-        DI_MAURO_II    = 5,
-        ANDERSON       = 6,
-        WINKLER_SELF   = 7,
-        DI_MAURO_SELF  = 8,
-        APPROX_1_OVER_T= 9
+        KORSMEIER_I    =  1,
+        KORSMEIER_II   =  2,
+        WINKLER        =  3,
+        DI_MAURO_I     =  4,
+        DI_MAURO_II    =  5,
+        ANDERSON       =  6,
+        WINKLER_SELF   =  7,
+        DI_MAURO_SELF  =  8,
+        APPROX_1_OVER_T=  9,
+        WINKLER_II     = 10,
+        KORSMEIER_III  = 11
     };
     enum product{
         P_BAR    = 1,

@@ -14,11 +14,12 @@
 namespace CRXS {
     double XS_definitions::fMass_proton   = 0.9382720813;
     double XS_definitions::fMass_neutron  = 0.9395654133;
-    double XS_definitions::fMass_deuteron = 1.8756; // 0.9382720813*2;
+    double XS_definitions::fMass_deuteron = 1.8756;         // 0.9382720813*2;
     double XS_definitions::fMass_helium3  = 0.9382720813*3; //FIXME
     
     double XS_definitions::inv_pp_pbar_CM__Winkler(double s, double E_pbar_d, double pT_pbar, double* C_array, int len_C_array){
         
+        C_array_to_double( 0);
         C_array_to_double( 5);
         C_array_to_double( 6);
         C_array_to_double( 7);
@@ -45,7 +46,7 @@ namespace CRXS {
         
         double R = 1.;
         if (sqrt(s)<10) {
-            R = (1 +C9*pow(10-sqrt(s),5))  *  exp(C10*(10-sqrt(s))*pow(x_R-fMass_proton/E_pbar_Max, 2));
+            R = (1 +C9*pow(10-sqrt(s),5))  *  exp(C10*pow(10-sqrt(s),C0)*pow(x_R-fMass_proton/E_pbar_Max, 2));
         }
         double sigma_in = C11 +C12*log(sqrt(s)) + C13*pow(log(sqrt(s)), 2);
         double X = C8 * pow(log(sqrt(s)/4./fMass_proton),2);
@@ -198,8 +199,12 @@ namespace CRXS {
              return Korsmeier_I_D1_to_D2;
         }else if(parametrization==CRXS::KORSMEIER_II){
             return Korsmeier_II_D1_to_D2;
+        }else if(parametrization==CRXS::KORSMEIER_III){
+            return Korsmeier_III_D1_to_D2;
         }else if(parametrization==CRXS::WINKLER){
             return Winkler_D1_to_D2;
+        }else if(parametrization==CRXS::WINKLER_II){
+            return Winkler_II_D1_to_D2;
         }else if(parametrization==CRXS::DI_MAURO_I){
             return diMauro_I_D1_to_D2;
         }else if(parametrization==CRXS::DI_MAURO_II){
@@ -222,8 +227,12 @@ namespace CRXS {
             return Korsmeier_I_C1_to_C11;
         }else if(parametrization==CRXS::KORSMEIER_II){
             return Korsmeier_II_C1_to_C16;
+        }else if(parametrization==CRXS::KORSMEIER_III){
+            return Korsmeier_III_C1_to_C16;
         }else if(parametrization==CRXS::WINKLER){
             return Winkler_C1_to_C16;
+        }else if(parametrization==CRXS::WINKLER_II){
+            return Winkler_II_C1_to_C16;
         }else if(parametrization==CRXS::DI_MAURO_I){
             return diMauro_I_C1_to_C11;
         }else if(parametrization==CRXS::DI_MAURO_II){
@@ -245,8 +254,12 @@ namespace CRXS {
             return Korsmeier_II_C1_to_C16; // is correct since KORSMEIER I and II use same isospin parameters
         }else if(parametrization==CRXS::KORSMEIER_II){
             return Korsmeier_II_C1_to_C16;
+        }else if(parametrization==CRXS::KORSMEIER_III){
+            return Korsmeier_III_C1_to_C16;
         }else if(parametrization==CRXS::WINKLER){
             return Winkler_C1_to_C16;
+        }else if(parametrization==CRXS::WINKLER_II){
+            return Winkler_II_C1_to_C16;
         }else if(parametrization==CRXS::DI_MAURO_I){
             return diMauro_I_C1_to_C16;
         }else if(parametrization==CRXS::DI_MAURO_II){
@@ -276,23 +289,17 @@ namespace CRXS {
             return pow(A_projectile*A_target, D_array[1]);
         }
 
-        double proj = pow(A_projectile, D_array[2])*(1+deltaIsospin(s,&C_array[0])*N_projectile/A_projectile)*pbar_overlap_function_projectile( xF );
-        double targ = pow(A_target,     D_array[2])*(1+deltaIsospin(s,&C_array[0])*N_target    /A_target    )*pbar_overlap_function_target    ( xF );
+        double proj = pow(A_projectile, D_array[2])*(1+   deltaIsospin(s,&C_array[0])*N_projectile/A_projectile)*pbar_overlap_function_projectile( xF );
+        double targ = pow(A_target,     D_array[2])*(1+   deltaIsospin(s,&C_array[0])*N_target    /A_target    )*pbar_overlap_function_target    ( xF );
         
-//        if(parametrization==WINKLER){
-//            //            proj = A_target     * pow( A_projectile,0.84 ) * pbar_overlap_function_target    ( xF );
-//            //            targ = A_projectile * pow( A_target    ,0.84 ) * pbar_overlap_function_projectile( xF );
-//            
-//            proj = 1.25 * (1+deltaIsospin(s,&C_array[0])*N_projectile/A_projectile) * pbar_overlap_function_projectile( xF );
-//            targ =        (1+deltaIsospin(s,&C_array[0])*N_target    /A_target    ) * pbar_overlap_function_target    ( xF );
-//
-//            return 4./1.25 * ( proj + targ );
-//        }
+        if(parametrization==WINKLER || parametrization==WINKLER_II){
+            proj    = pow(A_projectile, D_array[2])*(1+0.*deltaIsospin(s,&C_array[0])*N_projectile/A_projectile)*pbar_overlap_function_projectile( xF );
+            targ    = pow(A_target,     D_array[2])*(1+0.*deltaIsospin(s,&C_array[0])*N_target    /A_target    )*pbar_overlap_function_target    ( xF );
+        }
         
         return pow(A_projectile*A_target, D_array[1])*( proj + targ );
     }
     
-
     double XS_definitions::inv_pp_p_CM__Anderson(double s, double E_p, double pT_p, double* C_array, int len_C_array){
         E_p = fabs(E_p);
         if (s<4*E_p*E_p)
@@ -344,9 +351,11 @@ namespace CRXS {
     //
     //                                                [ C0,    C1,     C2,   C3,     C4,   C5,          C6,      C7,          C8,    C9,          C10,         C11,   C12,    C13,   C14,   C15,    C16  ]
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    double XS_definitions::Winkler_C1_to_C16     [] = {  -1,   0.31,   0.30, 21316., 0.9,  0.047,       7.76,    0.168,       0.038, 1.0e-3,      0.7,         30.9,  -1.74,  0.71,  0.114, 20736., 0.51 };
-    double XS_definitions::Korsmeier_II_C1_to_C16[] = {  -1,   0.31,   0.30, 21316., 0.9,  5.01767e-02, 7.79045, 1.64809e-01, 0.038, 4.74370e-04, 3.70480e+00, 30.9,  -1.74,  0.71,  0.114, 20736., 0.51 };
-    double XS_definitions::Winkler_SELF_C1_to_C16[] = {  -1,   0.31,   0.30, 21316., 0.9,  5.01767e-02, 7.79045, 1.64809e-01, 0.038, 4.74370e-04, 3.70480e+00, 30.9,  -1.74,  0.71,  0.114, 20736., 0.51 };
+    double XS_definitions::Winkler_C1_to_C16      [] = {   1,   0.31,   0.30, 21316., 0.9,  0.047,       7.76,    0.168,       0.038, 1.0e-3,      0.7,         30.9,  -1.74,  0.71,  0.114, 20736., 0.51 };
+    double XS_definitions::Winkler_II_C1_to_C16   [] = {   2,   0.31,   0.30, 21316., 0.9,  0.047,       7.76,    0.168,       0.038, 1.0e-3,      0.7,         30.9,  -1.74,  0.71,  0.114, 20736., 0.51 };
+    double XS_definitions::Korsmeier_II_C1_to_C16 [] = {   1,   0.31,   0.30, 21316., 0.9,  5.01767e-02, 7.79045, 1.64809e-01, 0.038, 4.74370e-04, 3.70480e+00, 30.9,  -1.74,  0.71,  0.114, 20736., 0.51 };
+    double XS_definitions::Korsmeier_III_C1_to_C16[] = {   2,   0.31,   0.30, 21316., 0.9,  5.01767e-02, 7.79045, 1.64809e-01, 0.038, 4.74370e-04, 3.70480e+00, 30.9,  -1.74,  0.71,  0.114, 20736., 0.51 };
+    double XS_definitions::Winkler_SELF_C1_to_C16 [] = {   1,   0.31,   0.30, 21316., 0.9,  5.01767e-02, 7.79045, 1.64809e-01, 0.038, 4.74370e-04, 3.70480e+00, 30.9,  -1.74,  0.71,  0.114, 20736., 0.51 };
     
     // This array contains only the isospin and hyperon parameters, all others are set to 0
     double XS_definitions::diMauro_SELF_C1_to_C16[] = {  -1,   0.31,   0.30, 21316., 0.9,  0,           0,       0,           0,     0,           0,           0,      0,     0,     0.114, 20736., 0.51 };
@@ -366,7 +375,9 @@ namespace CRXS {
     //                                                [  D0,  D1,    D2     ]
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     double XS_definitions::Korsmeier_II_D1_to_D2 [] = {  -1, 0.828, 0.145  };
+    double XS_definitions::Korsmeier_III_D1_to_D2[] = {  -1, 0.828, 0.145  };
     double XS_definitions::Winkler_D1_to_D2      [] = {  -1, 0.839, 0.161  };      // value of <nu_He>=1.25 is translated to D_1 and D_2 (see Korsmeier et al. 2018)
+    double XS_definitions::Winkler_II_D1_to_D2   [] = {  -1, 0.839, 0.161  };      // value of <nu_He>=1.25 is translated to D_1 and D_2 (see Korsmeier et al. 2018)
     double XS_definitions::Winkler_SELF_D1_to_D2 [] = {  -1, 0.828, 0.145  };
     
     double XS_definitions::Dummy                 [] = {  -1  };
