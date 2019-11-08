@@ -1,6 +1,7 @@
 #ifndef CRXS__XS_H
 #define CRXS__XS_H
 
+#include "linAlg_tools.h"
 
 namespace CRXS {
     
@@ -392,9 +393,35 @@ namespace CRXS {
         static void Set_SELF_D_parameters_Winkler(double* D);
         
         
+        
+        static bool     fIsRestricted_pp;
+        static void     SetRestricted_pp     ( bool is_pp ){fIsRestricted_pp=is_pp;};
+        
+        static bool     isInRestricted_CM                  ( double s, double xf, double pT );
+        static void     SetRestrictedParameterSpace_CM     ( double s, double xf, double pT );
+        static void     RemoveRestrictedParameterSpace_CM  (  );
+        static int      fRestrictedParameterSpace_CM;
+        static double   fRestrictedParameterSpace_CM__s    [103];
+        static double   fRestrictedParameterSpace_CM__xf   [103];
+        static double   fRestrictedParameterSpace_CM__pT   [103];
+        
+        
+        
+        static bool     isInRestricted_LAB                  ( double Tp, double Tpbar, double eta );
+        static void     SetRestrictedParameterSpace_LAB     ( double Tp, double Tpbar, double eta );
+        static void     RemoveRestrictedParameterSpace_LAB  (  );
+        static int      fRestrictedParameterSpace_LAB;
+        static double   fRestrictedParameterSpace_LAB__Tp   [103];
+        static double   fRestrictedParameterSpace_LAB__Tpbar[103];
+        static double   fRestrictedParameterSpace_LAB__eta  [103];
+        
+        //        static double fRestrictedParameterSpace_LAB__Tp_Tpbar_eta[100][3];
+        
+        
+
     private:
-
-
+        
+        
 
 
         

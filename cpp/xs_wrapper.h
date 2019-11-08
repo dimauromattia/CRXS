@@ -1,4 +1,9 @@
 
+// general
+
+void SetIntegrationMethod( int method );
+void SetTrapezeIntegrationSteps( int steps );
+
 // pbar
 double inv_AA_pbar_CM( double s, double xF, double pT_pbar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization);
 double inv_AA_pbar_LAB( double Tn_proj_LAB, double T_pbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization );
@@ -7,6 +12,14 @@ double dE_AA_pbar_LAB_incNbarAndHyperon(double Tn_proj_LAB, double T_pbar_LAB, i
 
 double tot_pp__diMauro(double s);
 double el_pp__diMauro (double s);
+
+void SetRestrictedParameterSpace_LAB( double Tp, double Tpbar, double eta );
+void RemoveRestrictedParameterSpace_LAB(  );
+
+void SetRestrictedParameterSpace_CM( double s, double xF, double pT );
+void RemoveRestrictedParameterSpace_CM(  );
+
+void SetRestricted_pp( bool is_pp );
 
 // Dbar
 double inv_AA_Dbar_CM( double s, double xF_Dbar, double pT_Dbar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence);

@@ -96,6 +96,14 @@ except __builtin__.Exception:
     _newclass = 0
 
 
+def SetIntegrationMethod(method: 'int') -> "void":
+    return _xs_wrapper.SetIntegrationMethod(method)
+SetIntegrationMethod = _xs_wrapper.SetIntegrationMethod
+
+def SetTrapezeIntegrationSteps(steps: 'int') -> "void":
+    return _xs_wrapper.SetTrapezeIntegrationSteps(steps)
+SetTrapezeIntegrationSteps = _xs_wrapper.SetTrapezeIntegrationSteps
+
 def inv_AA_pbar_CM(s: 'double', xF: 'double', pT_pbar: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int') -> "double":
     return _xs_wrapper.inv_AA_pbar_CM(s, xF, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization)
 inv_AA_pbar_CM = _xs_wrapper.inv_AA_pbar_CM
@@ -119,6 +127,26 @@ tot_pp__diMauro = _xs_wrapper.tot_pp__diMauro
 def el_pp__diMauro(s: 'double') -> "double":
     return _xs_wrapper.el_pp__diMauro(s)
 el_pp__diMauro = _xs_wrapper.el_pp__diMauro
+
+def SetRestrictedParameterSpace_LAB(Tp: 'double', Tpbar: 'double', eta: 'double') -> "void":
+    return _xs_wrapper.SetRestrictedParameterSpace_LAB(Tp, Tpbar, eta)
+SetRestrictedParameterSpace_LAB = _xs_wrapper.SetRestrictedParameterSpace_LAB
+
+def RemoveRestrictedParameterSpace_LAB() -> "void":
+    return _xs_wrapper.RemoveRestrictedParameterSpace_LAB()
+RemoveRestrictedParameterSpace_LAB = _xs_wrapper.RemoveRestrictedParameterSpace_LAB
+
+def SetRestrictedParameterSpace_CM(s: 'double', xF: 'double', pT: 'double') -> "void":
+    return _xs_wrapper.SetRestrictedParameterSpace_CM(s, xF, pT)
+SetRestrictedParameterSpace_CM = _xs_wrapper.SetRestrictedParameterSpace_CM
+
+def RemoveRestrictedParameterSpace_CM() -> "void":
+    return _xs_wrapper.RemoveRestrictedParameterSpace_CM()
+RemoveRestrictedParameterSpace_CM = _xs_wrapper.RemoveRestrictedParameterSpace_CM
+
+def SetRestricted_pp(is_pp: 'bool') -> "void":
+    return _xs_wrapper.SetRestricted_pp(is_pp)
+SetRestricted_pp = _xs_wrapper.SetRestricted_pp
 
 def inv_AA_Dbar_CM(s: 'double', xF_Dbar: 'double', pT_Dbar: 'double', A_projectile: 'int', N_projectile: 'int', A_target: 'int', N_target: 'int', parametrization: 'int', coalescence: 'int') -> "double":
     return _xs_wrapper.inv_AA_Dbar_CM(s, xF_Dbar, pT_Dbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence)

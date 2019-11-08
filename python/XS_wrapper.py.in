@@ -305,7 +305,30 @@ def dEn_DbarA_Dbar_LAB(Tn_proj_LAB, Tn_Dbar_LAB, A_target=1, N_target=0, paramet
 
 
 
+def SetRestrictedParameterSpace_LAB( Tp, Tpbar, eta ):
+    xs_cpp.SetRestrictedParameterSpace_LAB( Tp, Tpbar, eta )
+def RemoveRestrictedParameterSpace_LAB(  ):
+    xs_cpp.RemoveRestrictedParameterSpace_LAB()
 
+def SetRestrictedParameterSpace_CM( s, xF, pT ):
+    xs_cpp.SetRestrictedParameterSpace_CM( s, xF, pT )
+def RemoveRestrictedParameterSpace_CM(  ):
+    xs_cpp.RemoveRestrictedParameterSpace_CM()
+
+def SetRestricted_pp( is_pp ):
+    xs_cpp.SetRestricted_pp( is_pp )
+
+def SetIntegrationMethod( method ):
+    if method=='GSL':
+        xs_cpp.SetIntegrationMethod( 1 )
+        return
+    if method=='TRAPEZE':
+        xs_cpp.SetIntegrationMethod( 2 )
+        return
+    print( 'CRXS::XS_wrapper::SetIntegrationMethod: Cannot find your method "%s"' % method )
+
+def SetTrapezeIntegrationSteps(steps):
+    xs_cpp.SetTrapezeIntegrationSteps(steps)
 
 
 

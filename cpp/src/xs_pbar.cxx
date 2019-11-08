@@ -1,19 +1,28 @@
 #include "math.h"
 #include "iostream"
+#include "crxs.h"
 
 #include "gsl_integration.h"
 
 #include "xs.h"
 #include "xs_definitions.h"
 
+#include "linAlg_tools.h"
 namespace CRXS {
    
+    
     
     double XS::inv_AA_pbar_CM( double s, double xF, double pT_pbar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization){
         
         double pL_pbar = xF*sqrt(s)/2.;
         double E_pbar  = sqrt( XS_definitions::fMass_proton*XS_definitions::fMass_proton + pL_pbar*pL_pbar + pT_pbar*pT_pbar );
-        
+        if (fRestrictedParameterSpace_CM) {
+            if(fIsRestricted_pp){
+                if(!(isInRestricted_CM(s, -xF, pT_pbar)||isInRestricted_CM(s, xF, pT_pbar))) return 0;
+            }else{
+                if(!isInRestricted_CM(s, xF, pT_pbar)) return 0;
+            }
+        }
         if      (  parametrization==KORSMEIER_II  ){
             double pp = XS_definitions::inv_pp_pbar_CM__Winkler(s, E_pbar, pT_pbar, XS_definitions::Korsmeier_II_C1_to_C16 ) ;
             double AA = XS_definitions::factor__AA( s, xF, A_projectile, N_projectile, A_target, N_target, parametrization );
@@ -59,6 +68,13 @@ namespace CRXS {
     double XS::inv_AA_pbar_LAB( double Tn_proj_LAB, double T_pbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization){
         double s, E_pbar, pT_pbar, x_F;
         convert_LAB_to_CM( Tn_proj_LAB, T_pbar_LAB, eta_LAB, s, E_pbar, pT_pbar, x_F );
+        if (fRestrictedParameterSpace_LAB) {
+            if(fIsRestricted_pp){
+                if(!(isInRestricted_LAB(Tn_proj_LAB, T_pbar_LAB, -eta_LAB)||isInRestricted_LAB(Tn_proj_LAB, T_pbar_LAB, eta_LAB))) return 0;
+            }else{
+                if(!isInRestricted_LAB(Tn_proj_LAB, T_pbar_LAB, eta_LAB)) return 0;
+            }
+        }
         return inv_AA_pbar_CM(s, x_F, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization);
     }
     
@@ -89,24 +105,25 @@ namespace CRXS {
         }
         double Jacobian_and_conversion      = 2*3.1415926536*p_pbar_LAB;
         // it contains: phi_integration (2 pi), inv to d3p (1/E_pbar_LAB), Jacobian(p_pbar_Lab*p_pbar_Lab), dp to dE (E_pbar_LAB/p_pbar_Lab)
-        double epsabs = 0;
-        double epsrel = 1e-4;
-        double res, err;
-        size_t neval;
         double par[] = { Tn_proj_LAB, T_pbar_LAB, 1.0001*A_projectile, 1.0001*N_projectile, 1.0001*A_target, 1.0001*N_target, 1.0001*parametrization };
         
-        gsl_integration_workspace * w = gsl_integration_workspace_alloc (1000);
-        
-        gsl_function F;
-        F.function = &integrand__dE_AA_pbar_LAB;
-        F.params = &par[0];
-        
-        gsl_integration_qag(&F, 0, 50, epsabs, epsrel, 1000, 2, w, &res, &err);
-        
-        
-        if(err/res>epsrel){
-            printf( "Warning in CRXS::XS::dE_AA_pbar_LAB. Integral accuarcy of %f is below required value of %f. \n", err/res, epsrel);
+        double res, err;
+        if(CRXS_config::IntegrationMethod==GSL){
+            double epsabs = 0;
+            double epsrel = 1e-4;
+            //size_t neval;
+            gsl_integration_workspace * w = gsl_integration_workspace_alloc (1000);
+            gsl_function F;
+            F.function = &integrand__dE_AA_pbar_LAB;
+            F.params = &par[0];
+            gsl_integration_qag(&F, 0, 50, epsabs, epsrel, 1000, 2, w, &res, &err);
+            if(err/res>epsrel){
+                printf( "Warning in CRXS::XS::dE_AA_pbar_LAB. Integral accuarcy of %f is below required value of %f. \n", err/res, epsrel);
+            }
+        }else if (CRXS_config::IntegrationMethod==TRAPEZE){
+            res = CRXS::Integration::integrate_trapeze( integrand__dE_AA_pbar_LAB, 0, 50, &par[0] );
         }
+        
         
         res *=  Jacobian_and_conversion;
         return res;

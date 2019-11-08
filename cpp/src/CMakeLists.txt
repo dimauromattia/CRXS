@@ -10,7 +10,9 @@ add_library(CRXS SHARED crxs.h
                         xs_pbar.cxx
                         xs_p.cxx
                         xs_Dbar.cxx
-                        xs.h                )
+                        xs.h
+                        linAlg_tools.cxx
+                        linAlg_tools.h           )
 
 
 target_link_libraries(CRXS GSL::gsl GSL::gslcblas)
@@ -18,5 +20,6 @@ target_link_libraries(CRXS GSL::gsl GSL::gslcblas)
 file(  COPY xs_definitions.h    DESTINATION ${INCLUDE}  )
 file(  COPY xs.h                DESTINATION ${INCLUDE}  )
 file(  COPY crxs.h              DESTINATION ${INCLUDE}  )
+file(  COPY linAlg_tools.h      DESTINATION ${INCLUDE}  )
 
 #add_subdirectory(example)

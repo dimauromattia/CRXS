@@ -8,6 +8,7 @@ namespace CRXS {
         std::string dir = "@CMAKE_DATA_DIRECTORY@";
         return dir;
     }
+    int CRXS_config::IntegrationMethod = TRAPEZE;
 }
 
 
