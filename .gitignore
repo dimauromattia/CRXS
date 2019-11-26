@@ -6,6 +6,7 @@ lib
 include
 html
 latex
+test
 CRXS_info.txt
 
 cpp/xs_wrapper_wrap.cxx
@@ -15,12 +16,18 @@ cpp/xs_tools.py
 
 py2/XS_tools.py
 py2/XS_wrapper.py
+py2/XS_pp_gamma.py
 py2/cpp/xs_tools.py
 py2/cpp/xs_tools_wrap.cxx
 py2/cpp/xs_wrapper.py
 py2/cpp/xs_wrapper_wrap.cxx
 py3/XS_tools.py
 py3/XS_wrapper.py
+py3/XS_pp_gamma.py
+py3/cpp/xs_tools.py
+py3/cpp/xs_tools_wrap.cxx
+py3/cpp/xs_wrapper.py
+py3/cpp/xs_wrapper_wrap.cxx
 
 examples/example
 
