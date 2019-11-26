@@ -2,6 +2,7 @@
 #include "fstream"
 #include "sstream"
 #include "math.h"
+#include "stdexcept"
 
 #include "xs.h"
 #include "xs_definitions.h"
@@ -444,7 +445,7 @@ namespace CRXS {
                     double v = std::stod(line2);
                     if (v<1e-100) v = 1e-100;
                     array[idxrow][idxcol] = v;
-                } catch(const std::invalid_argument&) {
+                } catch(const std::invalid_argument &ia) {
                     std::cerr << "ERROR: Some value in " << file << " is not a double" << std::endl;
                     throw;
                 }
