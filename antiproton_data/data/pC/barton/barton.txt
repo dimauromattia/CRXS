@@ -1,0 +1,27 @@
+#
+#  Barton, et al.          1983
+#  Experimental study of the A dependence of inclusive hadron fragmentation
+#
+#	Data for p + C -> pbar + X
+#
+#  CS: inv cross section:  E d3 sigma/dp3 mb/GeV^2
+#  pt: transverse momentum in GeV
+#  p:  pbar momentum in GeV
+#  Normalization: 10%
+#  Beam: 100 GeV (momentum)
+#
+pt       p      CS      CS_stat
+0.18     50     0.079   0.098
+0.18     80     0       0.043
+0.3      30     1.02    0.35
+0.3      40     0.12    0.1
+0.3      50     0.113   0.086
+0.3      60     0.018   0.034
+0.3      70     0       0.016
+0.3      80     0       0.027
+0.3      88     0       0.012
+0.5      30     0.1     0.16
+0.5      80     0       0.025
+#
+#
+#  End
