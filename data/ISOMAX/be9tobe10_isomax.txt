@@ -1,0 +1,18 @@
+###################
+# ISOMAX 9Be/10Be #
+###################
+#
+# Taken from  doi:10.1086/422384
+#
+# Column  1:    Ekin in GeV/nucleon (mean)
+# Column  2:    Ekin in GeV/nucleon (binStart)
+# Column  3:    Ekin in GeV/nucleon (binEnd)
+# Column  4:    Number of Events
+# Column  5:    Flux as function of E_kin in  (m2 sr s GeV/n)−1
+# Column  6:    sigam  stat
+# Column  7:    sigam  sys
+#
+0.51475        0.257     1.031    1.950000e-1    0.036    0.039
+1.51523        1.131     2.03     3.170000e-1    0.109    0.042
+#
+# End

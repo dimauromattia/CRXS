@@ -1,0 +1,8 @@
+#Add programms
+add_subdirectory(crossSectionCalculator)
+add_subdirectory(crossSectionFitter)
+add_subdirectory(lisFluxFitter)
+add_subdirectory(sourceTermCalculator)
+add_subdirectory(uncertaintyCalculator)
+add_subdirectory(antiMatter)
+

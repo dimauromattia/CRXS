@@ -1,0 +1,25 @@
+###################
+# Cream Proton    #
+###################
+#
+# Taken from  doi:10.1088/0004-637X/728/2/122
+#
+# Column  1:    Ekin in GeV/nucleon (binStart)
+# Column  2:    Ekin in GeV/nucleon (binEnd)
+# Column  3:    Flux as function of E_kin in  (m2 sr s GeV/n)−1
+# Column  4:    sigam  +
+# Column  5:    sigam  -
+# Column  6:    facor (for columns 3-5)
+#
+2.5e3  4.0e3   3.72    0.10   0.10   1e-6
+4.0e3  6.3e3   1.10    0.04   0.04   1e-6
+6.3e3  1.0e4   3.19    0.19   0.19   1e-7
+1.0e4  1.6e4   9.47    0.80   0.80   1e-8
+1.6e4  2.5e4   2.80    0.35   0.35   1e-8
+2.5e4  4.0e4   8.1     1.5    1.5    1e-9
+4.0e4  6.3e4   2.2     0.6    0.6    1e-9
+6.3e4  1.0e5   6.1     2.6    2.2    1e-10
+1.0e5  1.6e5   1.8     1.2    0.9    1e-10
+1.6e5  2.5e5   4.2     5.4    3.4    1e-11
+#
+# End

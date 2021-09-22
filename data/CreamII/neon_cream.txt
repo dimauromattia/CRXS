@@ -1,0 +1,26 @@
+###################
+# Cream Neon      #
+###################
+#
+# Taken from  doi:10.1088/0004-637X/707/1/593
+#
+# Column  1:    Ekin in GeV/nucleon (binStart)
+# Column  2:    Ekin in GeV/nucleon (binEnd)
+# Column  3:    Ekin in GeV/nucleon (mean)
+# Column  4:    Number of Events
+# Column  5:    Flux as function of E_kin in  (m2 sr s GeV/n)−1
+# Column  6:    sigam  +
+# Column  7:    sigam  -
+# Column  8:    facort (for columns 5-7)
+#
+40     58      47.0       37      1.20          0.20        0.20        1e-4
+58     101     74.8       65      2.59          0.32        0.32        1e-5
+101    175     130.7      67      5.53          0.68        0.68        1e-6
+175    304     227.9      36      1.06          0.18        0.18        1e-6
+304    529     396.7      19      2.86          0.84        0.66        1e-7
+529    919     690.0      8       6.5           3.1         2.2         1e-8
+919    1597    1199.8     4       1.8           1.4         0.9         1e-8
+1597   2776    2085.6     2       3.7           5.6         2.0         1e-9
+2776   inf     4150.9     3       2.2           2.1         1.2         1e-9
+#
+# End

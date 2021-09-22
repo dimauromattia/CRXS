@@ -1,0 +1,14 @@
+build
+xcode
+qtproject
+bin
+lib
+include
+html
+latex
+
+*.swp
+*.user
+*.pyc
+
+.DS_Store

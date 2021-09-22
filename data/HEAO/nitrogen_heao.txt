@@ -1,0 +1,27 @@
+###################
+# HEAO  Nitrogen  #
+###################
+#
+# Taken from  Charge composition and energy spectra of cosmic-ray nuclei for elements from Be to NI - Results from HEAO-3-C2
+# Engelmann et al.
+#
+# Column  2:    Ekin in GeV/nucleon
+# Column  3:    Flux * 1e6 as function of E_kin in  (m2 sr s GeV/n)−1
+# Column  4:    sigam
+#
+N          0.62          8.44E-01          0.0225535
+N          0.8           6.94E-01          0.0162202
+N          1             5.35E-01          0.0129491
+N          1.25          4.52E-01          0.00982102
+N          1.6           3.30E-01          0.00647418
+N          2.1           2.20E-01          0.00441285
+N          2.65          1.41E-01          0.00226044
+N          3.35          9.16E-02          0.0014631
+N          4.3           5.93E-02          0.00101619
+N          5.6           3.33E-02          0.000617772
+N          7.5           1.71E-02          0.000506506
+N          10.6          7.20E-03          0.000156639
+N          16.2          2.14E-03          0.0000874467
+N          35            2.26E-04          0.0000350127
+#
+# End

@@ -1,0 +1,27 @@
+###################
+# HEAO  Neon      #
+###################
+#
+# Taken from  Charge composition and energy spectra of cosmic-ray nuclei for elements from Be to NI - Results from HEAO-3-C2
+# Engelmann et al.
+#
+# Column  2:    Ekin in GeV/nucleon
+# Column  3:    Flux * 1e6 as function of E_kin in  (m2 sr s GeV/n)−1
+# Column  4:    sigam
+#
+Ne          0.62          4.09E-01          0.0113874
+Ne          0.8           3.57E-01          0.00854626
+Ne          1             2.81E-01          0.00687582
+Ne          1.25          2.37E-01          0.00514507
+Ne          1.6           1.72E-01          0.00338478
+Ne          2.1           1.15E-01          0.00231655
+Ne          2.65          7.86E-02          0.00123817
+Ne          3.35          5.16E-02          0.000795271
+Ne          4.3           3.43E-02          0.000572156
+Ne          5.6           2.03E-02          0.000366153
+Ne          7.5           1.13E-02          0.000327828
+Ne          10.6          5.01E-03          0.000103802
+Ne          16.2          1.63E-03          0.0000647708
+Ne          35            1.87E-04          0.0000289689
+#
+# End

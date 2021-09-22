@@ -1,0 +1,26 @@
+###################
+# HEAO  Silicon   #
+###################
+#
+# Taken from  Charge composition and energy spectra of cosmic-ray nuclei for elements from Be to NI - Results from HEAO-3-C2
+# Engelmann et al.
+#
+# Column  2:    Ekin in GeV/nucleon
+# Column  3:    Flux * 1e6 as function of E_kin in  (m2 sr s GeV/n)−1
+# Column  4:    sigam
+#
+Si          0.8           3.36E-01          0.00833162
+Si          1             2.65E-01          0.00667665
+Si          1.25          2.34E-01          0.00520185
+Si          1.6           1.69E-01          0.00334423
+Si          2.1           1.14E-01          0.002311
+Si          2.65          7.74E-02          0.00125979
+Si          3.35          5.31E-02          0.000830212
+Si          4.3           3.53E-02          0.00059596
+Si          5.6           2.15E-02          0.000381247
+Si          7.5           1.18E-02          0.000340488
+Si          10.6          5.38E-03          0.000111278
+Si          16.2          1.86E-03          0.0000735685
+Si          35            2.28E-04          0.0000352782
+#
+# End

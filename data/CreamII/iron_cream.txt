@@ -1,0 +1,17 @@
+###################
+# Cream Iron      #
+###################
+#
+# Taken from  doi:10.1088/0004-637X/707/1/593
+#
+# Column  1:    Ekin in GeV/nucleon (binStart)
+# Column  2:    Ekin in GeV/nucleon (binEnd)
+# Column  3:    Ekin in GeV/nucleon (mean)
+# Column  4:    Number of Events
+# Column  5:    Flux as function of E_kin in  (m2 sr s GeV/n)−1
+# Column  6:    sigam  +
+# Column  7:    sigam  -
+# Column  8:    facort (for columns 5-7)
+#
+#
+# End

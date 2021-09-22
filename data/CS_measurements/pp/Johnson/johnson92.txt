@@ -1,0 +1,13 @@
+Path: /HepData/7179/d92-x1-y1
+Location: F 5
+P : 100.0 GeV
+PT : 0.75 GeV
+RE : P P --> PBAR X
+SQRT(S) : 13.761 GeV
+x : XR(P=3,RF=CM,DEF=E/EMAX)
+y : E*D3(SIG)/D3(P(P=3)) IN CM**2/GEV**2/SR
+xdesc	x	xlow	xhigh	y	dy+	dy-	
+	0.363	0.363	0.363	9.8E-30	+3.0E-30	-3.0E-30
+	0.473	0.473	0.473	3.3E-30	+9.0E-31	-9.0E-31
+	0.573	0.573	0.573	5.5E-31	+2.1E-31	-2.1E-31
+

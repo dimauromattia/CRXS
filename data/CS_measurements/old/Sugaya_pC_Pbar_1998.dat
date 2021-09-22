@@ -1,0 +1,23 @@
+#   p,C     cross section
+#
+#       Subthreshold antiproton production in pA, dA and aA reactions
+#           Y. Sugaya, et al.
+#           source:     http://dx.doi.org/10.1016/S0375-9474(98)00122-5
+#                       (Table A.1)
+#
+#   d sigma / (d Omega d p)        mycro barn/sr/(GeV/c)
+#
+#  T_proton/GeV         p_pbar/GeV          angle[deg]          sigma           sigma_err
+   12.0                 1.0                 5.1                 53.4            0.6
+   12.0                 1.5                 5.1                 173             1
+   12.0                 2.0                 5.1                 273             1
+   12.0                 2.5                 5.1                 297             1
+#    5.0                 1.0                 5.1                 0.451           0.039
+#    5.0                 1.5                 5.1                 0.663           0.067
+#    5.0                 2.0                 5.1                 0.366           0.037
+#    5.0                 2.5                 5.1                 0.0619          0.0071
+#    4.0                 1.0                 5.1                 0.400           0.0048
+#    4.0                 1.5                 5.1                 0.0248          0.0025
+#    4.0                 2.0                 5.1                 0.00118         0.00045
+#    3.5                 1.0                 5.1                 0.00138         0.00040
+#    3.5                 1.5                 5.1                 0.000941        0.000243

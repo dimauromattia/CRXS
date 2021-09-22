@@ -1,0 +1,26 @@
+###################
+# Cream oxygen    #
+###################
+#
+# Taken from  doi:10.1088/0004-637X/707/1/593
+#
+# Column  1:    Ekin in GeV/nucleon (binStart)
+# Column  2:    Ekin in GeV/nucleon (binEnd)
+# Column  3:    Ekin in GeV/nucleon (mean)
+# Column  4:    Number of Events
+# Column  5:    Flux as function of E_kin in  (m2 sr s GeV/n)−1
+# Column  6:    sigam  +
+# Column  7:    sigam  -
+# Column  8:    facort (for columns 5-7)
+#
+49      87      64.0       224      3.48         0.23    0.23       1e-4
+87      175     120.8      371      4.82         0.25    0.25       1e-5
+175     304     228.0      241      7.33         0.47    0.47       1e-6
+304     529     396.9      127      1.90         0.17    0.17       1e-6
+529     919     690.5      57       4.51         0.60    0.60       1e-7
+919     1597    1200.5     25       1.25         0.25    0.25       1e-7
+1597    2776    2087.0     10       2.9          1.2      0.9       1e-8
+2776    4824    3627.4     6        8.3          4.9      3.3       1e-9
+4284    inf     7287.1     3        8.4          9.7      5.4       1e-10
+#
+# End

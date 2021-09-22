@@ -1,0 +1,27 @@
+###################
+# Cream Magnesium #
+###################
+#
+# Taken from  doi:10.1088/0004-637X/707/1/593
+#
+# Column  1:    Ekin in GeV/nucleon (binStart)
+# Column  2:    Ekin in GeV/nucleon (binEnd)
+# Column  3:    Ekin in GeV/nucleon (mean)
+# Column  4:    Number of Events
+# Column  5:    Flux as function of E_kin in  (m2 sr s GeV/n)−1
+# Column  6:    sigam  +
+# Column  7:    sigam  -
+# Column  8:    facort (for columns 5-7)
+#
+20     40      27.0       48      4.68         0.67     0.67         1e-4
+40     58      47.0       45      1.07         0.16     0.16         1e-4
+58     101     74.9       103     2.91         0.29     0.29         1e-5
+101    175     130.8      94      5.41         0.56     0.56         1e-6
+175    304     228.0      51      1.42         0.20     0.20         1e-6
+304    529     397.0      26      3.72         0.73     0.73         1e-7
+529    919     690.6      12      8.5          3.3      2.4          1e-8
+919    1597    1200.8     4       1.9          1.6      1.0          1e-8
+1597   2776    2087.5     3       6.7          7.1      4.0          1e-9
+2776   inf     4215.9     1       6.0          16.0     5.8         1e-10
+#
+# End

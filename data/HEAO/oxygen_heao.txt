@@ -1,0 +1,27 @@
+###################
+# HEAO  Oxygen    #
+###################
+#
+# Taken from  Charge composition and energy spectra of cosmic-ray nuclei for elements from Be to NI - Results from HEAO-3-C2
+# Engelmann et al.
+#
+# Column  2:    Ekin in GeV/nucleon
+# Column  3:    Flux * 1e6 as function of E_kin in  (m2 sr s GeV/n)−1
+# Column  4:    sigam
+#
+O          0.62          2.70E+00          0.042
+O          0.8           2.21E+00          0.035
+O          1             1.68E+00          0.03
+O          1.25          1.50E+00          0.025
+O          1.6           1.09E+00          0.018
+O          2.1           7.53E-01          0.013
+O          2.65          4.96E-01          0.006
+O          3.35          3.35E-01          0.004
+O          4.3           2.20E-01          0.003
+O          5.6           1.32E-01          0.002
+O          7.5           7.30E-02          0.002
+O          10.6          3.29E-02          0.0006
+O          16.2          1.06E-02          0.0004
+O          35            1.30E-03          0.0002
+#
+# End

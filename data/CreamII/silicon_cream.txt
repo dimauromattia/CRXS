@@ -1,0 +1,26 @@
+###################
+# Cream Silicon   #
+###################
+#
+# Taken from  doi:10.1088/0004-637X/707/1/593
+#
+# Column  1:    Ekin in GeV/nucleon (binStart)
+# Column  2:    Ekin in GeV/nucleon (binEnd)
+# Column  3:    Ekin in GeV/nucleon (mean)
+# Column  4:    Number of Events
+# Column  5:    Flux as function of E_kin in  (m2 sr s GeV/n)−1
+# Column  6:    sigam  +
+# Column  7:    sigam  -
+# Column  8:    facort (for columns 5-7)
+#
+20     40      27.0      66      4.54         0.56     0.56         1e-4
+40     58      47.0      64      1.35         0.17     0.17         1e-4
+58     101     74.9      116     3.03         0.28     0.28         1e-5
+101    175     130.8     89      5.04         0.53     0.53         1e-6
+175    304     228.0     54      1.50         0.20     0.20         1e-6
+304    529     397.0     24      3.88         0.79     0.79         1e-7
+529    919     690.6     10      1.15         0.48     0.35         1e-7
+919    1597    1200.7    3       1.9          1.7      0.9          1e-8
+1597   inf     2418.3    2       3.2          3.6      1.8          1e-9
+#
+# End
