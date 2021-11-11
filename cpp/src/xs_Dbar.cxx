@@ -156,7 +156,7 @@ namespace CRXS {
         F.params   = &par[0];
         
         gsl_integration_qag(&F, 0, 50, epsabs, epsrel, 1000, 2, w, &res, &err);
-        
+        gsl_integration_workspace_free (w);
         if(err/res>epsrel){
             printf( "Warning in CRXS::XS::dE_AA_pbar_LAB. Integral accuarcy of %f is below required value of %f. \n", err/res, epsrel);
         }
