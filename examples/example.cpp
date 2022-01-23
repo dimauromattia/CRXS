@@ -34,4 +34,8 @@ int main(){
     std::cout << "XS::p_coal__VonDoetinchen(200)" << std::endl;
     std::cout <<  XS::p_coal__VonDoetinchen(200*200)  << std::endl;
 
+    for(int i=0; i<1e9; i++){
+       std::cout <<  XS::dE_AA_p_LAB(  10, 5 ) << std::endl;
+    }
+
 };
