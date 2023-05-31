@@ -16,7 +16,8 @@ namespace CRXS {
     double XS_definitions::fMass_proton   = 0.9382720813;
     double XS_definitions::fMass_neutron  = 0.9395654133;
     double XS_definitions::fMass_deuteron = 1.8756;         // 0.9382720813*2;
-    double XS_definitions::fMass_helium3  = 0.9382720813*3; //FIXME
+    double XS_definitions::fMass_helion3  = XS_definitions::fMass_proton*2. + XS_definitions::fMass_neutron; //FIXME
+    double XS_definitions::fMass_helion4  = XS_definitions::fMass_proton*2. + XS_definitions::fMass_neutron*2.; //FIXME 
     
     double XS_definitions::inv_pp_pbar_CM__Winkler(double s, double E_pbar_d, double pT_pbar, double* C_array, int len_C_array){
         
@@ -73,6 +74,7 @@ namespace CRXS {
         return hyperon;
     }
     
+    
     double XS_definitions::deltaIsospin(double s,  double* C_array, int len_C_array){
         
         C_array_to_double(14);
@@ -82,8 +84,6 @@ namespace CRXS {
         return C14/(1+pow(s/C15, C16));
         
     }
-    
-    
     
     
     double XS_definitions::inv_pp_pbar_CM__diMauro( double s, double E_pbar, double pT_pbar, double* C_array, int len_C_array ){
@@ -140,8 +140,6 @@ namespace CRXS {
     }
     
     
-    
-    
     double XS_definitions::el_pp__diMauro(double s){
         if (s<0) return 0;
         double Zpp  = 144.98;
@@ -157,8 +155,6 @@ namespace CRXS {
         
         return sigmaPP;
     }
-    
-    
     
     
     double XS_definitions::pbar_overlap_function_projectile(double x_F){
@@ -502,7 +498,3 @@ namespace CRXS {
     };
     
 }
-
-
-
-
