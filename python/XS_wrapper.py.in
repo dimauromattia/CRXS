@@ -332,4 +332,12 @@ def SetTrapezeIntegrationSteps(steps):
 
 
 
+def set_C_winkler_self( C_array ):
+    xs_cpp.set_C_winkler_self( C_array )
+
+def set_D_winkler_self( D_array ):
+    xs_cpp.set_D_winkler_self( D_array )
+
+
+
 

@@ -2,7 +2,7 @@
 #include "xs.h"
 #include "crxs.h"
 #include "xs_definitions.h"
-
+#include <iostream>
 
 
 void SetIntegrationMethod( int method ){
@@ -78,4 +78,17 @@ double inv_AA_p_LAB( double Tn_proj_LAB, double T_p_LAB, double eta_LAB, int A_p
 };
 double dE_AA_p_LAB( double Tn_proj_LAB, double T_p_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization){
     return CRXS::XS::dE_AA_p_LAB( Tn_proj_LAB, T_p_LAB, A_projectile, N_projectile, A_target, N_target, parametrization);
+};
+
+void set_C_winkler_self(double* C_array, int len_C_array){
+    for (int i=0; i<len_C_array; i++) {
+        std::cout << CRXS::XS_definitions::XS_definitions::Winkler_SELF_C1_to_C16[i] << std::endl;
+        CRXS::XS_definitions::XS_definitions::Winkler_SELF_C1_to_C16[i] = C_array[i];
+    }
+};
+
+void set_D_winkler_self(double* D_array, int len_D_array){
+    for (int i=0; i<len_D_array; i++) {
+        CRXS::XS_definitions::XS_definitions::Winkler_SELF_D1_to_D2[i] = D_array[i];
+    }
 };
