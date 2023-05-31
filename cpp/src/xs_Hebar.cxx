@@ -8,17 +8,17 @@
 
 namespace CRXS {
     
-  double XS::p_coal__VonDoetinchen( double s ){
-    double T = ( s-4*XS_definitions::fMass_proton*XS_definitions::fMass_proton)/2./XS_definitions::fMass_proton;
-        
-    double A = 0.153;
-    double B = 4.5;
-    double C = 1.47;
-        
-    double p = A/(1.+exp(B-log(T)/C));
-        
-    return p;
-  }
+//  double XS::p_coal__VonDoetinchen( double s ){
+//    double T = ( s-4*XS_definitions::fMass_proton*XS_definitions::fMass_proton)/2./XS_definitions::fMass_proton;
+//        
+//    double A = 0.153;
+//    double B = 4.5;
+//    double C = 1.47;
+//        
+//    double p = A/(1.+exp(B-log(T)/C));
+//        
+//    return p;
+//  }
     
     
   double XS::inv_AA_He3bar_CM( double s, double xF_hebar, double pT_hebar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence){
@@ -69,7 +69,7 @@ namespace CRXS {
     }else if(  parametrization==KORSMEIER_I  || parametrization==DI_MAURO_I || parametrization==DI_MAURO_II ){
       inv_pp_pbar         = XS_definitions::inv_pp_pbar_CM__diMauro(s,     E_pbar, pT_hebar/nucleons, C_array );
       inv_pp_pbar_red     = XS_definitions::inv_pp_pbar_CM__diMauro(s_red, E_pbar, pT_hebar/nucleons, C_array );
-      inv_pp_pbar_red_red = XS_definitions::inv_pp_pbar_CM__diMauro(s_red_red, E_pbar, pT_Hebar/nucleons, C_array );
+      inv_pp_pbar_red_red = XS_definitions::inv_pp_pbar_CM__diMauro(s_red_red, E_pbar, pT_hebar/nucleons, C_array );
     }else{
       printf( "Warning in CRXS::XS::inv_AA_pbar_CM. Parametrization %i is not known.", parametrization);
       return 0;
@@ -113,7 +113,7 @@ namespace CRXS {
     int    nucleons = 3;
     double s, E_Hebar, pT_pbar, x_F;
     double T_Hebar_LAB = nucleons * Tn_Hebar_LAB;
-    convert_LAB_to_CM( Tn_proj_LAB, T_Hebar_LAB, eta_LAB, s, E_Hebar, pT_pbar, x_F, He_BAR );
+    convert_LAB_to_CM( Tn_proj_LAB, T_Hebar_LAB, eta_LAB, s, E_Hebar, pT_pbar, x_F, HE_BAR );
     return inv_AA_He3bar_CM(s, x_F, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence);
   }
     
