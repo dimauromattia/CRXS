@@ -69,6 +69,21 @@ double dEn_DbarA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, int A_target,
     return CRXS::XS::dEn_DbarA_Dbar_LAB( Tn_proj_LAB, Tn_Dbar_LAB, A_target, N_target, parametrization );
 };
 
+// He3bar
+double inv_AA_He3bar_CM( double s, double xF_Hebar, double pT_Hebar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence){
+    return CRXS::XS::inv_AA_He3bar_CM( s, xF_Hebar, pT_Hebar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence);
+};
+double inv_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence){
+    return CRXS::XS::inv_AA_He3bar_LAB( Tn_proj_LAB, Tn_Hebar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence);
+};
+double dEn_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence ){
+    return CRXS::XS::dEn_AA_He3bar_LAB( Tn_proj_LAB, Tn_Hebar_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence );
+};
+
+double dEn_He3barA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_target, int N_target, int parametrization ){
+    return CRXS::XS::dEn_He3barA_He3bar_LAB( Tn_proj_LAB, Tn_Hebar_LAB, A_target, N_target, parametrization );
+};
+
 // p
 double inv_AA_p_CM( double s, double xF, double pT_p, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization){
     return CRXS::XS::inv_AA_p_CM( s, xF, pT_p, A_projectile, N_projectile, A_target, N_target, parametrization);

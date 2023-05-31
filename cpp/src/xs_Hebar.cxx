@@ -60,7 +60,7 @@ namespace CRXS {
         
     double XS;
     XS  = XS_definitions::fMass_helion3/XS_definitions::fMass_proton/XS_definitions::fMass_proton/XS_definitions::fMass_neutron;
-    XS *= pow(4./3. * 3.1415926536 * pow(p_coalescence,3),2.) / (pow(A_target*A_projectile,D_array[1]+D_array[2])*pow(XS_definitions::tot_pp__diMauro(s),2.));
+    XS *= pow(4./3. * 3.1415926536 * pow(p_coalescence,3),2.) / (pow(A_target*A_projectile,2.*(D_array[1]+D_array[2]))*pow(XS_definitions::tot_pp__diMauro(s),2.));
     //CHECK THE FACTOR pow(A_target*A_projectile,D_array[1]+D_array[2])
     if      (  parametrization==KORSMEIER_II || parametrization==WINKLER  ){
       inv_pp_pbar         = XS_definitions::inv_pp_pbar_CM__Winkler(s,     E_pbar, pT_hebar/nucleons, C_array );
@@ -109,19 +109,19 @@ namespace CRXS {
     return XS;
   }
 
-  double XS::inv_AA_Hebar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence ){
+  double XS::inv_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence ){
     int    nucleons = 3;
     double s, E_Hebar, pT_pbar, x_F;
     double T_Hebar_LAB = nucleons * Tn_Hebar_LAB;
     convert_LAB_to_CM( Tn_proj_LAB, T_Hebar_LAB, eta_LAB, s, E_Hebar, pT_pbar, x_F, He_BAR );
-    return inv_AA_Hebar_CM(s, x_F, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence);
+    return inv_AA_He3bar_CM(s, x_F, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence);
   }
     
-  double XS::integrand__dE_AA_Hebar_LAB (double eta_LAB, void* parameters  ){
+  double XS::integrand__dE_AA_He3bar_LAB (double eta_LAB, void* parameters  ){
         
     double* par = (double * ) parameters;
     double Tn_proj_LAB      = par[0];
-    double Tn_Hebar_LAB      = par[1];
+    double Tn_Hebar_LAB     = par[1];
     int    A_projectile     = par[2];
     int    N_projectile     = par[3];
     int    A_target         = par[4];
@@ -139,11 +139,11 @@ namespace CRXS {
     //        std::cout << " parametrization " <<  parametrization  << std::endl;
     //        std::cout << " coalescence     " <<  coalescence      << std::endl;
         
-    return  pow( cosh(eta_LAB), -2 ) * XS::inv_AA_Hebar_LAB( Tn_proj_LAB, Tn_Hebar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence );
+    return  pow( cosh(eta_LAB), -2 ) * XS::inv_AA_He3bar_LAB( Tn_proj_LAB, Tn_Hebar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence );
         
   }
     
-  double XS::dEn_AA_Hebar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence ){
+  double XS::dEn_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence ){
     int nucleons = 3;
     //
     //  Integrate over all solid angle and transform to enery differential (d sigma / d E)
@@ -163,7 +163,7 @@ namespace CRXS {
     gsl_integration_workspace * w = gsl_integration_workspace_alloc (1000);
         
     gsl_function F;
-    F.function = &integrand__dE_AA_Hebar_LAB;
+    F.function = &integrand__dE_AA_He3bar_LAB;
     F.params   = &par[0];
         
     gsl_integration_qag(&F, 0, 50, epsabs, epsrel, 1000, 2, w, &res, &err);
@@ -179,12 +179,14 @@ namespace CRXS {
     
     
     
-  double XS::dEn_HebarA_Hebar_LAB(  double Tn_Hebar_proj_LAB, double Tn_Hebar_prod_LAB, int A_target, int N_target, int parametrization  ){
+  double XS::dEn_He3barA_He3bar_LAB(  double Tn_Hebar_proj_LAB, double Tn_Hebar_prod_LAB, int A_target, int N_target, int parametrization  ){
         
     double shape      = 1.;
     double norm_shape = 0.;
         
     double log_10 = log(10);
+    
+    double * D_array         = XS_definitions::Get_D_parameters        (parametrization);
         
     if (parametrization==APPROX_1_OVER_T) {
       norm_shape = Tn_Hebar_proj_LAB;
@@ -203,7 +205,7 @@ namespace CRXS {
     }
         
     double T_pbar     = Tn_Hebar_proj_LAB;
-    double norm_XS    = XS_definitions::nar_pbarD(T_pbar);
+    double norm_XS    = pow(3./2.,D_array[1]+D_array[2])*XS_definitions::nar_pbarD(T_pbar);
         
         
     //        std::cout << Tn_Hebar_proj_LAB << std::endl;

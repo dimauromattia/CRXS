@@ -391,7 +391,7 @@ namespace CRXS {
          *
          *  \return double XS             Cross section in mbarn/GeV^2
          */
-        static double inv_AA_Hebar_CM( double s, double xF_Hebar, double pT_Hebar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence);
+        static double inv_AA_He3bar_CM( double s, double xF_Hebar, double pT_Hebar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence);
         
         //! Invariant antihelion production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables
         /*!
@@ -407,9 +407,9 @@ namespace CRXS {
          *
          *  \return double XS              Cross section in mbarn/GeV^2
          */
-        static double inv_AA_Hebar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence);
+        static double inv_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence);
         //! Helper function for inv_AA_Hebar_LAB
-        static double integrand__dE_AA_Hebar_LAB (double eta_LAB, void* parameters  );
+        static double integrand__dE_AA_He3bar_LAB (double eta_LAB, void* parameters  );
         
         
         //! Energy-differential antihelion production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables. The cross section contains the contribution from antineutrons and antihyperons. In the case of DI_MAURO parametrizations the antihyperon contribution is set to 0. The nuclear scaling for AA initial states is done as explained in XS_definitions::factor__AA.
@@ -427,7 +427,7 @@ namespace CRXS {
          *
          *  \return double XS              Cross section in mbarn/GeV
          */
-        static double dEn_AA_Hebar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM );
+        static double dEn_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM );
         
         
         //! Energy-differential antihelion cross section for non-annihilating antihelion reactions on p, A.
@@ -447,7 +447,7 @@ namespace CRXS {
          *
          *  \return double XS              Cross section in mbarn/GeV
          */
-        static double dEn_HebarA_Hebar_LAB( double Tn_Hebar_proj_LAB, double Tn_Hebar_prod_LAB, int A_target=1, int N_target=0, int parametrization=ANDERSON );
+        static double dEn_He3barA_He3bar_LAB( double Tn_Hebar_proj_LAB, double Tn_Hebar_prod_LAB, int A_target=1, int N_target=0, int parametrization=ANDERSON );
         
         //! Function to set the parameter values of the di Mauro parametrization yourself.
         /*!
