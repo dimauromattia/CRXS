@@ -14,7 +14,8 @@ namespace CRXS {
         static double fMass_proton;
         static double fMass_neutron;
         static double fMass_deuteron;
-        static double fMass_helium3;
+        static double fMass_helion3;
+        static double fMass_helion4;
         
         //! Parametrization of the invariant antiproton production (pbar) crosssection from pp in CMF
         /*!
