@@ -22,14 +22,25 @@ int main(){
     std::cout << "XS::dE_AA_p_LAB(100, 3)"   << std::endl;
     std::cout <<  XS::dE_AA_p_LAB(100, 3)    << std::endl;
 
-    std::cout << "XS::inv_AA_Dbar_LAB(100, 3, 10, 1, 0, 1, 0, 2, 1)" << std::endl;
-    std::cout <<  XS::inv_AA_Dbar_LAB(100, 3, 10, 1, 0, 1, 0, 2, 1)  << std::endl;
+    //double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence
+    std::cout << "XS::inv_AA_Dbar_LAB(100, 3, 1, 1, 0, 1, 0, 2, 1)" << std::endl;
+    std::cout <<  XS::inv_AA_Dbar_LAB(100, 3, 1, 1, 0, 1, 0, 2, 1)  << std::endl;
 
-    std::cout << "XS::inv_AA_He3bar_LAB(100, 3, 10, 1, 0, 1, 0, 2, 1)" << std::endl;
-    std::cout <<  XS::dEn_AA_He3bar_LAB(100, 10, -1, 0, 1, 0, 2, 1)  << std::endl;
+    std::cout << "XS::inv_AA_He3bar_LAB(100, 3, 1, 1, 0, 1, 0, 2, 1)" << std::endl;
+    std::cout <<  XS::inv_AA_He3bar_LAB(100, 3, 1, 1, 0, 1, 0, 2, 1)  << std::endl;
+
+    std::cout << "XS::inv_AA_He4bar_LAB(100, 3, 1, 1, 0, 1, 0, 2, 1)" << std::endl;
+    std::cout <<  XS::inv_AA_He4bar_LAB(100, 3, 1, 1, 0, 1, 0, 2, 1)  << std::endl;
+
+    ////double XS::dEn_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence )
+    std::cout << "XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 2, 1)" << std::endl;
+    std::cout <<  XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 2, 1)  << std::endl;
     
-    std::cout << "XS::dEn_AA_Dbar_LAB(100, 10, -1, 0, 1, 0, 2, 1)" << std::endl;
-    std::cout <<  XS::dEn_AA_Dbar_LAB(100, 10, -1, 0, 1, 0, 2, 1)  << std::endl;
+    std::cout << "XS::dEn_AA_He3bar_LAB(100, 10, 1, 0, 1, 0, 2, 1)" << std::endl;
+    std::cout <<  XS::dEn_AA_He3bar_LAB(100, 10, 1, 0, 1, 0, 2, 1)  << std::endl;
+
+    std::cout << "XS::dEn_AA_He4bar_LAB(100, 10, 1, 0, 1, 0, 2, 1)" << std::endl;
+    std::cout <<  XS::dEn_AA_He4bar_LAB(100, 10, 1, 0, 1, 0, 2, 1)  << std::endl;
     
     std::cout << "XS::p_coal__VonDoetinchen(90)" << std::endl;
     std::cout <<  XS::p_coal__VonDoetinchen(90*90)  << std::endl;

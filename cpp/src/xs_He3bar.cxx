@@ -29,7 +29,7 @@ namespace CRXS {
     int nucleons = 3;
     double p_coalescence;
     if       (coalescence==FIXED_P0) {
-      p_coalescence = 0.080;
+      p_coalescence = 0.160; //USING THE NOTATION WITH pow(pc/2,3.)
     }else if (coalescence==ENERGY_DEP__VAN_DOETINCHEM) {
       p_coalescence = p_coal__VonDoetinchen(s);
     }else{
@@ -42,7 +42,7 @@ namespace CRXS {
     }
     double E_pbar  = sqrt( pow(XS_definitions::fMass_proton,  2) + pow(pT_hebar/nucleons,2) + pow(pL_hebar/nucleons,2) );
     double E_nbar  = sqrt( pow(XS_definitions::fMass_neutron, 2) + pow(pT_hebar/nucleons,2) + pow(pL_hebar/nucleons,2) );
-    double E_hebar = sqrt( pow(XS_definitions::fMass_helion3,2) + pow(pT_hebar,         2) + pow(pL_hebar,         2) );
+    double E_hebar = sqrt( pow(XS_definitions::fMass_helion3,2)  + pow(pT_hebar,         2) + pow(pL_hebar,         2) );
         
     double sq__s_red = sqrt(s) - 2.*E_pbar;
     double sq__s_red_red = sqrt(s) - 2.*E_pbar -2.*E_nbar;
@@ -60,15 +60,15 @@ namespace CRXS {
         
     double XS;
     XS  = XS_definitions::fMass_helion3/XS_definitions::fMass_proton/XS_definitions::fMass_proton/XS_definitions::fMass_neutron;
-    XS *= pow(4./3. * 3.1415926536 * pow(p_coalescence,3),2.) / (pow(A_target*A_projectile,2.*(D_array[1]+D_array[2]))*pow(XS_definitions::tot_pp__diMauro(s),2.));
-    //CHECK THE FACTOR pow(A_target*A_projectile,D_array[1]+D_array[2])
+    XS *= pow(4./3. * 3.1415926536 * pow(p_coalescence/2.,3),2.) / (pow(A_target*A_projectile,2.*(D_array[1]+D_array[2]))*pow(XS_definitions::tot_pp__diMauro(s),2.));
+    //USING THE NOTATION WITH pow(pc/2,3.) as in MK paper
     if      (  parametrization==KORSMEIER_II || parametrization==WINKLER  ){
-      inv_pp_pbar         = XS_definitions::inv_pp_pbar_CM__Winkler(s,     E_pbar, pT_hebar/nucleons, C_array );
-      inv_pp_pbar_red     = XS_definitions::inv_pp_pbar_CM__Winkler(s_red, E_pbar, pT_hebar/nucleons, C_array );
+      inv_pp_pbar         = XS_definitions::inv_pp_pbar_CM__Winkler(s,         E_pbar, pT_hebar/nucleons, C_array );
+      inv_pp_pbar_red     = XS_definitions::inv_pp_pbar_CM__Winkler(s_red,     E_pbar, pT_hebar/nucleons, C_array );
       inv_pp_pbar_red_red = XS_definitions::inv_pp_pbar_CM__Winkler(s_red_red, E_pbar, pT_hebar/nucleons, C_array );
     }else if(  parametrization==KORSMEIER_I  || parametrization==DI_MAURO_I || parametrization==DI_MAURO_II ){
-      inv_pp_pbar         = XS_definitions::inv_pp_pbar_CM__diMauro(s,     E_pbar, pT_hebar/nucleons, C_array );
-      inv_pp_pbar_red     = XS_definitions::inv_pp_pbar_CM__diMauro(s_red, E_pbar, pT_hebar/nucleons, C_array );
+      inv_pp_pbar         = XS_definitions::inv_pp_pbar_CM__diMauro(s,         E_pbar, pT_hebar/nucleons, C_array );
+      inv_pp_pbar_red     = XS_definitions::inv_pp_pbar_CM__diMauro(s_red,     E_pbar, pT_hebar/nucleons, C_array );
       inv_pp_pbar_red_red = XS_definitions::inv_pp_pbar_CM__diMauro(s_red_red, E_pbar, pT_hebar/nucleons, C_array );
     }else{
       printf( "Warning in CRXS::XS::inv_AA_pbar_CM. Parametrization %i is not known.", parametrization);
@@ -83,13 +83,13 @@ namespace CRXS {
     double deltaIsospin_red     = XS_definitions::deltaIsospin(s_red, C_array_isospin);
     double deltaIsospin_red_red = XS_definitions::deltaIsospin(s_red_red, C_array_isospin);
 
-    inv_pp_nbar                 = inv_pp_pbar*        (1+deltaIsospin    +deltaHyperon    );
-    inv_pp_nbar_red             = inv_pp_pbar_red*    (1+deltaIsospin_red+deltaHyperon_red);
+    inv_pp_nbar                 = inv_pp_pbar*        (1+deltaIsospin        +deltaHyperon    );
+    inv_pp_nbar_red             = inv_pp_pbar_red*    (1+deltaIsospin_red    +deltaHyperon_red);
     inv_pp_nbar_red_red         = inv_pp_pbar_red_red*(1+deltaIsospin_red_red+deltaHyperon_red_red);
 
     if (signed_A_projectile<0){ //If the incoming CR is an antiproton then use Anderson CS.
-      inv_pp_pbar         = XS_definitions::inv_pp_p_CM__Anderson(s,     E_pbar, pT_hebar/nucleons);
-      inv_pp_pbar_red     = XS_definitions::inv_pp_p_CM__Anderson(s_red, E_pbar, pT_hebar/nucleons);
+      inv_pp_pbar         = XS_definitions::inv_pp_p_CM__Anderson(s,         E_pbar, pT_hebar/nucleons);
+      inv_pp_pbar_red     = XS_definitions::inv_pp_p_CM__Anderson(s_red,     E_pbar, pT_hebar/nucleons);
       inv_pp_pbar_red_red = XS_definitions::inv_pp_p_CM__Anderson(s_red_red, E_pbar, pT_hebar/nucleons);
     }
 
@@ -97,8 +97,8 @@ namespace CRXS {
     inv_pp_pbar_red     = inv_pp_pbar_red*    (1+deltaHyperon);
     inv_pp_pbar_red_red = inv_pp_pbar_red_red*(1+deltaHyperon);
         
-    AA         = XS_definitions::factor__AA( s,     xF_hebar/nucleons, A_projectile, N_projectile, A_target, N_target, parametrization );
-    AA_red     = XS_definitions::factor__AA( s_red, xF_hebar/nucleons, A_projectile, N_projectile, A_target, N_target, parametrization );
+    AA         = XS_definitions::factor__AA( s,         xF_hebar/nucleons, A_projectile, N_projectile, A_target, N_target, parametrization );
+    AA_red     = XS_definitions::factor__AA( s_red,     xF_hebar/nucleons, A_projectile, N_projectile, A_target, N_target, parametrization );
     AA_red_red = XS_definitions::factor__AA( s_red_red, xF_hebar/nucleons, A_projectile, N_projectile, A_target, N_target, parametrization );
 
     double factortwist_1 = inv_pp_pbar * inv_pp_nbar_red * inv_pp_pbar_red_red + inv_pp_pbar * inv_pp_pbar_red * inv_pp_nbar_red_red;
@@ -113,7 +113,7 @@ namespace CRXS {
     int    nucleons = 3;
     double s, E_Hebar, pT_pbar, x_F;
     double T_Hebar_LAB = nucleons * Tn_Hebar_LAB;
-    convert_LAB_to_CM( Tn_proj_LAB, T_Hebar_LAB, eta_LAB, s, E_Hebar, pT_pbar, x_F, HE_BAR );
+    convert_LAB_to_CM( Tn_proj_LAB, T_Hebar_LAB, eta_LAB, s, E_Hebar, pT_pbar, x_F, HE3_BAR );
     return inv_AA_He3bar_CM(s, x_F, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence);
   }
     

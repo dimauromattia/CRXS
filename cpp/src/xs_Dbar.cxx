@@ -29,7 +29,7 @@ namespace CRXS {
         int nucleons = 2;
         double p_coalescence;
         if       (coalescence==FIXED_P0) {
-            p_coalescence = 0.080;
+            p_coalescence = 0.160; //USING THE NOTATION WITH pow(pc/2,3.)
         }else if (coalescence==ENERGY_DEP__VAN_DOETINCHEM) {
             p_coalescence = p_coal__VonDoetinchen(s);
         }else{
@@ -57,11 +57,10 @@ namespace CRXS {
         double * C_array_isospin = XS_definitions::Get_C_parameters_isospin(parametrization);
         double * D_array         = XS_definitions::Get_D_parameters        (parametrization);
         
-        
         double XS;
         XS  = XS_definitions::fMass_deuteron/XS_definitions::fMass_proton/XS_definitions::fMass_neutron;
-        XS *= (4./3. * 3.1415926536 * pow(p_coalescence,3)) / (pow(A_target*A_projectile, D_array[1]+D_array[2])*XS_definitions::tot_pp__diMauro(s));
-        
+        XS *= (4./3. * 3.1415926536 * pow(p_coalescence/2.,3)) / (pow(A_target*A_projectile, D_array[1]+D_array[2])*XS_definitions::tot_pp__diMauro(s));
+        //USING THE NOTATION WITH pow(pc/2,3.)
         if      (  parametrization==KORSMEIER_II || parametrization==WINKLER  ){
             inv_pp_pbar         = XS_definitions::inv_pp_pbar_CM__Winkler(s,     E_pbar, pT_dbar/nucleons, C_array );
             inv_pp_pbar_reduced = XS_definitions::inv_pp_pbar_CM__Winkler(s_red, E_pbar, pT_dbar/nucleons, C_array );
