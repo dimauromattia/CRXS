@@ -85,8 +85,6 @@ namespace CRXS {
     }
     
     
-    
-    
     double XS_definitions::inv_pp_pbar_CM__diMauro( double s, double E_pbar, double pT_pbar, double* C_array, int len_C_array ){
         
         C_array_to_double( 1);
@@ -141,8 +139,6 @@ namespace CRXS {
     }
     
     
-    
-    
     double XS_definitions::el_pp__diMauro(double s){
         if (s<0) return 0;
         double Zpp  = 144.98;
@@ -158,8 +154,6 @@ namespace CRXS {
         
         return sigmaPP;
     }
-    
-    
     
     
     double XS_definitions::pbar_overlap_function_projectile(double x_F){
@@ -192,10 +186,12 @@ namespace CRXS {
         
     }
     
+    
     double XS_definitions::pbar_overlap_function_target(double x_F){
         return 1.-pbar_overlap_function_projectile(x_F);
     }
-    
+
+
     double * XS_definitions::Get_D_parameters(int parametrization){
         if(parametrization==CRXS::KORSMEIER_I){
              return Korsmeier_I_D1_to_D2;
@@ -224,6 +220,7 @@ namespace CRXS {
         
     }
     
+    
     double *  XS_definitions::Get_C_parameters(int parametrization){
         if(parametrization==CRXS::KORSMEIER_I){
             return Korsmeier_I_C1_to_C11;
@@ -250,6 +247,7 @@ namespace CRXS {
         }
         return Dummy;
     }
+    
     
     double *  XS_definitions::Get_C_parameters_isospin(int parametrization){
         if(parametrization==CRXS::KORSMEIER_I){
@@ -301,6 +299,7 @@ namespace CRXS {
         
         return pow(A_projectile*A_target, D_array[1])*( proj + targ );
     }
+    
     
     double XS_definitions::inv_pp_p_CM__Anderson(double s, double E_p, double pT_p, double* C_array, int len_C_array){
         E_p = fabs(E_p);

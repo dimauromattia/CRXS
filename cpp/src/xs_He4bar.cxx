@@ -29,7 +29,7 @@ namespace CRXS {
     int nucleons = 4;
     double p_coalescence;
     if       (coalescence==FIXED_P0) {
-      p_coalescence = 0.160; //USING THE NOTATION WITH pow(pc/2,3.)
+      p_coalescence = 0.200; //USING THE NOTATION WITH pow(pc/2,3.)
     }else if (coalescence==ENERGY_DEP__VAN_DOETINCHEM) {
       p_coalescence = p_coal__VonDoetinchen(s);
     }else{

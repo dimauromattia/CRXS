@@ -132,12 +132,10 @@ namespace CRXS {
     }
     
     
-    
-    
     double XS::dE_AA_pbar_LAB_incNbarAndHyperon(double Tn_proj_LAB, double T_pbar_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization){
-        double s = 4*XS_definitions::fMass_proton*XS_definitions::fMass_proton + 2 * Tn_proj_LAB * XS_definitions::fMass_proton;
+        double s = 4.*XS_definitions::fMass_proton*XS_definitions::fMass_proton + 2. * Tn_proj_LAB * XS_definitions::fMass_proton;
         double * C_array = XS_definitions::Get_C_parameters_isospin(parametrization);
-        return dE_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, A_projectile, N_projectile, A_target, N_target, parametrization)*( 2 + 2*XS_definitions::deltaHyperon(s, C_array) + XS_definitions::deltaIsospin(s, C_array));
+        return dE_AA_pbar_LAB(Tn_proj_LAB, T_pbar_LAB, A_projectile, N_projectile, A_target, N_target, parametrization)*( 2. + 2.*XS_definitions::deltaHyperon(s, C_array) + XS_definitions::deltaIsospin(s, C_array));
     }
     
     

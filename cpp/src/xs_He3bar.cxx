@@ -26,10 +26,10 @@ namespace CRXS {
     int signed_A_projectile = A_projectile;
     A_projectile = fabs(1.0001*A_projectile); //WHY THIS?
         
-    int nucleons = 3;
+    int nucleons = 3; //This is for He3
     double p_coalescence;
     if       (coalescence==FIXED_P0) {
-      p_coalescence = 0.160; //USING THE NOTATION WITH pow(pc/2,3.)
+      p_coalescence = 0.200; //USING THE NOTATION WITH pow(pc/2,3.)
     }else if (coalescence==ENERGY_DEP__VAN_DOETINCHEM) {
       p_coalescence = p_coal__VonDoetinchen(s);
     }else{
@@ -37,7 +37,7 @@ namespace CRXS {
     }        
         
     double pL_hebar = xF_hebar/2.*sqrt(s);
-    if(pL_hebar!=pL_hebar){ //WHY THIS?
+    if(pL_hebar!=pL_hebar){ //This is to check if pL_hebar=nan
       return 0;
     }
     double E_pbar  = sqrt( pow(XS_definitions::fMass_proton,  2) + pow(pT_hebar/nucleons,2) + pow(pL_hebar/nucleons,2) );
@@ -60,8 +60,9 @@ namespace CRXS {
         
     double XS;
     XS  = XS_definitions::fMass_helion3/XS_definitions::fMass_proton/XS_definitions::fMass_proton/XS_definitions::fMass_neutron;
-    XS *= pow(4./3. * 3.1415926536 * pow(p_coalescence/2.,3),2.) / (pow(A_target*A_projectile,2.*(D_array[1]+D_array[2]))*pow(XS_definitions::tot_pp__diMauro(s),2.));
+    XS *= pow(4./3. * 3.1415926536 * pow(p_coalescence/2.,3),nucleons-1.) / (pow(A_target*A_projectile,(nucleons-1.)*(D_array[1]+D_array[2]))*pow(XS_definitions::tot_pp__diMauro(s),nucleons-1.));
     //USING THE NOTATION WITH pow(pc/2,3.) as in MK paper
+    //In 2.*(D_array[1]+D_array[2]) the factor 2* is due to the pow(sigmatot,nucleons-1)
     if      (  parametrization==KORSMEIER_II || parametrization==WINKLER  ){
       inv_pp_pbar         = XS_definitions::inv_pp_pbar_CM__Winkler(s,         E_pbar, pT_hebar/nucleons, C_array );
       inv_pp_pbar_red     = XS_definitions::inv_pp_pbar_CM__Winkler(s_red,     E_pbar, pT_hebar/nucleons, C_array );
@@ -104,7 +105,7 @@ namespace CRXS {
     double factortwist_1 = inv_pp_pbar * inv_pp_nbar_red * inv_pp_pbar_red_red + inv_pp_pbar * inv_pp_pbar_red * inv_pp_nbar_red_red;
     double factortwist_2 = inv_pp_nbar * inv_pp_pbar_red * inv_pp_pbar_red_red + inv_pp_nbar * inv_pp_pbar_red * inv_pp_pbar_red_red;
     double factortwist_3 = inv_pp_pbar * inv_pp_nbar_red * inv_pp_pbar_red_red + inv_pp_pbar * inv_pp_pbar_red * inv_pp_nbar_red_red;
-    XS *= (1./3.) * AA * AA_red * AA_red_red * ( factortwist_1 + factortwist_2 + factortwist_3 );
+    XS *= (1./nucleons) * AA * AA_red * AA_red_red * ( factortwist_1 + factortwist_2 + factortwist_3 );
         
     return XS;
   }
