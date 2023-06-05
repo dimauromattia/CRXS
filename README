@@ -137,4 +137,11 @@ export DYLD_LIBRARY_PATH="/Users/mattiadimauro/Dropbox/galprop_and_tools/galprop
 
 
 
+*********************
+* Future projects: *
+*********************
+1) Add the variable pc for the coalescence model as an imput parameter.
+2) Add the coalescence momentum function that changes with pT.
+3) Add the coalescence model with the Wigner model.
+4) .....
 

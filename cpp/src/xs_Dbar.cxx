@@ -62,7 +62,7 @@ namespace CRXS {
         XS  = XS_definitions::fMass_deuteron/XS_definitions::fMass_proton/XS_definitions::fMass_neutron;
         XS *= (4./3. * 3.1415926536 * pow(p_coalescence/2.,3)) / (pow(A_target*A_projectile, D_array[1]+D_array[2])*XS_definitions::tot_pp__diMauro(s)); //USING THE NOTATION WITH pow(pc/2,3.)  
         //The factor pow(A_target*A_projectile, D_array[1]+D_array[2]) is used to rescale the total CS. For pp it is 1 while to pHe or Hep it takes a A^0.8.
-        if      (  parametrization==KORSMEIER_II || parametrization==WINKLER  ){
+        if      (  parametrization==KORSMEIER_II || parametrization==KORSMEIER_III || parametrization==WINKLER || parametrization==WINKLER_II  ){
             inv_pp_pbar         = XS_definitions::inv_pp_pbar_CM__Winkler(s,     E_pbar, pT_dbar/nucleons, C_array );
             inv_pp_pbar_reduced = XS_definitions::inv_pp_pbar_CM__Winkler(s_red, E_pbar, pT_dbar/nucleons, C_array );
         }else if(  parametrization==KORSMEIER_I  || parametrization==DI_MAURO_I || parametrization==DI_MAURO_II ){

@@ -65,7 +65,7 @@ namespace CRXS {
     XS *= pow(4./3. * 3.1415926536 * pow(p_coalescence/2.,3),nucleons-1) / (pow(A_target*A_projectile,(nucleons-1.)*(D_array[1]+D_array[2]))*pow(XS_definitions::tot_pp__diMauro(s),nucleons-1.));
     //USING THE NOTATION WITH pow(pc/2,3.) as in MK paper
     //pow(A_target*A_projectile,(nucleons-1.)*(D_array[1]+D_array[2]) This terms rescaling the total cross section for target over nuclei
-    if      (  parametrization==KORSMEIER_II || parametrization==WINKLER  ){
+    if      (  parametrization==KORSMEIER_II || parametrization==KORSMEIER_III || parametrization==WINKLER || parametrization==WINKLER_II ){
       inv_pp_pbar             = XS_definitions::inv_pp_pbar_CM__Winkler(s,             E_pbar, pT_hebar/nucleons, C_array );
       inv_pp_pbar_red         = XS_definitions::inv_pp_pbar_CM__Winkler(s_red,         E_pbar, pT_hebar/nucleons, C_array );
       inv_pp_pbar_red_red     = XS_definitions::inv_pp_pbar_CM__Winkler(s_red_red,     E_pbar, pT_hebar/nucleons, C_array );

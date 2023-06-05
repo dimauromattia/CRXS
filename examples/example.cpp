@@ -13,10 +13,28 @@ int main(){
     
     std::cout << "Checks on antiproton cross sections" << std::endl;
     //double Tn_proj_LAB, double T_pbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization
+    
+    std::cout << "XS::inv_AA_pbar_CM(100, 3, 10, 1, 0, 1, 0, 2)" << std::endl;
+    std::cout <<  XS::inv_AA_pbar_CM(100, 3, 10, 1, 0, 1, 0, 2)  << std::endl;
+    std::cout << "XS::inv_AA_pbar_CM(100, 3, 10, 1, 0, 1, 0, 3)" << std::endl;
+    std::cout <<  XS::inv_AA_pbar_CM(100, 3, 10, 1, 0, 1, 0, 3)  << std::endl;
+    std::cout << "XS::inv_AA_pbar_CM(100, 3, 10, 1, 0, 1, 0, 10)" << std::endl;
+    std::cout <<  XS::inv_AA_pbar_CM(100, 3, 10, 1, 0, 1, 0, 10)  << std::endl;
+
+    std::cout << "XS::inv_AA_pbar_LAB(100, 3, 10, 1, 0, 1, 0, 1)" << std::endl;
+    std::cout <<  XS::inv_AA_pbar_LAB(100, 3, 10, 1, 0, 1, 0, 1)  << std::endl;
     std::cout << "XS::inv_AA_pbar_LAB(100, 3, 10, 1, 0, 1, 0, 2)" << std::endl;
     std::cout <<  XS::inv_AA_pbar_LAB(100, 3, 10, 1, 0, 1, 0, 2)  << std::endl;
     std::cout << "XS::inv_AA_pbar_LAB(100, 3, 10, 1, 0, 1, 0, 3)" << std::endl;
     std::cout <<  XS::inv_AA_pbar_LAB(100, 3, 10, 1, 0, 1, 0, 3)  << std::endl;
+    std::cout << "XS::inv_AA_pbar_LAB(100, 3, 10, 1, 0, 1, 0, 4)" << std::endl;
+    std::cout <<  XS::inv_AA_pbar_LAB(100, 3, 10, 1, 0, 1, 0, 4)  << std::endl;
+    std::cout << "XS::inv_AA_pbar_LAB(100, 3, 10, 1, 0, 1, 0, 5)" << std::endl;
+    std::cout <<  XS::inv_AA_pbar_LAB(100, 3, 10, 1, 0, 1, 0, 5)  << std::endl;
+    std::cout << "XS::inv_AA_pbar_LAB(100, 3, 10, 1, 0, 1, 0, 10)" << std::endl;
+    std::cout <<  XS::inv_AA_pbar_LAB(100, 3, 10, 1, 0, 1, 0, 10)  << std::endl;
+    std::cout << "XS::inv_AA_pbar_LAB(100, 3, 10, 1, 0, 1, 0, 11)" << std::endl;
+    std::cout <<  XS::inv_AA_pbar_LAB(100, 3, 10, 1, 0, 1, 0, 11)  << std::endl;
 
     //double Tn_proj_LAB, double T_pbar_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization
     std::cout << "XS::dE_AA_pbar_LAB(100, 3, 1, 0, 1, 0, 1)" << std::endl;
@@ -50,6 +68,7 @@ int main(){
     std::cout <<  XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 2, 1)  << std::endl;
     std::cout << "XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 2, 2)" << std::endl;
     std::cout <<  XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 2, 2)  << std::endl;
+
     std::cout << "XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 1, 1)" << std::endl;
     std::cout <<  XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 1, 1)  << std::endl;
     std::cout << "XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 2, 1)" << std::endl;
@@ -60,6 +79,10 @@ int main(){
     std::cout <<  XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 4, 1)  << std::endl;
     std::cout << "XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 5, 1)" << std::endl;
     std::cout <<  XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 5, 1)  << std::endl;
+    std::cout << "XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 10, 1)" << std::endl;
+    std::cout <<  XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 10, 1)  << std::endl;
+    std::cout << "XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 11, 1)" << std::endl;
+    std::cout <<  XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 11, 1)  << std::endl;
 
     std::cout << "XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 2, 1)" << std::endl;
     std::cout <<  XS::dEn_AA_Dbar_LAB(100, 10, 1, 0, 1, 0, 2, 1)  << std::endl;
