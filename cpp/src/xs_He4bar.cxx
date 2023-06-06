@@ -21,7 +21,7 @@ namespace CRXS {
 //  }
     
     
-  double XS::inv_AA_He4bar_CM( double s, double xF_hebar, double pT_hebar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence){
+  double XS::inv_AA_He4bar_CM( double s, double xF_hebar, double pT_hebar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val){
         
     int signed_A_projectile = A_projectile;
     A_projectile = fabs(1.0001*A_projectile); //WHY THIS?
@@ -29,9 +29,11 @@ namespace CRXS {
     int nucleons = 4;
     double p_coalescence;
     if       (coalescence==FIXED_P0) {
-      p_coalescence = 0.200; //USING THE NOTATION WITH pow(pc/2,3.)
+      p_coalescence = p0_val; //USING THE NOTATION WITH pow(pc/2,3.)
     }else if (coalescence==ENERGY_DEP__VAN_DOETINCHEM) {
       p_coalescence = p_coal__VonDoetinchen(s);
+    }else if (coalescence==PT_DEP) {
+      p_coalescence = p_coal__pTdep(pT_hebar/nucleons,p0_val);
     }else{
       return -1;
     }        
@@ -121,12 +123,12 @@ namespace CRXS {
     return XS;
   }
 
-  double XS::inv_AA_He4bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence ){
+  double XS::inv_AA_He4bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val ){
     int    nucleons = 4;
     double s, E_Hebar, pT_pbar, x_F;
     double T_Hebar_LAB = nucleons * Tn_Hebar_LAB;
     convert_LAB_to_CM( Tn_proj_LAB, T_Hebar_LAB, eta_LAB, s, E_Hebar, pT_pbar, x_F, HE4_BAR );
-    return inv_AA_He4bar_CM(s, x_F, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence);
+    return inv_AA_He4bar_CM(s, x_F, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence, p0_val);
   }
     
   double XS::integrand__dE_AA_He4bar_LAB (double eta_LAB, void* parameters  ){
@@ -140,6 +142,7 @@ namespace CRXS {
     int    N_target         = par[5];
     int    parametrization  = par[6];
     int    coalescence      = par[7];
+    double p0_val           = par[8];
         
     //        std::cout << " Tn_proj_LAB     " <<  Tn_proj_LAB      << std::endl;
     //        std::cout << " Tn_Hebar_LAB     " <<  Tn_Hebar_LAB      << std::endl;
@@ -151,11 +154,11 @@ namespace CRXS {
     //        std::cout << " parametrization " <<  parametrization  << std::endl;
     //        std::cout << " coalescence     " <<  coalescence      << std::endl;
         
-    return  pow( cosh(eta_LAB), -2 ) * XS::inv_AA_He4bar_LAB( Tn_proj_LAB, Tn_Hebar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence );
+    return  pow( cosh(eta_LAB), -2 ) * XS::inv_AA_He4bar_LAB( Tn_proj_LAB, Tn_Hebar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence, p0_val );
         
   }
     
-  double XS::dEn_AA_He4bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence ){
+  double XS::dEn_AA_He4bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val ){
     int nucleons = 4;
     //
     //  Integrate over all solid angle and transform to enery differential (d sigma / d E)
@@ -170,7 +173,7 @@ namespace CRXS {
     double epsabs = 0;
     double epsrel = 1e-4;
     double res, err;
-    double par[] = { Tn_proj_LAB, Tn_Hebar_LAB, 1.0001*A_projectile, 1.0001*N_projectile, 1.0001*A_target, 1.0001*N_target, 1.0001*parametrization, 1.0001*coalescence };
+    double par[] = { Tn_proj_LAB, Tn_Hebar_LAB, 1.0001*A_projectile, 1.0001*N_projectile, 1.0001*A_target, 1.0001*N_target, 1.0001*parametrization, 1.0001*coalescence, 1.0001*p0_val };
         
     gsl_integration_workspace * w = gsl_integration_workspace_alloc (1000);
         

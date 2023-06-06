@@ -27,7 +27,8 @@ namespace CRXS {
     
     enum coalescence{
         FIXED_P0                   = 1,
-        ENERGY_DEP__VAN_DOETINCHEM = 2
+        ENERGY_DEP__VAN_DOETINCHEM = 2,
+        PT_DEP                     = 3
     };
     
     class XS{
@@ -205,6 +206,25 @@ namespace CRXS {
         static double p_coal__VonDoetinchen( double s );
         
         
+       //!Function for getting the coalescence momentum using a rescaling with PT.
+       /*!
+        *
+        *      Coalesence momentum from the paper:
+        *          Deuteron and Antideuteron Production Simulation in Cosmic-ray Interactions
+        *          Diego-Mauricio Gomez-Coral, et al.,
+        *          (DOI 10.1103/PhysRevD.98.023012)
+        *
+        *      Taken from Eq. (5) with parameters of Korsmeier, et al.
+        *      The parameter p_coal is defined as abs(p_proton - p_neutron)/2. (Note that there is also a different notation,
+        *      without the factor 2., in the literature)
+        *
+        *
+        *  \param  double s              CM energy, squared (in the nucleon-nucleon frame).
+        *  \return double                Coalescence momentum
+        */
+       static double p_coal__pTdep( double pToverA, double p0_val );
+        
+        
         //!Invariant antideuteron production cross section for general projectile and target nucleus for different XS parametrization
         /*!
          *      We calculat the cross section in the analytic coalescence model. With the formula:
@@ -269,7 +289,7 @@ namespace CRXS {
          *
          *  \return double XS             Cross section in mbarn/GeV^2
          */
-        static double inv_AA_Dbar_CM( double s, double xF_Dbar, double pT_Dbar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence);
+        static double inv_AA_Dbar_CM( double s, double xF_Dbar, double pT_Dbar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val);
         
         //! Invariant antideuteron production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables
         /*!
@@ -285,7 +305,7 @@ namespace CRXS {
          *
          *  \return double XS              Cross section in mbarn/GeV^2
          */
-        static double inv_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence);
+        static double inv_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val);
         //! Helper function for inv_AA_Dbar_LAB
         static double integrand__dE_AA_Dbar_LAB (double eta_LAB, void* parameters  );
         
@@ -305,7 +325,7 @@ namespace CRXS {
          *
          *  \return double XS              Cross section in mbarn/GeV
          */
-        static double dEn_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM );
+        static double dEn_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM, double p0_val=0.190);
         
         
         //! Energy-differential antideuteron cross section for non-annihilating antideuteron reactions on p, A.
@@ -392,7 +412,7 @@ namespace CRXS {
          *
          *  \return double XS             Cross section in mbarn/GeV^2
          */
-        static double inv_AA_He3bar_CM( double s, double xF_Hebar, double pT_Hebar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence);
+        static double inv_AA_He3bar_CM( double s, double xF_Hebar, double pT_Hebar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val);
         
         //! Invariant antihelion production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables
         /*!
@@ -408,7 +428,7 @@ namespace CRXS {
          *
          *  \return double XS              Cross section in mbarn/GeV^2
          */
-        static double inv_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence);
+        static double inv_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val);
         //! Helper function for inv_AA_Hebar_LAB
         static double integrand__dE_AA_He3bar_LAB (double eta_LAB, void* parameters  );
         
@@ -428,7 +448,7 @@ namespace CRXS {
          *
          *  \return double XS              Cross section in mbarn/GeV
          */
-        static double dEn_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM );
+        static double dEn_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM, double p0_val=0.190);
         
         
         //! Energy-differential antihelion cross section for non-annihilating antihelion reactions on p, A.
@@ -515,7 +535,7 @@ namespace CRXS {
         *
         *  \return double XS             Cross section in mbarn/GeV^2
         */
-       static double inv_AA_He4bar_CM( double s, double xF_Hebar, double pT_Hebar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence);
+       static double inv_AA_He4bar_CM( double s, double xF_Hebar, double pT_Hebar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val);
        
        //! Invariant antihelion production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables
        /*!
@@ -531,7 +551,7 @@ namespace CRXS {
         *
         *  \return double XS              Cross section in mbarn/GeV^2
         */
-       static double inv_AA_He4bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence);
+       static double inv_AA_He4bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val);
        //! Helper function for inv_AA_Hebar_LAB
        static double integrand__dE_AA_He4bar_LAB (double eta_LAB, void* parameters  );
        
@@ -551,7 +571,7 @@ namespace CRXS {
         *
         *  \return double XS              Cross section in mbarn/GeV
         */
-       static double dEn_AA_He4bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM );
+       static double dEn_AA_He4bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM, double p0_val=0.190);
        
        
        //! Energy-differential antihelion cross section for non-annihilating antihelion reactions on p, A.

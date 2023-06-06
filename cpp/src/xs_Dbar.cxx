@@ -21,8 +21,19 @@ namespace CRXS {
         return p*2.; //We use the definition with pow(pc/2,3.)
     }
     
+    double XS::p_coal__pTdep( double pToverA, double p0_val ){
+         if (pToverA<0.80) {
+             return p0_val;
+         }
+         else if (pToverA>0.80) {
+             return p0_val*pow(pToverA/0.80,1.1)*pow( 0.5*(1.+pow(pToverA/0.80,1./1.)) , (0.0-1.1)/1. );
+         }
+         else{
+             return -1;
+         }
+    }
     
-    double XS::inv_AA_Dbar_CM( double s, double xF_dbar, double pT_dbar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence){
+    double XS::inv_AA_Dbar_CM( double s, double xF_dbar, double pT_dbar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val ){
         
         int signed_A_projectile = A_projectile; //For pbar signed_A_projectile=-1, for Dbar signed_A_projectile=-2 ....
         A_projectile = fabs(1.0001*A_projectile);
@@ -30,9 +41,11 @@ namespace CRXS {
         int nucleons = 2; //This is for deuterion.
         double p_coalescence;
         if       (coalescence==FIXED_P0) {
-            p_coalescence = 0.200; //USING THE NOTATION WITH pow(pc/2,3.)
+            p_coalescence = p0_val; //USING THE NOTATION WITH pow(pc/2,3.)
         }else if (coalescence==ENERGY_DEP__VAN_DOETINCHEM) {
             p_coalescence = p_coal__VonDoetinchen(s);
+        }else if (coalescence==PT_DEP) {
+            p_coalescence = p_coal__pTdep(pT_dbar/nucleons,p0_val);
         }else{
             return -1;
         }
@@ -99,12 +112,12 @@ namespace CRXS {
     }
 
 
-    double XS::inv_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence ){
+    double XS::inv_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val ){
         int    nucleons = 2;
         double s, E_Dbar, pT_pbar, x_F;
         double T_Dbar_LAB = nucleons * Tn_Dbar_LAB;
         convert_LAB_to_CM( Tn_proj_LAB, T_Dbar_LAB, eta_LAB, s, E_Dbar, pT_pbar, x_F, D_BAR );
-        return inv_AA_Dbar_CM(s, x_F, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence);
+        return inv_AA_Dbar_CM(s, x_F, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence, p0_val);
     }
     
     
@@ -119,6 +132,7 @@ namespace CRXS {
         int    N_target         = par[5];
         int    parametrization  = par[6];
         int    coalescence      = par[7];
+        double p0_val           = par[8];
         
 //        std::cout << " Tn_proj_LAB     " <<  Tn_proj_LAB      << std::endl;
 //        std::cout << " Tn_Dbar_LAB     " <<  Tn_Dbar_LAB      << std::endl;
@@ -130,12 +144,12 @@ namespace CRXS {
 //        std::cout << " parametrization " <<  parametrization  << std::endl;
 //        std::cout << " coalescence     " <<  coalescence      << std::endl;
         
-        return  pow( cosh(eta_LAB), -2 ) * XS::inv_AA_Dbar_LAB( Tn_proj_LAB, Tn_Dbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence );
+        return  pow( cosh(eta_LAB), -2 ) * XS::inv_AA_Dbar_LAB( Tn_proj_LAB, Tn_Dbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence, p0_val );
         
     }
     
     
-    double XS::dEn_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence ){
+    double XS::dEn_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val ){
         int nucleons = 2;
         //
         //  Integrate over all solid angle and transform to enery differential (d sigma / d E)
@@ -150,7 +164,7 @@ namespace CRXS {
         double epsabs = 0;
         double epsrel = 1e-4;
         double res, err;
-        double par[] = { Tn_proj_LAB, Tn_Dbar_LAB, 1.0001*A_projectile, 1.0001*N_projectile, 1.0001*A_target, 1.0001*N_target, 1.0001*parametrization, 1.0001*coalescence };
+        double par[] = { Tn_proj_LAB, Tn_Dbar_LAB, 1.0001*A_projectile, 1.0001*N_projectile, 1.0001*A_target, 1.0001*N_target, 1.0001*parametrization, 1.0001*coalescence, 1.0001*p0_val };
         
         gsl_integration_workspace * w = gsl_integration_workspace_alloc (1000);
         
