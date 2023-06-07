@@ -43,7 +43,7 @@ namespace CRXS {
       return 0;
     }
     double E_pbar  = sqrt( pow(XS_definitions::fMass_proton,  2) + pow(pT_hebar/nucleons,2) + pow(pL_hebar/nucleons,2) );
-    //double E_nbar  = sqrt( pow(XS_definitions::fMass_neutron, 2) + pow(pT_hebar/nucleons,2) + pow(pL_hebar/nucleons,2) );
+    double E_nbar  = sqrt( pow(XS_definitions::fMass_neutron, 2) + pow(pT_hebar/nucleons,2) + pow(pL_hebar/nucleons,2) );
     double E_hebar = sqrt( pow(XS_definitions::fMass_helion4, 2) + pow(pT_hebar,         2) + pow(pL_hebar,         2) );
         
     double sq__s_red         = sqrt(s) - 2.*E_pbar;
