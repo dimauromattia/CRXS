@@ -17,8 +17,10 @@ namespace CRXS {
             m_product = XS_definitions::fMass_proton;
         }else if (product==D_BAR) {
             m_product = XS_definitions::fMass_deuteron;
-        }else if (product==HE_BAR) {
-            m_product = XS_definitions::fMass_helium3;
+        }else if (product==HE3_BAR) {
+            m_product = XS_definitions::fMass_helion3;
+        }else if (product==HE4_BAR) {
+            m_product = XS_definitions::fMass_helion4;
         }else{
             return false;
         }

@@ -7,7 +7,8 @@
 #include "xs_definitions.h"
 
 namespace CRXS {
-    
+
+
     double XS::p_coal__VonDoetinchen( double s ){
         double T = ( s-4*XS_definitions::fMass_proton*XS_definitions::fMass_proton) /2./XS_definitions::fMass_proton;
         
@@ -17,21 +18,34 @@ namespace CRXS {
         
         double p = A/(1.+exp(B-log(T)/C));
         
-        return p;
+        return p*2.; //We use the definition with pow(pc/2,3.)
     }
     
+    double XS::p_coal__pTdep( double pToverA, double p0_val ){
+         if (pToverA<0.80) {
+             return p0_val;
+         }
+         else if (pToverA>0.80) {
+             return p0_val*pow(pToverA/0.80,1.1)*pow( 0.5*(1.+pow(pToverA/0.80,1./1.)) , (0.0-1.1)/1. );
+         }
+         else{
+             return -1;
+         }
+    }
     
-    double XS::inv_AA_Dbar_CM( double s, double xF_dbar, double pT_dbar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence){
+    double XS::inv_AA_Dbar_CM( double s, double xF_dbar, double pT_dbar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val ){
         
-        int signed_A_projectile = A_projectile;
+        int signed_A_projectile = A_projectile; //For pbar signed_A_projectile=-1, for Dbar signed_A_projectile=-2 ....
         A_projectile = fabs(1.0001*A_projectile);
         
-        int nucleons = 2;
+        int nucleons = 2; //This is for deuterion.
         double p_coalescence;
         if       (coalescence==FIXED_P0) {
-            p_coalescence = 0.080;
+            p_coalescence = p0_val; //USING THE NOTATION WITH pow(pc/2,3.)
         }else if (coalescence==ENERGY_DEP__VAN_DOETINCHEM) {
             p_coalescence = p_coal__VonDoetinchen(s);
+        }else if (coalescence==PT_DEP) {
+            p_coalescence = p_coal__pTdep(pT_dbar/nucleons,p0_val);
         }else{
             return -1;
         }
@@ -45,7 +59,7 @@ namespace CRXS {
         //double E_nbar = sqrt( pow(XS_definitions::fMass_neutron, 2) + pow(pT_dbar/nucleons,2) + pow(pL_dbar/nucleons,2) );
         double E_dbar = sqrt( pow(XS_definitions::fMass_deuteron,2) + pow(pT_dbar,         2) + pow(pL_dbar,         2) );
         
-        double sq__s_red = sqrt(s) - E_dbar;
+        double sq__s_red = sqrt(s) - E_dbar; //it should be -2E_pbar which is about the same of -E_dbar
         if (sq__s_red<0) {
             return 0;
         }
@@ -57,12 +71,11 @@ namespace CRXS {
         double * C_array_isospin = XS_definitions::Get_C_parameters_isospin(parametrization);
         double * D_array         = XS_definitions::Get_D_parameters        (parametrization);
         
-        
         double XS;
         XS  = XS_definitions::fMass_deuteron/XS_definitions::fMass_proton/XS_definitions::fMass_neutron;
-        XS *= (4./3. * 3.1415926536 * pow(p_coalescence,3)) / (pow(A_target*A_projectile, D_array[1]+D_array[2])*XS_definitions::tot_pp__diMauro(s));
-        
-        if      (  parametrization==KORSMEIER_II || parametrization==WINKLER  ){
+        XS *= (4./3. * 3.1415926536 * pow(p_coalescence/2.,3)) / (pow(A_target*A_projectile, D_array[1]+D_array[2])*XS_definitions::tot_pp__diMauro(s)); //USING THE NOTATION WITH pow(pc/2,3.)  
+        //The factor pow(A_target*A_projectile, D_array[1]+D_array[2]) is used to rescale the total CS. For pp it is 1 while to pHe or Hep it takes a A^0.8.
+        if      (  parametrization==KORSMEIER_II || parametrization==KORSMEIER_III || parametrization==WINKLER || parametrization==WINKLER_II  ){
             inv_pp_pbar         = XS_definitions::inv_pp_pbar_CM__Winkler(s,     E_pbar, pT_dbar/nucleons, C_array );
             inv_pp_pbar_reduced = XS_definitions::inv_pp_pbar_CM__Winkler(s_red, E_pbar, pT_dbar/nucleons, C_array );
         }else if(  parametrization==KORSMEIER_I  || parametrization==DI_MAURO_I || parametrization==DI_MAURO_II ){
@@ -82,7 +95,7 @@ namespace CRXS {
         inv_pp_nbar         = inv_pp_pbar*        (1+deltaIsospin    +deltaHyperon    );
         inv_pp_nbar_reduced = inv_pp_pbar_reduced*(1+deltaIsospin_red+deltaHyperon_red);
         
-        if (signed_A_projectile<0){
+        if (signed_A_projectile<0){ //This is for the tertiary contribution Dbar-ISM
             inv_pp_pbar         = XS_definitions::inv_pp_p_CM__Anderson(s,     E_pbar, pT_dbar/nucleons);
             inv_pp_pbar_reduced = XS_definitions::inv_pp_p_CM__Anderson(s_red, E_pbar, pT_dbar/nucleons);
         }
@@ -98,13 +111,15 @@ namespace CRXS {
         return XS;
     }
 
-    double XS::inv_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence ){
+
+    double XS::inv_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val ){
         int    nucleons = 2;
         double s, E_Dbar, pT_pbar, x_F;
         double T_Dbar_LAB = nucleons * Tn_Dbar_LAB;
         convert_LAB_to_CM( Tn_proj_LAB, T_Dbar_LAB, eta_LAB, s, E_Dbar, pT_pbar, x_F, D_BAR );
-        return inv_AA_Dbar_CM(s, x_F, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence);
+        return inv_AA_Dbar_CM(s, x_F, pT_pbar, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence, p0_val);
     }
+    
     
     double XS::integrand__dE_AA_Dbar_LAB (double eta_LAB, void* parameters  ){
         
@@ -117,6 +132,7 @@ namespace CRXS {
         int    N_target         = par[5];
         int    parametrization  = par[6];
         int    coalescence      = par[7];
+        double p0_val           = par[8];
         
 //        std::cout << " Tn_proj_LAB     " <<  Tn_proj_LAB      << std::endl;
 //        std::cout << " Tn_Dbar_LAB     " <<  Tn_Dbar_LAB      << std::endl;
@@ -128,11 +144,12 @@ namespace CRXS {
 //        std::cout << " parametrization " <<  parametrization  << std::endl;
 //        std::cout << " coalescence     " <<  coalescence      << std::endl;
         
-        return  pow( cosh(eta_LAB), -2 ) * XS::inv_AA_Dbar_LAB( Tn_proj_LAB, Tn_Dbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence );
+        return  pow( cosh(eta_LAB), -2 ) * XS::inv_AA_Dbar_LAB( Tn_proj_LAB, Tn_Dbar_LAB, eta_LAB, A_projectile, N_projectile, A_target, N_target, parametrization, coalescence, p0_val );
         
     }
     
-    double XS::dEn_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence ){
+    
+    double XS::dEn_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val ){
         int nucleons = 2;
         //
         //  Integrate over all solid angle and transform to enery differential (d sigma / d E)
@@ -147,7 +164,7 @@ namespace CRXS {
         double epsabs = 0;
         double epsrel = 1e-4;
         double res, err;
-        double par[] = { Tn_proj_LAB, Tn_Dbar_LAB, 1.0001*A_projectile, 1.0001*N_projectile, 1.0001*A_target, 1.0001*N_target, 1.0001*parametrization, 1.0001*coalescence };
+        double par[] = { Tn_proj_LAB, Tn_Dbar_LAB, 1.0001*A_projectile, 1.0001*N_projectile, 1.0001*A_target, 1.0001*N_target, 1.0001*parametrization, 1.0001*coalescence, 1.0001*p0_val };
         
         gsl_integration_workspace * w = gsl_integration_workspace_alloc (1000);
         
@@ -167,13 +184,12 @@ namespace CRXS {
     }
     
     
-    
     double XS::dEn_DbarA_Dbar_LAB(  double Tn_Dbar_proj_LAB, double Tn_Dbar_prod_LAB, int A_target, int N_target, int parametrization  ){
         
         double shape      = 1.;
         double norm_shape = 0.;
         
-        double log_10 = log(10);
+        double log_10 = log(10.);
         
         if (parametrization==APPROX_1_OVER_T) {
             norm_shape = Tn_Dbar_proj_LAB;
@@ -193,7 +209,6 @@ namespace CRXS {
         
         double T_pbar     = Tn_Dbar_proj_LAB;
         double norm_XS    = XS_definitions::nar_pbarD(T_pbar);
-        
         
 //        std::cout << Tn_Dbar_proj_LAB << std::endl;
 //        std::cout << Tn_Dbar_prod_LAB << std::endl;

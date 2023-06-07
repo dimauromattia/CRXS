@@ -10,6 +10,8 @@ add_library(CRXS SHARED crxs.h
                         xs_pbar.cxx
                         xs_p.cxx
                         xs_Dbar.cxx
+                        xs_He3bar.cxx
+                        xs_He4bar.cxx
                         xs.h
                         linAlg_tools.cxx
                         linAlg_tools.h           )

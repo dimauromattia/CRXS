@@ -112,5 +112,36 @@ On a Mac with Xcode you may build a project by
 
 
 
+*********************
+* Additional notes: *
+*********************
+If you have some issues in building the software as explained before follow these steps.
+$ mkdir cpp/build
+$ cd cpp/build
+$ cmake -DGSL_ROOT_DIR=/Users/mattiadimauro/Dropbox/galprop_and_tools/galprop_v57/lib/build/gsl-2.7 ..
+$ make
 
+The you should export library
+For MAC
+$ export DYLD_LIBRARY_PATH=/Users/mattiadimauro/Dropbox/galprop_and_tools/CRXS/cpp/lib:$DYLD_LIBRARY_PATH
+For linux
+$ export LD_LIBRARY_PATH=/Users/mattiadimauro/Dropbox/galprop_and_tools/CRXS/cpp/lib:$LD_LIBRARY_PATH
+and then check example:
+$ cd ../../
+$ g++ -I./cpp/include -L./cpp/lib -lCRXS -o examples/example examples/example.cpp
+$ cd example
+$ ./example 
+
+export DYLD_LIBRARY_PATH="/Users/mattiadimauro/Dropbox/galprop_and_tools/galprop_v57/lib/build/gsl-2.7/lib:$DYLD_LIBRARY_PATH"
+%%%%%%%%%%%%%%%%%%%
+
+
+
+*********************
+* Future projects: *
+*********************
+1) Add the variable pc for the coalescence model as an imput parameter.
+2) Add the coalescence momentum function that changes with pT.
+3) Add the coalescence model with the Wigner model.
+4) .....
 
