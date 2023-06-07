@@ -222,7 +222,7 @@ namespace CRXS {
         *  \param  double s              CM energy, squared (in the nucleon-nucleon frame).
         *  \return double                Coalescence momentum
         */
-       static double p_coal__pTdep( double pToverA, double p0_val );
+       static double p_coal__pTdep( double pToverA, double p0_val=0.160 );
         
         
         //!Invariant antideuteron production cross section for general projectile and target nucleus for different XS parametrization
@@ -250,20 +250,18 @@ namespace CRXS {
          *             pbar           nbar          \       pbar                     nbar                                                       /
          *
          *
-         *      The parameter p_coal is defined as abs(p_proton - p_neutron)/2. (Note that there is also a different notation,
-         *      without the factor 2., in the literature)
-         *
+         *      The parameter p_coal is defined as abs(p_proton - p_neutron).
          *
          *      There are two options for the coalesence momentum (cf. to option \param int coalescence):
          *
          *          1) Fixed to 80 MeV, which is the value tuned to the aleph experiment. If you prefer a different (fixed) value
          *             you can rescale the whole XS with (p_coal/80 MeV)^3.
          *          2) The energy-dependent coalescence momentum suggested in DOI 10.1103/PhysRevD.98.023012.
+         *          3) A coalescence momentum that changes with transverse momentum as found in https://doi.org/10.1140/epjc/s10052-020-8256-4.
          *
          *      We recommend option 2)
          *
-         *      The parameter p_coal is defined as abs(p_proton - p_neutron)/2. (Note that there is also a different notation,
-         *      without the factor 2., in the literature)
+         *      The parameter p_coal is defined as abs(p_proton - p_neutron).
          *
          *
          *      If the massnumber \param int A_projectile is set to -1 we assume an antiproton projectile. In this case
@@ -286,10 +284,11 @@ namespace CRXS {
          *  \param int    N_target        Number of neutrons in the target
          *  \param int    parametrization Cross section parametrization, enum from[KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II]
          *  \param int    coalescence     Coalescence model, enum from[FIXED_P0 (default), ENERGY_DEP__VAN_DOETINCHEM]
+         *  \param int    p0_val.          Coalescence momentum in GeV
          *
          *  \return double XS             Cross section in mbarn/GeV^2
          */
-        static double inv_AA_Dbar_CM( double s, double xF_Dbar, double pT_Dbar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val);
+        static double inv_AA_Dbar_CM( double s, double xF_Dbar, double pT_Dbar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val=0.160 );
         
         //! Invariant antideuteron production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables
         /*!
@@ -302,10 +301,11 @@ namespace CRXS {
          *  \param int    N_target         Number of neutrons in the target
          *  \param int    parametrization  Cross section parametrization [Korsmeier_II (default), Korsmeier_I, Winkler, diMauro_I, diMauro_II]
          *  \param int    coalescence      Coalescence model, enum from[FIXED_P0 (default), ENERGY_DEP__VAN_DOETINCHEM], cf. inv_AA_Dbar_CM
+         *  \param int    p0_val.          Coalescence momentum in GeV
          *
          *  \return double XS              Cross section in mbarn/GeV^2
          */
-        static double inv_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val);
+        static double inv_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val=0.160 );
         //! Helper function for inv_AA_Dbar_LAB
         static double integrand__dE_AA_Dbar_LAB (double eta_LAB, void* parameters  );
         
@@ -322,10 +322,11 @@ namespace CRXS {
          *  \param int    N_target         Number of neutrons in the target
          *  \param int    parametrization  Cross section parametrization, enum from[KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II]
          *  \param int    coalescence      Coalescence model, enum from[FIXED_P0 (default), ENERGY_DEP__VAN_DOETINCHEM], cf. inv_AA_Dbar_CM
+         *  \param int    p0_val.          Coalescence momentum in GeV
          *
          *  \return double XS              Cross section in mbarn/GeV
          */
-        static double dEn_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM, double p0_val=0.190);
+        static double dEn_AA_Dbar_LAB( double Tn_proj_LAB, double Tn_Dbar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM, double p0_val=0.160 );
         
         
         //! Energy-differential antideuteron cross section for non-annihilating antideuteron reactions on p, A.
@@ -352,41 +353,16 @@ namespace CRXS {
         /*!
          *      We calculat the cross section in the analytic coalescence model. With the formula:
          *
+         *      The parameter p_coal is defined as abs(p_proton - p_neutron).
          *
-         *
-         *                 3                                                   3                   3
-         *                d    sigma                m               3         d  sigma            d  sigma
-         *                 dbar               1      D    4pi  pcoal                  pbar                nbar
-         *        E      ------------  =  -------- -----  ---  ------   E     ------------  E     ------------
-         *         dbar       3           sigmaTot m  m    3      1      pbar      3         nbar      3
-         *                  dk                      p  n                         dk                  dk
-         *                    dbar                                                 pbar                nbar
-         *
-         *        with:
-         *
-         *         3              3                 /   3                        3                                                              \
-         *        d  sigma       d  sigma           |  d  sigma                 d  sigma                                                        |
-         *                pbar           nbar     1 |          pbar                     nbar                                                    |
-         *        ------------   ------------  =  - |  ------------(sS, vk    ) ------------ (sS - 2E    , vk    )  +  ({pbar} < - > {nbar})    |
-         *             3              3           2 |       3             pbar       3               pbar    nbar                               |
-         *           dk             dk              |     dk                       dk                                                           |
-         *             pbar           nbar          \       pbar                     nbar                                                       /
-         *
-         *
-         *      The parameter p_coal is defined as abs(p_proton - p_neutron)/2. (Note that there is also a different notation,
-         *      without the factor 2., in the literature)
-         *
-         *
-         *      There are two options for the coalesence momentum (cf. to option \param int coalescence):
+         *      There are three options for the coalesence momentum (cf. to option \param int coalescence):
          *
          *          1) Fixed to 80 MeV, which is the value tuned to the aleph experiment. If you prefer a different (fixed) value
          *             you can rescale the whole XS with (p_coal/80 MeV)^3.
          *          2) The energy-dependent coalescence momentum suggested in DOI 10.1103/PhysRevD.98.023012.
+         *          3) A coalescence momentum that changes with transverse momentum as found in https://doi.org/10.1140/epjc/s10052-020-8256-4.
          *
          *      We recommend option 2)
-         *
-         *      The parameter p_coal is defined as abs(p_proton - p_neutron)/2. (Note that there is also a different notation,
-         *      without the factor 2., in the literature)
          *
          *
          *      If the massnumber \param int A_projectile is set to -1 we assume an antiproton projectile. In this case
@@ -409,10 +385,11 @@ namespace CRXS {
          *  \param int    N_target        Number of neutrons in the target
          *  \param int    parametrization Cross section parametrization, enum from[KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II]
          *  \param int    coalescence     Coalescence model, enum from[FIXED_P0 (default), ENERGY_DEP__VAN_DOETINCHEM]
+         *  \param int    p0_val.          Coalescence momentum in GeV
          *
          *  \return double XS             Cross section in mbarn/GeV^2
          */
-        static double inv_AA_He3bar_CM( double s, double xF_Hebar, double pT_Hebar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val);
+        static double inv_AA_He3bar_CM( double s, double xF_Hebar, double pT_Hebar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val=0.160 );
         
         //! Invariant antihelion production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables
         /*!
@@ -425,10 +402,11 @@ namespace CRXS {
          *  \param int    N_target         Number of neutrons in the target
          *  \param int    parametrization  Cross section parametrization [Korsmeier_II (default), Korsmeier_I, Winkler, diMauro_I, diMauro_II]
          *  \param int    coalescence      Coalescence model, enum from[FIXED_P0 (default), ENERGY_DEP__VAN_DOETINCHEM], cf. inv_AA_Dbar_CM
+         *  \param int    p0_val.          Coalescence momentum in GeV
          *
          *  \return double XS              Cross section in mbarn/GeV^2
          */
-        static double inv_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val);
+        static double inv_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val=0.160 );
         //! Helper function for inv_AA_Hebar_LAB
         static double integrand__dE_AA_He3bar_LAB (double eta_LAB, void* parameters  );
         
@@ -445,10 +423,11 @@ namespace CRXS {
          *  \param int    N_target         Number of neutrons in the target
          *  \param int    parametrization  Cross section parametrization, enum from[KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II]
          *  \param int    coalescence      Coalescence model, enum from[FIXED_P0 (default), ENERGY_DEP__VAN_DOETINCHEM], cf. inv_AA_Dbar_CM
+         *  \param int    p0_val.          Coalescence momentum in GeV
          *
          *  \return double XS              Cross section in mbarn/GeV
          */
-        static double dEn_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM, double p0_val=0.190);
+        static double dEn_AA_He3bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM, double p0_val=0.160 );
         
         
         //! Energy-differential antihelion cross section for non-annihilating antihelion reactions on p, A.
@@ -473,44 +452,18 @@ namespace CRXS {
         
        //!Invariant antihelion production cross section for general projectile and target nucleus for different XS parametrization
        /*!
-        *      We calculat the cross section in the analytic coalescence model. With the formula:
+        *      We calculat the cross section in the analytic coalescence model following eq. 4 of https://arxiv.org/abs/1711.08465.
         *
+        *      The parameter p_coal is defined as abs(p_proton - p_neutron)
         *
+        *      There are three options for the coalesence momentum (cf. to option \param int coalescence):
         *
-        *                 3                                                   3                   3
-        *                d    sigma                m               3         d  sigma            d  sigma
-        *                 dbar               1      D    4pi  pcoal                  pbar                nbar
-        *        E      ------------  =  -------- -----  ---  ------   E     ------------  E     ------------
-        *         dbar       3           sigmaTot m  m    3      1      pbar      3         nbar      3
-        *                  dk                      p  n                         dk                  dk
-        *                    dbar                                                 pbar                nbar
-        *
-        *        with:
-        *
-        *         3              3                 /   3                        3                                                              \
-        *        d  sigma       d  sigma           |  d  sigma                 d  sigma                                                        |
-        *                pbar           nbar     1 |          pbar                     nbar                                                    |
-        *        ------------   ------------  =  - |  ------------(sS, vk    ) ------------ (sS - 2E    , vk    )  +  ({pbar} < - > {nbar})    |
-        *             3              3           2 |       3             pbar       3               pbar    nbar                               |
-        *           dk             dk              |     dk                       dk                                                           |
-        *             pbar           nbar          \       pbar                     nbar                                                       /
-        *
-        *
-        *      The parameter p_coal is defined as abs(p_proton - p_neutron)/2. (Note that there is also a different notation,
-        *      without the factor 2., in the literature)
-        *
-        *
-        *      There are two options for the coalesence momentum (cf. to option \param int coalescence):
-        *
-        *          1) Fixed to 80 MeV, which is the value tuned to the aleph experiment. If you prefer a different (fixed) value
-        *             you can rescale the whole XS with (p_coal/80 MeV)^3.
+        *          1) Fixed to 160 MeV, which is the value tuned to the aleph experiment. If you prefer a different (fixed) value
+        *             you can rescale the whole XS with (p_coal/160 MeV)^3.
         *          2) The energy-dependent coalescence momentum suggested in DOI 10.1103/PhysRevD.98.023012.
+        *          3) A coalescence momentum that changes with transverse momentum as found in https://doi.org/10.1140/epjc/s10052-020-8256-4.
         *
         *      We recommend option 2)
-        *
-        *      The parameter p_coal is defined as abs(p_proton - p_neutron)/2. (Note that there is also a different notation,
-        *      without the factor 2., in the literature)
-        *
         *
         *      If the massnumber \param int A_projectile is set to -1 we assume an antiproton projectile. In this case
         *      the antiproton production cross section is replaced and approximated by the cross section from
@@ -532,10 +485,11 @@ namespace CRXS {
         *  \param int    N_target        Number of neutrons in the target
         *  \param int    parametrization Cross section parametrization, enum from[KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II]
         *  \param int    coalescence     Coalescence model, enum from[FIXED_P0 (default), ENERGY_DEP__VAN_DOETINCHEM]
+        *  \param int    p0_val.          Coalescence momentum in GeV
         *
         *  \return double XS             Cross section in mbarn/GeV^2
         */
-       static double inv_AA_He4bar_CM( double s, double xF_Hebar, double pT_Hebar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val);
+       static double inv_AA_He4bar_CM( double s, double xF_Hebar, double pT_Hebar, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val=0.160 );
        
        //! Invariant antihelion production cross section for general projectile and target nucleus for different XS parametrization as function of LAB frame kinetic variables
        /*!
@@ -548,10 +502,11 @@ namespace CRXS {
         *  \param int    N_target         Number of neutrons in the target
         *  \param int    parametrization  Cross section parametrization [Korsmeier_II (default), Korsmeier_I, Winkler, diMauro_I, diMauro_II]
         *  \param int    coalescence      Coalescence model, enum from[FIXED_P0 (default), ENERGY_DEP__VAN_DOETINCHEM], cf. inv_AA_Dbar_CM
+        *  \param int    p0_val.          Coalescence momentum in GeV
         *
         *  \return double XS              Cross section in mbarn/GeV^2
         */
-       static double inv_AA_He4bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val);
+       static double inv_AA_He4bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, double eta_LAB, int A_projectile, int N_projectile, int A_target, int N_target, int parametrization, int coalescence, double p0_val=0.160 );
        //! Helper function for inv_AA_Hebar_LAB
        static double integrand__dE_AA_He4bar_LAB (double eta_LAB, void* parameters  );
        
@@ -568,10 +523,11 @@ namespace CRXS {
         *  \param int    N_target         Number of neutrons in the target
         *  \param int    parametrization  Cross section parametrization, enum from[KORSMEIER_II (default), KORSMEIER_I, WINKLER, DI_MAURO_I, DI_MAURO_II]
         *  \param int    coalescence      Coalescence model, enum from[FIXED_P0 (default), ENERGY_DEP__VAN_DOETINCHEM], cf. inv_AA_Dbar_CM
+        *  \param int    p0_val.          Coalescence momentum in GeV
         *
         *  \return double XS              Cross section in mbarn/GeV
         */
-       static double dEn_AA_He4bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM, double p0_val=0.190);
+       static double dEn_AA_He4bar_LAB( double Tn_proj_LAB, double Tn_Hebar_LAB, int A_projectile=1, int N_projectile=0, int A_target=1, int N_target=0, int parametrization=KORSMEIER_II, int coalescence=ENERGY_DEP__VAN_DOETINCHEM, double p0_val=0.160 );
        
        
        //! Energy-differential antihelion cross section for non-annihilating antihelion reactions on p, A.

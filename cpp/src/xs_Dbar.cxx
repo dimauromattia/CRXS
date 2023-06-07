@@ -56,7 +56,7 @@ namespace CRXS {
             return 0;
         }
         double E_pbar = sqrt( pow(XS_definitions::fMass_proton,  2) + pow(pT_dbar/nucleons,2) + pow(pL_dbar/nucleons,2) );
-        double E_nbar = sqrt( pow(XS_definitions::fMass_neutron, 2) + pow(pT_dbar/nucleons,2) + pow(pL_dbar/nucleons,2) );
+        //double E_nbar = sqrt( pow(XS_definitions::fMass_neutron, 2) + pow(pT_dbar/nucleons,2) + pow(pL_dbar/nucleons,2) );
         double E_dbar = sqrt( pow(XS_definitions::fMass_deuteron,2) + pow(pT_dbar,         2) + pow(pL_dbar,         2) );
         
         double sq__s_red = sqrt(s) - E_dbar; //it should be -2E_pbar which is about the same of -E_dbar

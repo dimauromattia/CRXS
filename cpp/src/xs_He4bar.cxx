@@ -43,7 +43,7 @@ namespace CRXS {
       return 0;
     }
     double E_pbar  = sqrt( pow(XS_definitions::fMass_proton,  2) + pow(pT_hebar/nucleons,2) + pow(pL_hebar/nucleons,2) );
-    double E_nbar  = sqrt( pow(XS_definitions::fMass_neutron, 2) + pow(pT_hebar/nucleons,2) + pow(pL_hebar/nucleons,2) );
+    //double E_nbar  = sqrt( pow(XS_definitions::fMass_neutron, 2) + pow(pT_hebar/nucleons,2) + pow(pL_hebar/nucleons,2) );
     double E_hebar = sqrt( pow(XS_definitions::fMass_helion4, 2) + pow(pT_hebar,         2) + pow(pL_hebar,         2) );
         
     double sq__s_red         = sqrt(s) - 2.*E_pbar;
@@ -114,11 +114,14 @@ namespace CRXS {
     AA_red_red     = XS_definitions::factor__AA( s_red_red,     xF_hebar/nucleons, A_projectile, N_projectile, A_target, N_target, parametrization );
     AA_red_red_red = XS_definitions::factor__AA( s_red_red_red, xF_hebar/nucleons, A_projectile, N_projectile, A_target, N_target, parametrization );
 
-    double factortwist_1 = inv_pp_pbar * inv_pp_pbar_red * inv_pp_nbar_red_red * inv_pp_nbar_red_red_red + inv_pp_pbar * inv_pp_pbar_red * inv_pp_nbar_red_red * inv_pp_nbar_red_red_red + inv_pp_pbar * inv_pp_nbar_red * inv_pp_pbar_red_red  * inv_pp_nbar_red_red_red + inv_pp_pbar * inv_pp_nbar_red * inv_pp_nbar_red_red * inv_pp_pbar_red_red_red;
-    double factortwist_2 = inv_pp_pbar * inv_pp_pbar_red * inv_pp_nbar_red_red * inv_pp_nbar_red_red_red + inv_pp_pbar * inv_pp_pbar_red * inv_pp_nbar_red_red * inv_pp_nbar_red_red_red + inv_pp_pbar * inv_pp_nbar_red * inv_pp_pbar_red_red  * inv_pp_nbar_red_red_red + inv_pp_pbar * inv_pp_nbar_red * inv_pp_nbar_red_red * inv_pp_pbar_red_red_red;
-    double factortwist_3 = inv_pp_nbar * inv_pp_nbar_red * inv_pp_pbar_red_red * inv_pp_pbar_red_red_red + inv_pp_nbar * inv_pp_nbar_red * inv_pp_pbar_red_red * inv_pp_pbar_red_red_red + inv_pp_nbar * inv_pp_pbar_red * inv_pp_nbar_red_red  * inv_pp_pbar_red_red_red + inv_pp_nbar * inv_pp_pbar_red * inv_pp_pbar_red_red * inv_pp_nbar_red_red_red;
-    double factortwist_4 = inv_pp_nbar * inv_pp_nbar_red * inv_pp_pbar_red_red * inv_pp_pbar_red_red_red + inv_pp_nbar * inv_pp_nbar_red * inv_pp_pbar_red_red * inv_pp_pbar_red_red_red + inv_pp_nbar * inv_pp_pbar_red * inv_pp_nbar_red_red  * inv_pp_pbar_red_red_red + inv_pp_nbar * inv_pp_pbar_red * inv_pp_pbar_red_red * inv_pp_nbar_red_red_red;
-    XS *= (1./(nucleons)) * AA * AA_red * AA_red_red * AA_red_red_red * ( factortwist_1 + factortwist_2 + factortwist_3 + factortwist_4 );
+    double factortwist_1 = inv_pp_pbar * inv_pp_pbar_red * inv_pp_nbar_red_red * inv_pp_nbar_red_red_red;
+    double factortwist_2 = inv_pp_pbar * inv_pp_nbar_red * inv_pp_pbar_red_red * inv_pp_nbar_red_red_red;
+    double factortwist_3 = inv_pp_pbar * inv_pp_nbar_red * inv_pp_nbar_red_red * inv_pp_pbar_red_red_red;
+    double factortwist_4 = inv_pp_nbar * inv_pp_pbar_red * inv_pp_pbar_red_red * inv_pp_nbar_red_red_red;
+    double factortwist_5 = inv_pp_nbar * inv_pp_nbar_red * inv_pp_pbar_red_red * inv_pp_pbar_red_red_red;
+    double factortwist_6 = inv_pp_nbar * inv_pp_pbar_red * inv_pp_nbar_red_red * inv_pp_pbar_red_red_red;
+    
+    XS *= (1./6.) * AA * AA_red * AA_red_red * AA_red_red_red * ( factortwist_1 + factortwist_2 + factortwist_3 + factortwist_4 + factortwist_5 + factortwist_6 );
         
     return XS;
   }
